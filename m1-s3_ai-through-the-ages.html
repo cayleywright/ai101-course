@@ -1,0 +1,713 @@
+<!-- ============================================================
+     AI 101 — Module 1, Section 3: AI Through the Ages
+     Full-step embed for Wix Online Programs HTML block
+     Contains: eras timeline, era classifier activity, flip cards
+     ============================================================ -->
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ══════════════════════════════════════════════════════════════
+     DESIGN TOKENS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    --ts-blue: #6c8eff;
+    --ts-light-blue: #9eccff;
+    --ts-pink: #ffa6b4;
+    --ts-peach: #ffb790;
+    --ts-purple: #8a7fff;
+    --ts-pale-blue: #c8e8ff;
+    --ts-black: #101010;
+    --ts-white: #ffffff;
+
+    --surface-bg: #101010;
+    --surface-card: #1a1a1a;
+    --surface-raised: #222222;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(108, 142, 255, 0.2);
+
+    --text-primary: #f0f0f0;
+    --text-secondary: rgba(240, 240, 240, 0.6);
+    --text-muted: rgba(240, 240, 240, 0.4);
+
+    --font-family: 'Bricolage Grotesque', sans-serif;
+    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
+    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
+    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
+    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
+    --fs-eyebrow: 0.72rem;
+
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 40px;
+    --space-xl: 56px;
+    --space-section: 48px;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 14px;
+    --transition-fast: 0.2s ease;
+    --transition-med: 0.35s ease;
+
+    --content-max-width: 1200px;
+    --content-padding: clamp(20px, 5vw, 80px);
+    --text-measure: 720px;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     BASE
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    font-family: var(--font-family);
+    background: var(--surface-bg);
+    color: var(--text-primary);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--content-padding);
+    overflow-x: hidden;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     CONTENT BLOCKS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-eyebrow { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); max-width: var(--text-measure); }
+  .ts-step-title { font-size: var(--fs-step-title); font-weight: 700; line-height: 1.2; color: var(--text-primary); margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-heading { font-size: var(--fs-heading); font-weight: 600; line-height: 1.3; color: var(--text-primary); margin-top: var(--space-section); margin-bottom: var(--space-sm); max-width: var(--text-measure); }
+
+  .ts-body { font-size: var(--fs-body); color: var(--text-secondary); margin-bottom: var(--space-md); line-height: 1.7; column-count: 2; column-gap: var(--space-lg); max-width: none; }
+  .ts-body strong { color: var(--text-primary); font-weight: 600; }
+  .ts-body--single { column-count: 1; max-width: var(--text-measure); }
+  .ts-body p { margin: 0 0 var(--space-sm) 0; break-inside: avoid; }
+  .ts-body p:last-child { margin-bottom: 0; }
+  .ts-body em { font-style: italic; color: var(--text-primary); }
+
+  .ts-divider { width: 40px; height: 2px; background: var(--border-accent); margin: var(--space-section) 0; border: none; }
+
+  .ts-callout { background: var(--surface-card); border-left: 3px solid var(--ts-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
+  .ts-callout p { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; margin: 0; }
+  .ts-callout strong { color: var(--text-primary); font-weight: 600; }
+
+  .ts-skip-note { font-size: var(--fs-small); color: var(--text-muted); font-style: italic; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+
+  /* --- Numbered section heading --- */
+  .ts-era-heading { display: flex; align-items: baseline; gap: 12px; margin-top: var(--space-section); margin-bottom: var(--space-xs); max-width: var(--text-measure); }
+  .ts-era-heading-num { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1; opacity: 0.15; }
+  .ts-era-heading-title { font-size: var(--fs-heading); font-weight: 600; line-height: 1.3; }
+  .ts-era-heading-dates { font-size: var(--fs-small); color: var(--text-muted); margin-bottom: var(--space-sm); max-width: var(--text-measure); }
+
+  /* --- Question cards (vendor questions) --- */
+  .ts-questions { display: flex; flex-direction: column; gap: 12px; margin: var(--space-md) 0; }
+  .ts-question-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-md); transition: border-color var(--transition-fast); }
+  .ts-question-card:hover { border-color: var(--border-accent); }
+  .ts-question-q { font-size: var(--fs-body); font-weight: 600; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-question-a { font-size: var(--fs-small); color: var(--text-secondary); line-height: 1.6; }
+
+  /* --- Reflection --- */
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
+
+
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Eras Timeline (tabbed)
+     ══════════════════════════════════════════════════════════════ */
+  .ts-eras { margin: var(--space-lg) 0; }
+
+  .ts-eras-track { display: flex; gap: 0; position: relative; margin-bottom: var(--space-md); }
+  .ts-eras-track::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: rgba(255,255,255,0.06); }
+
+  .ts-era-tab { flex: 1; background: none; border: none; cursor: pointer; padding: 12px 8px 16px; text-align: center; position: relative; transition: all 0.25s ease; border-bottom: 2px solid transparent; outline: none; }
+  .ts-era-tab-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--era-color); margin: 0 auto 6px; opacity: 0.3; transition: opacity 0.25s, transform 0.25s; }
+  .ts-era-tab-year { font-family: var(--font-family); font-size: 11px; font-weight: 600; letter-spacing: 1.5px; color: rgba(255,255,255,0.3); margin-bottom: 4px; transition: color 0.25s; }
+  .ts-era-tab-name { font-family: var(--font-family); font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.35); transition: color 0.25s; }
+  .ts-era-tab.active .ts-era-tab-year, .ts-era-tab.active .ts-era-tab-name { color: #ffffff; }
+  .ts-era-tab.active { border-bottom-color: var(--era-color); }
+  .ts-era-tab.active .ts-era-tab-dot { opacity: 1; transform: scale(1.3); box-shadow: 0 0 10px var(--era-color); }
+  .ts-era-tab:hover .ts-era-tab-year, .ts-era-tab:hover .ts-era-tab-name { color: rgba(255,255,255,0.7); }
+
+  .ts-eras-panels { position: relative; }
+  .ts-era-panel { display: none; animation: tsEraFade 0.35s ease-out; }
+  .ts-era-panel.active { display: grid; grid-template-columns: 260px 1fr; gap: var(--space-lg); align-items: start; }
+  @keyframes tsEraFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .ts-era-identity { padding: var(--space-md); border-radius: var(--radius-lg); border-left: 3px solid var(--era-color); background: var(--surface-card); }
+  .ts-era-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--era-color); background: rgba(0,0,0,0.3); border: 1px solid var(--era-color); padding: 4px 10px; border-radius: 20px; margin-bottom: var(--space-sm); opacity: 0.8; }
+  .ts-era-big-name { font-size: clamp(1.3rem, 2.5vw, 1.7rem); font-weight: 800; color: #ffffff; line-height: 1.2; margin-bottom: 6px; }
+  .ts-era-dates { font-size: 13px; font-weight: 600; color: var(--era-color); margin-bottom: var(--space-sm); opacity: 0.8; }
+  .ts-era-tagline { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.07); padding-top: var(--space-sm); }
+
+  .ts-era-content { padding: 8px 0; }
+  .ts-era-body { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.75; margin-bottom: var(--space-md); }
+  .ts-era-body p + p { margin-top: 14px; }
+
+  .ts-era-examples { list-style: none; padding: 0; margin: 0 0 var(--space-md); display: flex; flex-direction: column; gap: 12px; }
+  .ts-era-examples li { display: flex; align-items: flex-start; gap: 12px; font-size: var(--fs-small); color: var(--text-secondary); line-height: 1.6; }
+  .ts-era-examples li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--era-color); flex-shrink: 0; margin-top: 7px; }
+  .ts-era-examples li strong { color: var(--text-primary); font-weight: 600; }
+
+  .ts-era-callout { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-left: 3px solid var(--era-color); border-radius: 10px; padding: 20px var(--space-md); font-size: var(--fs-small); color: var(--text-secondary); line-height: 1.7; }
+  .ts-era-callout-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--era-color); margin-bottom: var(--space-xs); }
+
+  .ts-eras-nav { display: flex; justify-content: center; gap: 12px; margin-top: var(--space-md); }
+  .ts-era-nav-btn { font-family: var(--font-family); background: var(--surface-card); border: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: var(--radius-sm); cursor: pointer; transition: all var(--transition-fast); outline: none; }
+  .ts-era-nav-btn:hover { background: var(--surface-raised); color: #ffffff; border-color: rgba(255,255,255,0.2); }
+  .ts-era-nav-btn:disabled { opacity: 0.25; cursor: default; }
+  .ts-era-nav-btn:disabled:hover { background: var(--surface-card); color: var(--text-secondary); border-color: var(--border-subtle); }
+  .ts-era-nav-counter { font-size: 13px; color: var(--text-muted); display: flex; align-items: center; padding: 0 8px; }
+
+
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Era Classifier Activity
+     ══════════════════════════════════════════════════════════════ */
+  .ts-classifier { margin: var(--space-lg) 0; }
+  .ts-classifier-title { font-size: var(--fs-heading); font-weight: 700; margin-bottom: 6px; }
+  .ts-classifier-sub { font-size: var(--fs-body); color: var(--text-secondary); margin-bottom: var(--space-sm); }
+  .ts-classifier-instruction { font-size: var(--fs-small); color: var(--text-muted); margin-bottom: var(--space-sm); font-style: italic; }
+
+  .ts-tools-pool { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: var(--space-md); min-height: 48px; }
+  .ts-tool-chip { background: var(--surface-raised); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 8px 16px; font-family: var(--font-family); font-size: 0.84rem; font-weight: 600; color: var(--text-primary); cursor: pointer; transition: all var(--transition-fast); user-select: none; }
+  .ts-tool-chip:hover { border-color: rgba(108,142,255,0.4); background: rgba(108,142,255,0.08); }
+  .ts-tool-chip.selected { border-color: var(--ts-blue); background: rgba(108,142,255,0.15); color: var(--ts-blue); }
+
+  .ts-eras-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: var(--space-md); }
+  .ts-era-zone { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px 12px; text-align: center; min-height: 140px; cursor: pointer; transition: all var(--transition-fast); display: flex; flex-direction: column; }
+  .ts-era-zone:hover { border-color: rgba(255,255,255,0.15); }
+  .ts-era-zone-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .ts-era-zone-name { font-size: 0.92rem; font-weight: 700; margin-bottom: 10px; }
+  .ts-era-zone-years { font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 12px; }
+
+  .ts-era-zone--rules .ts-era-zone-label, .ts-era-zone--rules .ts-era-zone-name { color: var(--ts-peach); }
+  .ts-era-zone--pattern .ts-era-zone-label, .ts-era-zone--pattern .ts-era-zone-name { color: var(--ts-light-blue); }
+  .ts-era-zone--gen .ts-era-zone-label, .ts-era-zone--gen .ts-era-zone-name { color: var(--ts-pink); }
+  .ts-era-zone--action .ts-era-zone-label, .ts-era-zone--action .ts-era-zone-name { color: var(--ts-blue); }
+
+  .ts-placed-items { display: flex; flex-direction: column; gap: 6px; flex-grow: 1; }
+  .ts-placed-item { font-size: 0.76rem; font-weight: 600; padding: 5px 10px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between; }
+  .ts-placed-item.correct { background: rgba(108,142,255,0.1); color: var(--ts-blue); }
+  .ts-placed-item.incorrect { background: rgba(255,166,180,0.1); color: var(--ts-pink); }
+  .ts-placed-item .ts-remove-btn { background: none; border: none; color: inherit; cursor: pointer; font-size: 0.85rem; padding: 0 2px; opacity: 0.6; font-family: var(--font-family); }
+  .ts-placed-item .ts-remove-btn:hover { opacity: 1; }
+
+  .ts-classifier-controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .ts-check-btn { background: var(--ts-blue); border: none; color: var(--ts-white); border-radius: var(--radius-sm); padding: 10px 24px; font-family: var(--font-family); font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: background var(--transition-fast); }
+  .ts-check-btn:hover { background: #5a7de6; }
+  .ts-check-btn:disabled { opacity: 0.4; cursor: default; }
+  .ts-reset-btn { background: var(--surface-raised); border: 1px solid var(--border-subtle); color: var(--text-secondary); border-radius: var(--radius-sm); padding: 10px 20px; font-family: var(--font-family); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all var(--transition-fast); }
+  .ts-reset-btn:hover { border-color: rgba(255,255,255,0.2); color: var(--text-primary); }
+  .ts-score-text { font-size: 0.88rem; color: var(--text-secondary); margin-left: auto; }
+  .ts-score-text strong { color: var(--ts-blue); }
+
+
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Case Study Block
+     ══════════════════════════════════════════════════════════════ */
+  .ts-case-study { background: rgba(255, 183, 144, 0.04); border: 1px solid rgba(255, 183, 144, 0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
+  .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
+
+  .ts-flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+  .ts-flip-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-md) 20px; cursor: pointer; transition: border-color var(--transition-med); display: flex; flex-direction: column; }
+  .ts-flip-card:hover { border-color: rgba(255, 255, 255, 0.15); }
+  .ts-flip-content { animation: tsFadeIn 0.3s ease; display: flex; flex-direction: column; flex: 1; }
+  @keyframes tsFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .ts-flip-icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .ts-flip-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+  .ts-flip-role { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; }
+  .ts-flip-bio { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px; }
+  .ts-flip-bio ul, .ts-flip-back ul { list-style: none; padding: 0; margin: 0; }
+  .ts-flip-bio ul li, .ts-flip-back ul li { padding-left: 16px; position: relative; margin-bottom: 6px; }
+  .ts-flip-bio ul li::before, .ts-flip-back ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-secondary); opacity: 0.5; }
+  .ts-flip-cares { padding: 10px 12px; border-radius: var(--radius-sm); font-size: 0.8rem; font-style: italic; color: var(--text-secondary); line-height: 1.45; }
+  .ts-flip-back-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+  .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
+
+  .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
+  .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
+  .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
+  .ts-flip-card--david .ts-flip-back-label { color: var(--ts-light-blue); }
+
+
+  /* ══════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .ts-step { padding: var(--space-lg) var(--space-sm); }
+    .ts-body { column-count: 1; }
+    .ts-era-panel.active { grid-template-columns: 1fr; }
+    .ts-era-identity { position: static; }
+    .ts-era-tab-name { font-size: 11px; }
+    .ts-eras-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .ts-era-zone { min-height: 110px; padding: 12px 10px; }
+    .ts-tools-pool { gap: 8px; }
+    .ts-tool-chip { padding: 6px 12px; font-size: 0.8rem; }
+    .ts-flip-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ts-flip-card { padding: 20px 16px; }
+  }
+</style>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     STEP CONTENT
+     ══════════════════════════════════════════════════════════════ -->
+
+<div class="ts-step">
+
+  <p class="ts-eyebrow">Module 1</p>
+  <h1 class="ts-step-title">AI Didn't Start with ChatGPT</h1>
+
+  <div class="ts-body">
+    <p>The media treats late 2022 as the moment AI arrived. It wasn't — it was
+    the moment most people noticed. This section covers how we got here, through
+    five distinct eras. Each one builds on the last.</p>
+  </div>
+
+  <p class="ts-skip-note">
+    If the history isn't your thing, skip ahead. You won't miss anything you
+    need for the rest of the course.
+  </p>
+
+
+  <!-- ══════════════════════════════════════════════
+       Interactive: Eras Timeline
+       ══════════════════════════════════════════════ -->
+  <div class="ts-eras">
+
+    <div class="ts-eras-track" id="tsEraTabs">
+      <button class="ts-era-tab active" style="--era-color:#8a7fff" data-era="0"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">1950s-70s</div><div class="ts-era-tab-name">Concept</div></button>
+      <button class="ts-era-tab" style="--era-color:#6c8eff" data-era="1"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">1980s-90s</div><div class="ts-era-tab-name">Rules</div></button>
+      <button class="ts-era-tab" style="--era-color:#9eccff" data-era="2"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">2000s-10s</div><div class="ts-era-tab-name">Pattern</div></button>
+      <button class="ts-era-tab" style="--era-color:#ffa6b4" data-era="3"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">2020-2024</div><div class="ts-era-tab-name">Generation</div></button>
+      <button class="ts-era-tab" style="--era-color:#ffb790" data-era="4"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">2024-Now</div><div class="ts-era-tab-name">Action</div></button>
+    </div>
+
+    <div class="ts-eras-panels" id="tsEraPanels">
+
+      <!-- Era 1: Concept -->
+      <div class="ts-era-panel active" style="--era-color:#8a7fff">
+        <div class="ts-era-identity">
+          <div class="ts-era-badge">Era 1</div>
+          <div class="ts-era-big-name">Concept Era</div>
+          <div class="ts-era-dates">1950s - 1980s</div>
+          <div class="ts-era-tagline">The dream is established. Machines that think remain science fiction — but the theoretical framework is laid.</div>
+        </div>
+        <div class="ts-era-content">
+          <div class="ts-era-body">
+            <p><strong>What it could do:</strong> Follow logical rules. Play chess (badly). Solve maths problems.</p>
+            <p><strong>What it couldn't:</strong> Learn from experience. Handle anything it wasn't explicitly programmed for.</p>
+            <p><strong>Business impact:</strong> Almost none. This was research labs and universities. But it laid the groundwork for everything that followed.</p>
+          </div>
+          <div class="ts-era-callout">
+            <div class="ts-era-callout-label">Why it matters now</div>
+            You won't see Concept Era AI in your business today. But vendors sometimes use language from this era — "intelligent systems," "smart automation" — to make basic rule-following sound more impressive than it is.
+          </div>
+        </div>
+      </div>
+
+      <!-- Era 2: Rules -->
+      <div class="ts-era-panel" style="--era-color:#6c8eff">
+        <div class="ts-era-identity">
+          <div class="ts-era-badge">Era 2</div>
+          <div class="ts-era-big-name">Rules Era</div>
+          <div class="ts-era-dates">1980s - 1990s</div>
+          <div class="ts-era-tagline">Expert systems arrive. AI follows rigid, human-written rules — fast and consistent, but brittle.</div>
+        </div>
+        <div class="ts-era-content">
+          <div class="ts-era-body">
+            <p><strong>What it could do:</strong> Apply if/then logic at scale. "If the transaction is over $10,000 and from a new account, flag it."</p>
+            <p><strong>What it couldn't:</strong> Handle ambiguity. Adapt when the rules didn't cover a situation. Learn from mistakes.</p>
+          </div>
+          <ul class="ts-era-examples">
+            <li>Fraud detection based on fixed thresholds</li>
+            <li>Credit scoring with predefined criteria</li>
+            <li>Manufacturing quality checks</li>
+          </ul>
+          <div class="ts-era-callout">
+            <div class="ts-era-callout-label">Still running today</div>
+            You almost certainly use Rules Era AI without calling it AI. Your email filters, your accounting software's auto-categorisation, your HR system's compliance flags — these are all if/then rules applied at speed.
+          </div>
+        </div>
+      </div>
+
+      <!-- Era 3: Pattern -->
+      <div class="ts-era-panel" style="--era-color:#9eccff">
+        <div class="ts-era-identity">
+          <div class="ts-era-badge">Era 3</div>
+          <div class="ts-era-big-name">Pattern Era</div>
+          <div class="ts-era-dates">2000s - 2010s</div>
+          <div class="ts-era-tagline">Machine Learning arrives. Instead of following rules, AI finds its own patterns in data.</div>
+        </div>
+        <div class="ts-era-content">
+          <div class="ts-era-body">
+            <p><strong>What it could do:</strong> Find patterns in data that humans couldn't see. Recognise faces. Predict which customers would leave. Recommend products.</p>
+            <p><strong>What it couldn't:</strong> Explain why it found a pattern. Generate anything new. Understand context or language naturally.</p>
+          </div>
+          <ul class="ts-era-examples">
+            <li><strong>Spam filters</strong> — your inbox learned to recognise junk by analysing millions of examples</li>
+            <li><strong>Recommendations</strong> — Netflix and Amazon predicted what you'd want next</li>
+            <li><strong>Fraud detection</strong> — banks flagged transactions that didn't "look right" against your typical spending</li>
+          </ul>
+          <div class="ts-era-callout">
+            <div class="ts-era-callout-label">Business impact</div>
+            When someone says "our AI learns from your data," they're usually talking about Pattern Era technology. Powerful — but fundamentally about recognition and prediction, not creation or action.
+          </div>
+        </div>
+      </div>
+
+      <!-- Era 4: Generation -->
+      <div class="ts-era-panel" style="--era-color:#ffa6b4">
+        <div class="ts-era-identity">
+          <div class="ts-era-badge">Era 4</div>
+          <div class="ts-era-big-name">Generation Era</div>
+          <div class="ts-era-dates">2020 - 2024</div>
+          <div class="ts-era-tagline">Large Language Models change the interface. For the first time, AI can create — and anyone can use it.</div>
+        </div>
+        <div class="ts-era-content">
+          <div class="ts-era-body">
+            <p>This is ChatGPT, Claude, Midjourney, Copilot. For the first time, AI could produce output that looked like it came from a human. Draft an email. Write a blog post. Summarise a contract.</p>
+            <p>But — and this is critical — Generation Era AI is still a tool you use. You ask, it generates, you check, you do something with the output. The human is still in the loop for every action.</p>
+          </div>
+          <div class="ts-era-callout">
+            <div class="ts-era-callout-label">Where most people are</div>
+            Most people's experience of AI right now is Generation Era. And most of what's being sold to businesses is Generation Era with a nice interface on top.
+          </div>
+        </div>
+      </div>
+
+      <!-- Era 5: Action -->
+      <div class="ts-era-panel" style="--era-color:#ffb790">
+        <div class="ts-era-identity">
+          <div class="ts-era-badge">Era 5 — Now</div>
+          <div class="ts-era-big-name">Action Era</div>
+          <div class="ts-era-dates">2024 - Present</div>
+          <div class="ts-era-tagline">The agentic shift. AI moves from chatbot to agent — from something you talk to, to something that does work for you.</div>
+        </div>
+        <div class="ts-era-content">
+          <div class="ts-era-body">
+            <p>AI agents log into your actual business tools and take action. Sending follow-up emails. Updating records. Generating reports from live data.</p>
+            <p>The gap between Era 4 and Era 5 is the gap between "AI helped me write this" and "AI did this while I was doing something else." That's a fundamentally different relationship with technology.</p>
+          </div>
+          <ul class="ts-era-examples">
+            <li>Logs into your accounting software to identify late payments</li>
+            <li>Checks email history to see if the client has already responded</li>
+            <li>Drafts a personalised follow-up based on that history</li>
+            <li>Sends the email — or flags it for approval if the amount exceeds a threshold</li>
+          </ul>
+          <div class="ts-era-callout">
+            <div class="ts-era-callout-label">Business impact</div>
+            AI transitions from creative assistant to functional team member. It completes multi-step business workflows autonomously — not just generates words.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ts-eras-nav">
+      <button class="ts-era-nav-btn" id="tsEraPrev" disabled>&#8592; Previous</button>
+      <div class="ts-era-nav-counter" id="tsEraCounter">1 / 5</div>
+      <button class="ts-era-nav-btn" id="tsEraNext">Next &#8594;</button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       Why vendors blur the lines
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+
+  <h2 class="ts-heading">Why vendors blur the lines</h2>
+
+  <div class="ts-body">
+    <p>A tool that applies fixed rules will call itself "AI-powered." A tool
+    that does basic pattern matching will claim to be "intelligent." A tool that
+    generates text will say it "automates your workflow" — even though you still
+    have to copy, paste, and send.</p>
+    <p>This isn't always dishonest. But it is often imprecise. And if you're
+    making buying decisions based on imprecise claims, you'll overpay for
+    capability you don't get.</p>
+  </div>
+
+  <p class="ts-body ts-body--single" style="margin-bottom: var(--space-sm);">
+    <strong>Three questions to cut through it:</strong>
+  </p>
+
+  <div class="ts-questions">
+    <div class="ts-question-card">
+      <div class="ts-question-q">"Does it learn, or does it follow rules I set?"</div>
+      <div class="ts-question-a">If it only does what you configure, it's Era 2. Useful, but not AI in the way most people mean it now.</div>
+    </div>
+    <div class="ts-question-card">
+      <div class="ts-question-q">"Does it create things, or does it do things?"</div>
+      <div class="ts-question-a">If it generates a draft and hands it to you, it's Era 4. If it takes the draft, sends it, and logs the result without your involvement, it's Era 5. The difference in value — and risk — is significant.</div>
+    </div>
+    <div class="ts-question-card">
+      <div class="ts-question-q">"What happens when it gets something wrong?"</div>
+      <div class="ts-question-a">Era 3 and 4 tools are wrong sometimes and you catch it because you're in the loop. Era 5 tools are wrong sometimes and nobody catches it unless you've built in checks. That's the trade-off of autonomy.</div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       Activity: Era Classifier
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+
+  <div class="ts-classifier">
+    <p class="ts-eyebrow">Activity</p>
+    <h2 class="ts-classifier-title">Where do your tools sit?</h2>
+    <p class="ts-classifier-sub">Tap a tool, then tap the era you think it belongs to.</p>
+    <p class="ts-classifier-instruction">Select a tool below, then place it in the correct era.</p>
+
+    <div class="ts-tools-pool" id="tsToolsPool"></div>
+
+    <div class="ts-eras-grid">
+      <div class="ts-era-zone ts-era-zone--rules" id="tsZoneRules"><div class="ts-era-zone-label">Era 2</div><div class="ts-era-zone-name">Rules</div><div class="ts-era-zone-years">1980s - 1990s</div><div class="ts-placed-items" id="tsPlacedRules"></div></div>
+      <div class="ts-era-zone ts-era-zone--pattern" id="tsZonePattern"><div class="ts-era-zone-label">Era 3</div><div class="ts-era-zone-name">Pattern</div><div class="ts-era-zone-years">2000s - 2010s</div><div class="ts-placed-items" id="tsPlacedPattern"></div></div>
+      <div class="ts-era-zone ts-era-zone--gen" id="tsZoneGen"><div class="ts-era-zone-label">Era 4</div><div class="ts-era-zone-name">Generation</div><div class="ts-era-zone-years">2020 - 2024</div><div class="ts-placed-items" id="tsPlacedGeneration"></div></div>
+      <div class="ts-era-zone ts-era-zone--action" id="tsZoneAction"><div class="ts-era-zone-label">Era 5</div><div class="ts-era-zone-name">Action</div><div class="ts-era-zone-years">2024 - now</div><div class="ts-placed-items" id="tsPlacedAction"></div></div>
+    </div>
+
+    <div class="ts-classifier-controls">
+      <button class="ts-check-btn" id="tsCheckBtn" disabled>Check answers</button>
+      <button class="ts-reset-btn" id="tsResetBtn">Reset</button>
+      <span class="ts-score-text" id="tsScoreText"></span>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════
+       CASE STUDY
+       ══════════════════════════════════════════════ -->
+  <div class="ts-case-study">
+    <div class="ts-case-study-label">Case study</div>
+    <p class="ts-case-study-intro">
+      Now that you can place AI into its era, look at where Sarah and David's
+      tools actually sit — and what that means for their next move.
+    </p>
+
+    <div class="ts-flip-grid">
+      <div class="ts-flip-card ts-flip-card--sarah" id="tsFlipSarah">
+        <div class="ts-flip-content" id="tsFlipSarahContent">
+          <div class="ts-flip-icon">&#9986;</div>
+          <div class="ts-flip-name">Sarah</div>
+          <div class="ts-flip-role">Salon owner · 11 years</div>
+          <div class="ts-flip-bio"><ul>
+            <li>Her booking system's auto-reminders are Era 2 (rules)</li>
+            <li>The "suggested reply" button is Era 4 (generation)</li>
+            <li>The competitor's personalised follow-ups are Era 5 (action)</li>
+          </ul></div>
+          <div class="ts-flip-cares">Sarah's tools span three eras. She's paying for all of them.</div>
+          <div class="ts-flip-hint">Tap to see the implication →</div>
+        </div>
+      </div>
+
+      <div class="ts-flip-card ts-flip-card--david" id="tsFlipDavid">
+        <div class="ts-flip-content" id="tsFlipDavidContent">
+          <div class="ts-flip-icon">&#9881;</div>
+          <div class="ts-flip-name">David</div>
+          <div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div>
+          <div class="ts-flip-bio"><ul>
+            <li>The CRM he rolled out is mostly Era 3 (pattern — lead scoring)</li>
+            <li>The "AI assistant" feature is Era 4 (generates summaries)</li>
+            <li>The vendor sold it as Era 5 (autonomous workflow)</li>
+          </ul></div>
+          <div class="ts-flip-cares">David bought one era ahead of where the product actually is.</div>
+          <div class="ts-flip-hint">Tap to see the implication →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── Reflection ── -->
+  <div class="ts-reflection">
+    <div class="ts-reflection-label">Reflection</div>
+    <p class="ts-reflection-text">
+      You can now place any AI tool into its era and ask smarter questions
+      about what it actually does. Next, we'll look at the different types
+      of AI — because not everything called "AI" works the same way, and some
+      of the most useful technology in your business isn't AI at all.
+    </p>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── Eras Timeline ── */
+  (function() {
+    var current = 0;
+    var total = 5;
+    var tabs = document.querySelectorAll('#tsEraTabs .ts-era-tab');
+    var panels = document.querySelectorAll('#tsEraPanels .ts-era-panel');
+    var prevBtn = document.getElementById('tsEraPrev');
+    var nextBtn = document.getElementById('tsEraNext');
+    var counter = document.getElementById('tsEraCounter');
+
+    function setEra(idx) {
+      panels[current].classList.remove('active');
+      tabs[current].classList.remove('active');
+      current = idx;
+      panels[current].classList.add('active');
+      tabs[current].classList.add('active');
+      counter.textContent = (current + 1) + ' / ' + total;
+      prevBtn.disabled = (current === 0);
+      nextBtn.disabled = (current === total - 1);
+    }
+
+    tabs.forEach(function(tab, i) {
+      tab.addEventListener('click', function() { setEra(i); });
+    });
+    prevBtn.addEventListener('click', function() { if (current > 0) setEra(current - 1); });
+    nextBtn.addEventListener('click', function() { if (current < total - 1) setEra(current + 1); });
+  })();
+
+
+  /* ── Era Classifier ── */
+  (function() {
+    var tools = [
+      { id: 'email-filter', name: 'Email filtering rules', era: 'rules' },
+      { id: 'accounting-cat', name: 'Xero auto-categorisation', era: 'rules' },
+      { id: 'reorder-alerts', name: 'Inventory reorder alerts', era: 'rules' },
+      { id: 'spam-filter', name: 'Spam filter (learns from you)', era: 'pattern' },
+      { id: 'crm-lead', name: 'CRM lead scoring', era: 'pattern' },
+      { id: 'fraud-detect', name: 'Bank fraud detection', era: 'pattern' },
+      { id: 'netflix', name: 'Netflix recommendations', era: 'pattern' },
+      { id: 'chatgpt', name: 'ChatGPT / Claude', era: 'generation' },
+      { id: 'draft-ai', name: '"Draft with AI" buttons', era: 'generation' },
+      { id: 'meeting-summary', name: 'AI meeting summaries', era: 'generation' },
+      { id: 'agent-crm', name: 'AI agent updating your CRM', era: 'action' },
+      { id: 'auto-support', name: 'End-to-end AI support resolution', era: 'action' }
+    ];
+
+    var selectedTool = null;
+    var placements = {};
+    var checked = false;
+
+    var poolEl = document.getElementById('tsToolsPool');
+    var checkBtn = document.getElementById('tsCheckBtn');
+    var scoreEl = document.getElementById('tsScoreText');
+    var eras = ['rules', 'pattern', 'generation', 'action'];
+
+    function renderTools() {
+      poolEl.innerHTML = '';
+      tools.forEach(function(t) {
+        if (placements[t.id]) return;
+        var chip = document.createElement('div');
+        chip.className = 'ts-tool-chip' + (selectedTool === t.id ? ' selected' : '');
+        chip.textContent = t.name;
+        chip.addEventListener('click', function() {
+          selectedTool = (selectedTool === t.id) ? null : t.id;
+          renderTools();
+        });
+        poolEl.appendChild(chip);
+      });
+      checkBtn.disabled = (Object.keys(placements).length < tools.length);
+    }
+
+    function placeInEra(era) {
+      if (!selectedTool || checked) return;
+      placements[selectedTool] = era;
+      renderZone(era);
+      selectedTool = null;
+      renderTools();
+    }
+
+    function renderZone(era) {
+      var zone = document.getElementById('tsPlaced' + era.charAt(0).toUpperCase() + era.slice(1));
+      zone.innerHTML = '';
+      Object.keys(placements).filter(function(id) { return placements[id] === era; }).forEach(function(id) {
+        var t = tools.find(function(x) { return x.id === id; });
+        var item = document.createElement('div');
+        item.className = 'ts-placed-item' + (checked ? (t.era === era ? ' correct' : ' incorrect') : '');
+        var nameSpan = document.createElement('span');
+        nameSpan.textContent = t.name;
+        item.appendChild(nameSpan);
+        if (!checked) {
+          var btn = document.createElement('button');
+          btn.className = 'ts-remove-btn';
+          btn.textContent = '\u00D7';
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            delete placements[id];
+            renderZone(era);
+            renderTools();
+          });
+          item.appendChild(btn);
+        }
+        zone.appendChild(item);
+      });
+    }
+
+    // Zone click handlers
+    document.getElementById('tsZoneRules').addEventListener('click', function() { placeInEra('rules'); });
+    document.getElementById('tsZonePattern').addEventListener('click', function() { placeInEra('pattern'); });
+    document.getElementById('tsZoneGen').addEventListener('click', function() { placeInEra('generation'); });
+    document.getElementById('tsZoneAction').addEventListener('click', function() { placeInEra('action'); });
+
+    checkBtn.addEventListener('click', function() {
+      checked = true;
+      var correct = 0;
+      tools.forEach(function(t) { if (placements[t.id] === t.era) correct++; });
+      eras.forEach(function(era) { renderZone(era); });
+      checkBtn.disabled = true;
+      scoreEl.innerHTML = '<strong>' + correct + '</strong> / ' + tools.length + ' correct';
+    });
+
+    document.getElementById('tsResetBtn').addEventListener('click', function() {
+      selectedTool = null;
+      placements = {};
+      checked = false;
+      eras.forEach(function(era) {
+        var zone = document.getElementById('tsPlaced' + era.charAt(0).toUpperCase() + era.slice(1));
+        zone.innerHTML = '';
+      });
+      scoreEl.textContent = '';
+      renderTools();
+    });
+
+    renderTools();
+  })();
+
+
+  /* ── Flip Cards ── */
+  (function() {
+    var cards = {
+      sarah: {
+        front: '<div class="ts-flip-icon">&#9986;</div><div class="ts-flip-name">Sarah</div><div class="ts-flip-role">Salon owner \u00b7 11 years</div><div class="ts-flip-bio"><ul><li>Her booking system\'s auto-reminders are Era 2 (rules)</li><li>The "suggested reply" button is Era 4 (generation)</li><li>The competitor\'s personalised follow-ups are Era 5 (action)</li></ul></div><div class="ts-flip-cares">Sarah\'s tools span three eras. She\'s paying for all of them.</div><div class="ts-flip-hint">Tap to see the implication \u2192</div>',
+        back: '<div class="ts-flip-back-label">The implication</div><div class="ts-flip-back"><ul><li>Sarah doesn\'t need new software \u2014 she needs to switch on what she already has</li><li>The gap between her and the competition isn\'t budget or technology</li><li>It\'s awareness of what her existing tools can already do</li></ul></div><div class="ts-flip-hint">\u2190 Tap to flip back</div>',
+        flipped: false
+      },
+      david: {
+        front: '<div class="ts-flip-icon">&#9881;</div><div class="ts-flip-name">David</div><div class="ts-flip-role">IT &amp; Innovation Manager \u00b7 facilities co. \u00b7 45 staff</div><div class="ts-flip-bio"><ul><li>The CRM he rolled out is mostly Era 3 (pattern \u2014 lead scoring)</li><li>The "AI assistant" feature is Era 4 (generates summaries)</li><li>The vendor sold it as Era 5 (autonomous workflow)</li></ul></div><div class="ts-flip-cares">David bought one era ahead of where the product actually is.</div><div class="ts-flip-hint">Tap to see the implication \u2192</div>',
+        back: '<div class="ts-flip-back-label">The implication</div><div class="ts-flip-back"><ul><li>The low adoption isn\'t a people problem \u2014 the tool isn\'t doing what the team was told it would do</li><li>David needs to reframe the rollout around what the tool actually is (Era 3/4), not what the vendor promised (Era 5)</li><li>The ROI case needs to be rebuilt on realistic capability</li></ul></div><div class="ts-flip-hint">\u2190 Tap to flip back</div>',
+        flipped: false
+      }
+    };
+
+    function flip(id) {
+      var d = cards[id];
+      d.flipped = !d.flipped;
+      var el = document.getElementById('tsFlip' + id.charAt(0).toUpperCase() + id.slice(1) + 'Content');
+      el.innerHTML = d.flipped ? d.back : d.front;
+      el.style.animation = 'none';
+      el.offsetHeight;
+      el.style.animation = '';
+    }
+
+    document.getElementById('tsFlipSarah').addEventListener('click', function() { flip('sarah'); });
+    document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
+  })();
+</script>

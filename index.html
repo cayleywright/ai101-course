@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 101 — TechSweet Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --ts-blue: #6c8eff;
+      --ts-light-blue: #9eccff;
+      --ts-pink: #ffa6b4;
+      --ts-peach: #ffb790;
+      --ts-black: #101010;
+      --ts-white: #ffffff;
+      --surface-bg: #101010;
+      --surface-card: #1a1a1a;
+      --surface-raised: #222222;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(108, 142, 255, 0.2);
+      --text-primary: #f0f0f0;
+      --text-secondary: rgba(240, 240, 240, 0.6);
+      --text-muted: rgba(240, 240, 240, 0.4);
+      --radius-md: 12px;
+      --radius-lg: 14px;
+    }
+
+    body {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      background: var(--surface-bg);
+      color: var(--text-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      padding: clamp(24px, 5vw, 80px);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .course-header {
+      text-align: center;
+      margin-bottom: 56px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .course-header .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ts-blue);
+      margin-bottom: 12px;
+    }
+
+    .course-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    .course-header .subtitle {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .progress-bar {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .progress-bar .bar {
+      width: 180px;
+      height: 6px;
+      background: var(--surface-raised);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar .bar-fill {
+      width: 75%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--ts-blue), var(--ts-light-blue));
+      border-radius: 3px;
+    }
+
+    /* Module groups */
+    .module-group {
+      margin-bottom: 40px;
+    }
+
+    .module-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ts-peach);
+      margin-bottom: 14px;
+      padding-left: 4px;
+    }
+
+    /* Section cards */
+    .section-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+    }
+
+    .section-card:hover {
+      border-color: var(--border-accent);
+      background: var(--surface-raised);
+      transform: translateX(4px);
+    }
+
+    .section-card.disabled {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .section-number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--surface-raised);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ts-light-blue);
+    }
+
+    .section-card.disabled .section-number {
+      color: var(--text-muted);
+    }
+
+    .section-info {
+      flex: 1;
+    }
+
+    .section-info .title {
+      font-size: clamp(0.92rem, 1.4vw, 1.02rem);
+      font-weight: 500;
+    }
+
+    .section-info .badge {
+      display: inline-block;
+      margin-top: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ts-pink);
+      background: rgba(255, 166, 180, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .arrow {
+      flex-shrink: 0;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      transition: color 0.2s ease;
+    }
+
+    .section-card:hover .arrow {
+      color: var(--ts-blue);
+    }
+
+    /* Footer */
+    .course-footer {
+      text-align: center;
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 600px) {
+      .section-card { padding: 14px 16px; gap: 12px; }
+      .section-number { width: 30px; height: 30px; font-size: 0.72rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <header class="course-header">
+      <p class="eyebrow">TechSweet</p>
+      <h1>AI 101</h1>
+      <p class="subtitle">A practical introduction to artificial intelligence — what it is, how it works, and how to use it in your organisation.</p>
+      <div class="progress-bar">
+        <span>9 of 9 sections</span>
+        <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
+        <span>100%</span>
+      </div>
+    </header>
+
+    <!-- Module 1 -->
+    <div class="module-group">
+      <h2 class="module-title">Module 1 — The Big Picture</h2>
+
+      <a href="m1-s1_the-ai-moment.html" class="section-card">
+        <div class="section-number">1</div>
+        <div class="section-info"><span class="title">The AI Moment</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+
+      <a href="m1-s2_three-shifts-at-once.html" class="section-card">
+        <div class="section-number">2</div>
+        <div class="section-info"><span class="title">Three Shifts at Once</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+
+      <a href="m1-s3_ai-through-the-ages.html" class="section-card">
+        <div class="section-number">3</div>
+        <div class="section-info"><span class="title">AI Through the Ages</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+    </div>
+
+    <!-- Module 2 -->
+    <div class="module-group">
+      <h2 class="module-title">Module 2 — Kinds of AI</h2>
+
+      <a href="m2-s1_types-of-ai.html" class="section-card">
+        <div class="section-number">4</div>
+        <div class="section-info"><span class="title">Types of AI</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+    </div>
+
+    <!-- Module 3 -->
+    <div class="module-group">
+      <h2 class="module-title">Module 3 — Under the Hood</h2>
+
+      <a href="m3-s1_what-happens-when-you-press-send.html" class="section-card">
+        <div class="section-number">5</div>
+        <div class="section-info"><span class="title">What Happens When You Press Send</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+
+      <a href="m3-s2_inside-the-machine.html" class="section-card">
+        <div class="section-number">6</div>
+        <div class="section-info"><span class="title">Inside the Machine</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+
+      <a href="m3-s3_context-consistency-confidence.html" class="section-card">
+        <div class="section-number">7</div>
+        <div class="section-info"><span class="title">Context, Consistency, and Confidence</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+    </div>
+
+    <!-- Module 4 -->
+    <div class="module-group">
+      <h2 class="module-title">Module 4 — Making It Yours</h2>
+
+      <a href="m4-s1_the-knowledge-gap.html" class="section-card">
+        <div class="section-number">8</div>
+        <div class="section-info"><span class="title">The Knowledge Gap</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+
+      <a href="m4-s2_the-customisation-spectrum.html" class="section-card">
+        <div class="section-number">9</div>
+        <div class="section-info"><span class="title">The Customisation Spectrum</span></div>
+        <span class="arrow">&rsaquo;</span>
+      </a>
+    </div>
+
+    <footer class="course-footer">
+      <p>TechSweet &middot; AI 101 &middot; 4 Modules &middot; 9 Sections</p>
+    </footer>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!-- ============================================================
+     AI 101 — Module 3, Section 2: Inside the Machine
+     Full-step embed for Wix Online Programs HTML block
+     Contains: five-layer architecture explainer (interactive)
+     ============================================================ -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  /* ══════════════════════════════════════════════════════════════
+     DESIGN TOKENS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
+    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
+    --ts-purple: #8a7fff; --ts-black: #101010; --ts-white: #ffffff;
+    --ts-green: #6fcf97; --ts-red: #e57373;
+    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
+    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
+    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
+    --font-family: 'Bricolage Grotesque', sans-serif;
+    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
+    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
+    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
+    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
+    --fs-eyebrow: 0.72rem;
+    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
+    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
+    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
+    --content-max-width: 1200px;
+    --content-padding: clamp(20px, 5vw, 80px);
+    --text-measure: 720px;
+  }
+  .ts-step {
+    font-family: var(--font-family); background: var(--surface-bg);
+    color: var(--text-primary); line-height: 1.65;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    max-width: var(--content-max-width); margin: 0 auto;
+    padding: var(--space-xl) var(--content-padding); overflow-x: hidden;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     CONTENT BLOCKS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-eyebrow { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); max-width: var(--text-measure); }
+  .ts-step-title { font-size: var(--fs-step-title); font-weight: 700; line-height: 1.2; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-heading { font-size: var(--fs-heading); font-weight: 600; line-height: 1.3; margin-top: var(--space-section); margin-bottom: var(--space-sm); max-width: var(--text-measure); }
+  .ts-body { font-size: var(--fs-body); color: var(--text-secondary); margin-bottom: var(--space-md); line-height: 1.7; column-count: 2; column-gap: var(--space-lg); }
+  .ts-body strong { color: var(--text-primary); font-weight: 600; }
+  .ts-body--single { column-count: 1; max-width: var(--text-measure); }
+  .ts-body p { margin: 0 0 var(--space-sm) 0; break-inside: avoid; }
+  .ts-body p:last-child { margin-bottom: 0; }
+  .ts-divider { width: 40px; height: 2px; background: var(--border-accent); margin: var(--space-section) 0; border: none; }
+  .ts-callout { background: var(--surface-card); border-left: 3px solid var(--ts-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
+  .ts-callout p { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; margin: 0; }
+  .ts-callout strong { color: var(--text-primary); font-weight: 600; }
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Five-Layer Architecture Explainer
+     ══════════════════════════════════════════════════════════════ */
+  .ts-arch { margin: var(--space-lg) 0; position: relative; }
+  /* Pipeline grid */
+  .ts-arch-pipeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 16px; }
+  /* Node */
+  .ts-arch-node { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; padding: 18px 8px 14px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.14); background: rgba(255,255,255,0.05); transition: all 0.28s ease; }
+  .ts-arch-node:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.22); transform: translateY(-2px); }
+  .ts-arch-node.active { background: var(--n-bg); border-color: var(--n-color); box-shadow: 0 0 28px var(--n-glow), 0 4px 20px rgba(0,0,0,0.4); transform: translateY(-2px); }
+  .ts-arch-node-icon { width: 46px; height: 46px; border-radius: 14px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; transition: background 0.28s ease; }
+  .ts-arch-node-icon svg { width: 24px; height: 24px; }
+  .ts-arch-node.active .ts-arch-node-icon { background: rgba(255,255,255,0.13); }
+  .ts-arch-node-name { font-size: 12.5px; font-weight: 700; color: rgba(255,255,255,0.85); text-align: center; line-height: 1.3; transition: color 0.28s ease; }
+  .ts-arch-node.active .ts-arch-node-name { color: var(--ts-white); }
+  .ts-arch-node-sub { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.42); text-align: center; line-height: 1.4; transition: color 0.28s ease; }
+  .ts-arch-node.active .ts-arch-node-sub { color: rgba(255,255,255,0.6); }
+  .ts-arch-node-caret { width: 14px; height: 14px; color: rgba(255,255,255,0.3); transition: color 0.28s ease, transform 0.28s ease; }
+  .ts-arch-node.active .ts-arch-node-caret { color: var(--n-color); transform: rotate(180deg); }
+  /* Legend */
+  .ts-arch-legend { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 16px; margin: 0 auto; }
+  .ts-arch-legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.38); }
+  .ts-arch-legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+  /* Sub-chip row */
+  .ts-arch-subrow-wrap { overflow: hidden; transition: max-height 0.4s ease, opacity 0.35s ease, margin 0.4s ease; max-height: 0; opacity: 0; }
+  .ts-arch-subrow-wrap.open { max-height: 160px; opacity: 1; margin-top: 18px; }
+  .ts-arch-subrow { padding: 14px 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .ts-arch-subrow-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.28); width: 100%; margin-bottom: 2px; }
+  .ts-arch-chip { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); cursor: pointer; transition: all 0.22s ease; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75); font-family: var(--font-family); }
+  .ts-arch-chip:hover { background: rgba(255,255,255,0.1); color: var(--ts-white); border-color: rgba(255,255,255,0.25); }
+  .ts-arch-chip.active { background: var(--chip-bg); border-color: var(--chip-color); color: var(--ts-white); box-shadow: 0 0 12px var(--chip-glow); }
+  .ts-arch-chip-dot { width: 6px; height: 6px; border-radius: 50%; }
+  /* Detail card */
+  .ts-arch-card-wrap { overflow: hidden; transition: max-height 0.45s ease, opacity 0.38s ease, margin 0.4s ease; max-height: 0; opacity: 0; }
+  .ts-arch-card-wrap.open { max-height: 900px; opacity: 1; margin-top: 20px; }
+  .ts-arch-card { background: rgba(255,255,255,0.035); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; }
+  .ts-arch-card-bar { height: 3px; opacity: 0.65; transition: background 0.4s ease; }
+  .ts-arch-card-body { padding: 24px 28px 26px; }
+  .ts-arch-card-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+  .ts-arch-card-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ts-arch-card-title { font-size: 20px; font-weight: 700; color: var(--ts-white); line-height: 1.1; }
+  .ts-arch-card-tag { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-top: 4px; }
+  .ts-arch-also { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+  .ts-arch-also-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.28); width: 100%; margin-bottom: 2px; }
+  .ts-arch-also-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+  .ts-arch-analogy { border-left: 2px solid var(--accent, var(--ts-blue)); background: rgba(255,255,255,0.025); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-bottom: 14px; }
+  .ts-arch-analogy-label { font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 5px; }
+  .ts-arch-analogy-text { font-size: 13.5px; line-height: 1.65; color: rgba(255,255,255,0.72); }
+  .ts-arch-points { list-style: none; margin-bottom: 14px; }
+  .ts-arch-points li { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.65); padding: 6px 0 6px 18px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .ts-arch-points li:last-child { border-bottom: none; }
+  .ts-arch-points li::before { content: ''; position: absolute; left: 0; top: 15px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent, var(--ts-blue)); opacity: 0.6; }
+  .ts-arch-points li strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+  .ts-arch-why { padding: 11px 15px; background: rgba(108,142,255,0.07); border-radius: 8px; font-size: 12.5px; line-height: 1.6; color: rgba(255,255,255,0.58); }
+  .ts-arch-why-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: 5px; }
+  .ts-arch-back { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.35); cursor: pointer; margin-bottom: 16px; transition: color 0.2s ease; background: none; border: none; font-family: var(--font-family); padding: 0; }
+  .ts-arch-back:hover { color: rgba(255,255,255,0.7); }
+  .ts-arch-hint { text-align: center; font-size: 10px; color: rgba(255,255,255,0.2); letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Case Study Block
+     ══════════════════════════════════════════════════════════════ */
+  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
+  .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
+  .ts-flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+  .ts-flip-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-md) 20px; cursor: pointer; transition: border-color var(--transition-med); display: flex; flex-direction: column; }
+  .ts-flip-card:hover { border-color: rgba(255,255,255,0.15); }
+  .ts-flip-content { animation: tsFadeIn 0.3s ease; display: flex; flex-direction: column; flex: 1; }
+  @keyframes tsFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .ts-flip-icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .ts-flip-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+  .ts-flip-role { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; }
+  .ts-flip-bio { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px; }
+  .ts-flip-bio ul, .ts-flip-back ul { list-style: none; padding: 0; margin: 0; }
+  .ts-flip-bio ul li, .ts-flip-back ul li { padding-left: 16px; position: relative; margin-bottom: 6px; }
+  .ts-flip-bio ul li::before, .ts-flip-back ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-secondary); opacity: 0.5; }
+  .ts-flip-cares { padding: 10px 12px; border-radius: var(--radius-sm); font-size: 0.8rem; font-style: italic; color: var(--text-secondary); line-height: 1.45; }
+  .ts-flip-back-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+  .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
+  .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
+  .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
+  .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
+  .ts-flip-card--david .ts-flip-back-label { color: var(--ts-light-blue); }
+  /* ══════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .ts-step { padding: var(--space-lg) var(--space-sm); }
+    .ts-body { column-count: 1; }
+    .ts-arch-pipeline { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .ts-arch-node { padding: 12px 6px 10px; border-radius: 12px; }
+    .ts-arch-node-icon { width: 36px; height: 36px; border-radius: 10px; }
+    .ts-arch-node-icon svg { width: 20px; height: 20px; }
+    .ts-arch-node-name { font-size: 10.5px; }
+    .ts-arch-node-sub { display: none; }
+    .ts-arch-node-caret { width: 12px; height: 12px; }
+    .ts-arch-card-body { padding: 18px 16px 20px; }
+    .ts-arch-card-title { font-size: 17px; }
+    .ts-arch-card-tag { font-size: 11px; }
+    .ts-arch-card-icon { width: 34px; height: 34px; }
+    .ts-arch-card-head { gap: 10px; margin-bottom: 12px; }
+    .ts-arch-also-tag { font-size: 10px; padding: 2px 8px; }
+    .ts-arch-analogy { padding: 10px 12px; }
+    .ts-arch-analogy-text { font-size: 12.5px; }
+    .ts-arch-points li { font-size: 12px; padding: 5px 0 5px 14px; }
+    .ts-arch-points li::before { top: 12px; }
+    .ts-arch-why { font-size: 11.5px; padding: 9px 12px; }
+    .ts-arch-chip { font-size: 11px; padding: 6px 11px; }
+    .ts-arch-subrow { padding: 12px 14px; }
+    .ts-flip-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ts-flip-card { padding: 20px 16px; }
+  }
+</style>
+<!-- ══════════════════════════════════════════════════════════════
+     STEP CONTENT
+     ══════════════════════════════════════════════════════════════ -->
+<div class="ts-step">
+  <p class="ts-eyebrow">Module 3</p>
+  <h1 class="ts-step-title">Inside the Machine</h1>
+  <div class="ts-body">
+    <p>You've seen what happens when you press send. Now here's what's under the
+    hood. Every AI tool — whether it's a chatbot, a recommendation engine, or an
+    autonomous agent — is built from the same five layers. Different products
+    package them differently, but the building blocks don't change.</p>
+    <p>Understanding these layers means you can look at any AI tool and ask the
+    right questions: what's the interface? How does it connect to my systems?
+    Which model is running underneath? Where does it get its knowledge? And
+    where is all of this actually running?</p>
+  </div>
+  <p class="ts-body ts-body--single">
+    Click any layer below to see what's inside.
+  </p>
+  <!-- ══════════════════════════════════════════════
+       Interactive: Five-Layer Architecture Explainer
+       ══════════════════════════════════════════════ -->
+  <div class="ts-arch">
+    <!-- Pipeline -->
+    <div class="ts-arch-pipeline" id="tsArchPipeline">
+      <div class="ts-arch-node" data-node="interface" style="--n-color:#9eccff; --n-bg:rgba(158,204,255,0.09); --n-glow:rgba(158,204,255,0.2);">
+        <div class="ts-arch-node-icon"><svg fill="none" stroke="#9eccff" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="ts-arch-node-name">Interface</div>
+        <div class="ts-arch-node-sub">What users see</div>
+        <svg class="ts-arch-node-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="ts-arch-node" data-node="connections" style="--n-color:#6c8eff; --n-bg:rgba(108,142,255,0.09); --n-glow:rgba(108,142,255,0.2);">
+        <div class="ts-arch-node-icon"><svg fill="none" stroke="#6c8eff" stroke-width="1.7" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div class="ts-arch-node-name">Connections</div>
+        <div class="ts-arch-node-sub">How it talks</div>
+        <svg class="ts-arch-node-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="ts-arch-node" data-node="intelligence" style="--n-color:#ffa6b4; --n-bg:rgba(255,166,180,0.09); --n-glow:rgba(255,166,180,0.2);">
+        <div class="ts-arch-node-icon"><svg fill="none" stroke="#ffa6b4" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.66-5.34l2.83-2.83m11.31-5.66l2.83-2.83M1 12h4m14 0h4m-5.34 8.66l-2.83-2.83M8.17 8.17L5.34 5.34"/></svg></div>
+        <div class="ts-arch-node-name">Intelligence</div>
+        <div class="ts-arch-node-sub">The brains</div>
+        <svg class="ts-arch-node-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="ts-arch-node" data-node="knowledge" style="--n-color:#ffb790; --n-bg:rgba(255,183,144,0.09); --n-glow:rgba(255,183,144,0.2);">
+        <div class="ts-arch-node-icon"><svg fill="none" stroke="#ffb790" stroke-width="1.7" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg></div>
+        <div class="ts-arch-node-name">Knowledge</div>
+        <div class="ts-arch-node-sub">What it knows</div>
+        <svg class="ts-arch-node-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      <div class="ts-arch-node" data-node="infra" style="--n-color:#8a7fff; --n-bg:rgba(138,127,255,0.09); --n-glow:rgba(138,127,255,0.2);">
+        <div class="ts-arch-node-icon"><svg fill="none" stroke="#8a7fff" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="#8a7fff"/><circle cx="6" cy="18" r="1" fill="#8a7fff"/><line x1="10" y1="6" x2="18" y2="6"/><line x1="10" y1="18" x2="18" y2="18"/></svg></div>
+        <div class="ts-arch-node-name">Infrastructure</div>
+        <div class="ts-arch-node-sub">Where it runs</div>
+        <svg class="ts-arch-node-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+    <!-- Legend -->
+    <div class="ts-arch-legend">
+      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#9eccff"></span>Interface</div>
+      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#6c8eff"></span>Connections</div>
+      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#ffa6b4"></span>Intelligence</div>
+      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#ffb790"></span>Knowledge</div>
+      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#8a7fff"></span>Infrastructure</div>
+    </div>
+    <!-- Sub-chip row -->
+    <div class="ts-arch-subrow-wrap" id="tsArchSubWrap">
+      <div class="ts-arch-subrow" id="tsArchSubRow">
+        <div class="ts-arch-subrow-label" id="tsArchSubLabel">Inside this layer</div>
+      </div>
+    </div>
+    <!-- Detail card -->
+    <div class="ts-arch-card-wrap" id="tsArchCardWrap">
+      <div class="ts-arch-card">
+        <div class="ts-arch-card-bar" id="tsArchCardBar"></div>
+        <div class="ts-arch-card-body" id="tsArchCardBody"></div>
+      </div>
+    </div>
+    <div class="ts-arch-hint" id="tsArchHint">Click any layer to explore</div>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       CASE STUDY
+       ══════════════════════════════════════════════ -->
+  <div class="ts-case-study">
+    <div class="ts-case-study-label">Case study</div>
+    <p class="ts-case-study-intro">
+      Now map these five layers onto what Sarah and David are actually using.
+      Where is their stack strong? Where are the gaps?
+    </p>
+    <div class="ts-flip-grid">
+      <div class="ts-flip-card ts-flip-card--sarah" id="tsFlipSarah">
+        <div class="ts-flip-content" id="tsFlipSarahContent">
+          <div class="ts-flip-icon">&#9986;</div>
+          <div class="ts-flip-name">Sarah</div>
+          <div class="ts-flip-role">Salon owner · 11 years</div>
+          <div class="ts-flip-bio"><ul>
+            <li><strong>Interface:</strong> Fresha booking app, Instagram, Square POS</li>
+            <li><strong>Connections:</strong> None — each tool is an island</li>
+            <li><strong>Intelligence:</strong> Basic AI features built into Fresha and Instagram</li>
+            <li><strong>Knowledge:</strong> Client notes in a physical notebook</li>
+            <li><strong>Infrastructure:</strong> All cloud, all vendor-managed</li>
+          </ul></div>
+          <div class="ts-flip-cares">Sarah's biggest gap is connections. Her tools don't talk to each other.</div>
+          <div class="ts-flip-hint">Tap to see the opportunity →</div>
+        </div>
+      </div>
+      <div class="ts-flip-card ts-flip-card--david" id="tsFlipDavid">
+        <div class="ts-flip-content" id="tsFlipDavidContent">
+          <div class="ts-flip-icon">&#9881;</div>
+          <div class="ts-flip-name">David</div>
+          <div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div>
+          <div class="ts-flip-bio"><ul>
+            <li><strong>Interface:</strong> ServiceM8, Xero, Microsoft 365, Deputy</li>
+            <li><strong>Connections:</strong> Manual — Excel spreadsheets bridge the gaps</li>
+            <li><strong>Intelligence:</strong> CRM with AI features the team doesn't use</li>
+            <li><strong>Knowledge:</strong> Tribal knowledge in senior staff's heads</li>
+            <li><strong>Infrastructure:</strong> Mix of cloud SaaS and on-prem SharePoint</li>
+          </ul></div>
+          <div class="ts-flip-cares">David's biggest gap is knowledge. Critical information lives in people, not systems.</div>
+          <div class="ts-flip-hint">Tap to see the opportunity →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ── Reflection ── -->
+  <div class="ts-reflection">
+    <div class="ts-reflection-label">Reflection</div>
+    <p class="ts-reflection-text">
+      Think about a tool you use every day. Can you identify which of the five
+      layers it touches? Where's the gap — the layer that's missing or weak?
+      That gap is usually where the most value is hiding.
+    </p>
+  </div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── Architecture Explainer ── */
+  (function() {
+    var NODES = {
+      interface: { color: '#9eccff', label: 'Interface', direct: 'interface_main' },
+      connections: { color: '#6c8eff', label: 'Connections', subs: ['conn_api', 'conn_mcp'] },
+      intelligence: { color: '#ffa6b4', label: 'Intelligence', subs: ['intel_models', 'intel_agents'] },
+      knowledge: { color: '#ffb790', label: 'Knowledge', subs: ['know_training', 'know_incontext', 'know_rag', 'know_persistent'] },
+      infra: { color: '#8a7fff', label: 'Infrastructure', direct: 'infra_main' }
+    };
+    var CHIP_LABELS = { conn_api: 'APIs', conn_mcp: 'MCP', intel_models: 'Models', intel_agents: 'AI Agents', know_training: 'Training data', know_incontext: 'In-context memory', know_rag: 'RAG', know_persistent: 'Persistent memory' };
+    var CARDS = {
+      interface_main: { color:'#9eccff', iconBg:'rgba(158,204,255,0.12)', grad:'linear-gradient(90deg,#9eccff,#6c8eff)', title:'Interface', tag:'What users actually see and touch', icon:'<svg width="22" height="22" fill="none" stroke="#9eccff" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>', alsoCalled:['Frontend','UI','Application layer','Interaction layer'], analogy:"The menu. You sit down, read what's on offer, and place your order. You never see the kitchen. ChatGPT is fine dining. The AI button in Canva is the ordering screen at a fast-casual chain. Different rooms, same kitchen out the back.", points:['The interface is whatever you interact with — a chat window, a button in your SaaS tool, or a form on a website. The AI model doing the work lives somewhere else entirely','<strong>Most businesses already have more AI interface than they realise.</strong> Microsoft 365 Copilot, Google Workspace AI, Xero, HubSpot, Canva — if you pay for these, you probably have AI features sitting unused','This is why the same underlying model (like GPT-4) can power completely different-looking tools — they just have different interfaces','The interface is also where prompt engineering happens — how you phrase your order determines what the kitchen sends back'], why:"Before buying any new AI tool, audit what your existing stack already offers. Activating what you already have is faster, cheaper, and lower risk than starting fresh." },
+      conn_api: { color:'#6c8eff', iconBg:'rgba(108,142,255,0.12)', grad:'linear-gradient(90deg,#6c8eff,#9eccff)', title:'APIs', tag:'How software talks to other software', icon:'<svg width="22" height="22" fill="none" stroke="#6c8eff" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>', alsoCalled:['REST API','Application programming interface','Integration layer','Webhooks'], analogy:"A handwritten order on a docket. You tell the waiter what you want, they write it down, walk it to the kitchen, and bring back what was made.", points:['An <strong>API</strong> is how one piece of software sends a request to another and gets a response back. It\'s the docket that travels between your apps and the AI','When you type into ChatGPT, the website sends your message to OpenAI\'s servers via an API call. When Canva adds AI features, it\'s calling an AI model\'s API behind the scenes','Automation tools like Zapier, Make, and n8n work entirely through APIs — connecting your apps together by passing requests back and forth','You pay per API call or per token processed — which is why different AI tools cost different amounts even when using the same underlying model'], why:"APIs are the glue of automation. Every integration, every AI feature in your SaaS tools, every workflow you've built works because of APIs. You don't need to build them — understanding they exist helps you see what's possible." },
+      conn_mcp: { color:'#6c8eff', iconBg:'rgba(108,142,255,0.12)', grad:'linear-gradient(90deg,#6c8eff,#9eccff)', title:'MCP', tag:'Model Context Protocol — the universal adapter for AI', icon:'<svg width="22" height="22" fill="none" stroke="#6c8eff" stroke-width="1.8" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>', alsoCalled:['Model Context Protocol','Integration protocol','Universal connector','Tool use'], analogy:"An automated ordering system. Instead of a different docket pad for UberEats, DoorDash, and walk-ins, one system prints the same ticket no matter where the order came from.", points:['MCP is an <strong>open standard</strong> created by Anthropic that lets AI connect to your business tools in a standardised way','Instead of custom-building an integration for every AI + tool combination, you build one MCP connection and it works with any compatible AI','OpenAI, Google, Microsoft, and most major AI providers now support MCP — it\'s rapidly becoming the default way AI talks to business systems','You\'ll see MCP when you connect Claude or ChatGPT to your Google Drive, CRM, or project management tools. It\'s the plumbing underneath'], why:"If a vendor pitches you 'AI integration' in 2026, ask if they support MCP. If they don't, they're building custom plumbing that'll be harder to maintain and swap out later." },
+      intel_models: { color:'#ffa6b4', iconBg:'rgba(255,166,180,0.12)', grad:'linear-gradient(90deg,#ffa6b4,#ffb790)', title:'Models', tag:'The core intelligence behind every AI tool', icon:'<svg width="22" height="22" fill="none" stroke="#ffa6b4" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.66-5.34l2.83-2.83m11.31-5.66l2.83-2.83M1 12h4m14 0h4m-5.34 8.66l-2.83-2.83M8.17 8.17L5.34 5.34"/></svg>', alsoCalled:['LLM','Large language model','Foundation model','AI model','e.g. GPT-4, Claude, Gemini'], analogy:"The chef. A Michelin-trained head chef costs more and takes longer. A solid line cook turns out perfect lunch specials all day for a fraction of the price. You don't put your head chef on toasted sandwiches.", points:['GPT-4o, Claude, Gemini, Llama, DeepSeek are all different models with different strengths, sizes, and costs','<strong>Bigger isn\'t always better.</strong> A smaller, cheaper model often outperforms a larger one for a specific, well-defined task','Models are versioned and updated constantly — GPT-4 today is not the same as GPT-4 from 18 months ago','Many SaaS tools let you choose which model runs underneath. This choice matters a lot for both cost and quality'], why:"The model is the most expensive part of the AI stack. Choosing the right model for each task — rather than just the most powerful one — is one of the most effective ways to control costs." },
+      intel_agents: { color:'#ffa6b4', iconBg:'rgba(255,166,180,0.12)', grad:'linear-gradient(90deg,#ffa6b4,#6c8eff)', title:'AI Agents', tag:'AI that can plan, decide, and take action', icon:'<svg width="22" height="22" fill="none" stroke="#ffa6b4" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>', alsoCalled:['Agentic AI','Autonomous agents','AI assistants','Copilots'], analogy:"A head chef who also runs front-of-house. They check the cool room, call the supplier, adjust the menu, brief the floor staff, and handle a complaint at table 6 — all from one brief.", points:['Regular AI responds to one prompt at a time. <strong>Agents can plan and execute multi-step tasks</strong>, use tools like APIs and databases, and adapt based on what they find','Example: an agent could research competitors, pull data from your CRM, draft a report, and send it to your team — all from one instruction','Agents need clear guardrails and permissions — they\'re powerful but can go wrong without proper boundaries','Most "agent" products in 2025/26 are still early. The hype is ahead of the reliability for complex, long-running tasks'], why:"Agents are where AI is heading. Understanding the concept now helps you evaluate what vendors are actually offering — and spot 'agent' features that are really just fancy chatbots." },
+      know_training: { color:'#ffb790', iconBg:'rgba(255,183,144,0.12)', grad:'linear-gradient(90deg,#ffb790,#ffa6b4)', title:'Training data', tag:'What the model learned before it met you', icon:'<svg width="22" height="22" fill="none" stroke="#ffb790" stroke-width="1.8" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>', alsoCalled:['Parametric memory','Pre-training data','Model weights','Base knowledge'], analogy:"Everything the chef learned before they walked into your kitchen — culinary school plus a lifetime of eating out. It's baked into how they cook. You can't remove one recipe from their instincts.", points:['This is knowledge encoded directly into the model\'s parameters during training. It\'s not stored in a database you can edit — it\'s baked into the model itself','Models are trained on massive datasets — internet text, books, code, research papers — up to a specific cutoff date. <strong>The model doesn\'t know what happened after that point</strong> unless it can search the web','Different training data produces different strengths. A model trained heavily on code will be better at programming. One trained on medical literature will be better at clinical language','This is also where bias enters the picture — if the training data skews in a particular direction, the model\'s outputs will reflect that'], why:"This is why you can ask Claude or ChatGPT about history, science, or how to write a function — without giving it any documents. It's also why it can confidently get things wrong, and why it knows nothing about your business until you tell it." },
+      know_incontext: { color:'#ffb790', iconBg:'rgba(255,183,144,0.12)', grad:'linear-gradient(90deg,#ffb790,#6c8eff)', title:'In-context memory', tag:'The working memory of a single session', icon:'<svg width="22" height="22" fill="none" stroke="#ffb790" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>', alsoCalled:['Context window','Prompt','Session memory','Working memory'], analogy:"A gluten-free order. The kitchen knows about it for this sitting. Next service, it's gone unless someone tells them again.", points:['Everything in the active conversation lives here — your messages, the system prompt, any files or instructions you\'ve pasted in','This is <strong>temporary by design</strong>. When the session ends, it\'s gone. The model isn\'t storing anything — it\'s just working within the current window','The context window has a size limit (measured in tokens). When it fills up, the oldest content gets pushed out — which is why AI can seem to "forget" earlier parts of a long conversation','Project files, knowledge base uploads, and attached documents all work by injecting content into this window at the start of a session'], why:"Understanding that in-context memory is temporary and has a size limit explains a lot of the quirks you'll notice in day-to-day AI use — like why it 'forgets' what you said 20 messages ago." },
+      know_rag: { color:'#ffb790', iconBg:'rgba(255,183,144,0.12)', grad:'linear-gradient(90deg,#ffb790,#9eccff)', title:'RAG', tag:'Fetching your documents at runtime — lookup, not learning', icon:'<svg width="22" height="22" fill="none" stroke="#ffb790" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>', alsoCalled:['Retrieval-augmented generation','Vector search','Knowledge base','Semantic search'], analogy:"The recipe card in the kitchen drawer. The chef doesn't memorise your house recipes — they pull out the card each time and follow it.", points:['RAG is how you make AI answer questions about <strong>your specific business data</strong> without retraining the model','Under the hood: your documents get converted into numbers representing meaning (<strong>embeddings</strong>), stored in a <strong>vector database</strong>, then searched every time a question comes in. The closest matches get injected into the prompt','Important distinction: <strong>RAG is retrieval, not memory.</strong> The AI doesn\'t learn from your documents. It fetches them fresh each time. Update a document, and the next query gets the new version','This is how "chat with your documents", knowledge bases, and AI-powered support tools work. If a vendor says "AI trained on your data", RAG is almost always what they actually mean'], why:"RAG is the most practical, cost-effective way to connect AI to your business data. Understanding that it's lookup — not learning — helps you set the right expectations and avoid overpaying for something more complex than you need." },
+      know_persistent: { color:'#ffb790', iconBg:'rgba(255,183,144,0.12)', grad:'linear-gradient(90deg,#ffb790,#ffa6b4)', title:'Persistent memory', tag:'What AI remembers about you across sessions', icon:'<svg width="22" height="22" fill="none" stroke="#ffb790" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l3 3"/><path d="M18 2v4h4"/></svg>', alsoCalled:['Long-term memory','Memory layer','User memory','Session persistence'], analogy:"The reservations book with notes in the margin. 'Table 12 — she's coeliac, he likes the shiraz, corner table.' Someone wrote it down last visit and checks it next time they book.", points:['Unlike in-context memory (gone when the session ends) or RAG (passive document lookup), persistent memory <strong>actively writes facts to storage</strong> and retrieves them in future sessions','The system decides what\'s worth remembering — your preferences, past decisions, key facts about your business — extracts those, stores them, and surfaces them automatically next time','ChatGPT\'s memory feature works this way. So do tools like Mem0 and enterprise agent platforms. It\'s RAG under the hood, but with an intentional write step','This is still early-stage technology for most business tools. It works well for preferences and simple facts; complex multi-session reasoning is harder to get right reliably'], why:"Persistent memory is what turns a stateless AI tool into something that actually feels like it knows you. As agents become more capable, this becomes the layer that enables continuity — and the one that raises the most interesting questions about privacy and data governance." },
+      infra_main: { color:'#8a7fff', iconBg:'rgba(138,127,255,0.12)', grad:'linear-gradient(90deg,#8a7fff,#6c8eff)', title:'Infrastructure', tag:'The hardware and hosting that runs everything', icon:'<svg width="22" height="22" fill="none" stroke="#8a7fff" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="#8a7fff"/><circle cx="6" cy="18" r="1" fill="#8a7fff"/><line x1="10" y1="6" x2="18" y2="6"/><line x1="10" y1="18" x2="18" y2="18"/></svg>', alsoCalled:['Compute','Cloud infrastructure','GPU','Hosting','AWS / Azure / GCP'], analogy:"The kitchen itself — the ovens, the gas, the cold storage. Cloud is leasing a fitted kitchen in a shared food hall. On-prem is building your own from the slab up.", points:['<strong>Cloud</strong> is where most AI runs today. AWS, Google Cloud, and Azure host the servers behind ChatGPT, Claude, Gemini, and almost every SaaS AI feature. You pay for what you use','<strong>On-premise</strong> means running AI on servers you own. Required in some industries for data sovereignty (healthcare, legal, defence). Open-source models like Llama make this increasingly practical','<strong>Hybrid</strong> is increasingly the smart default — cloud AI for general tasks, private infrastructure for sensitive data that can\'t leave the network','<strong>GPUs</strong> are the specialised chips that make AI possible. When you use any AI tool, thousands of GPUs are running your request somewhere in a data centre'], why:"For most small businesses, cloud is the obvious starting point. The key question isn't cloud vs. on-prem — it's which cloud region your data is stored in, and whether that matters for your compliance obligations." }
+    };
+    var activeNode = null, activeChip = null;
+    function hexRgba(hex, a) { var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16); return 'rgba('+r+','+g+','+b+','+a+')'; }
+    function selectNode(nodeId) {
+      if (activeNode === nodeId) { activeNode = null; activeChip = null; document.querySelectorAll('.ts-arch-node').forEach(function(el){ el.classList.remove('active'); }); document.getElementById('tsArchSubWrap').classList.remove('open'); document.getElementById('tsArchCardWrap').classList.remove('open'); document.getElementById('tsArchHint').style.display = ''; return; }
+      activeNode = nodeId; activeChip = null;
+      document.querySelectorAll('.ts-arch-node').forEach(function(el){ el.classList.toggle('active', el.dataset.node === nodeId); });
+      document.getElementById('tsArchHint').style.display = 'none';
+      var node = NODES[nodeId];
+      if (node.direct) { document.getElementById('tsArchSubWrap').classList.remove('open'); showCard(node.direct, null); return; }
+      var subrow = document.getElementById('tsArchSubRow');
+      document.getElementById('tsArchSubLabel').textContent = node.label + ' — what’s inside';
+      subrow.querySelectorAll('.ts-arch-chip').forEach(function(c){ c.remove(); });
+      node.subs.forEach(function(subId) {
+        var chip = document.createElement('div'); chip.className = 'ts-arch-chip'; chip.dataset.sub = subId;
+        chip.style.cssText = '--chip-color:'+node.color+';--chip-bg:'+hexRgba(node.color,0.12)+';--chip-glow:'+hexRgba(node.color,0.18)+';';
+        chip.innerHTML = '<span class="ts-arch-chip-dot" style="background:'+node.color+'"></span>' + (CHIP_LABELS[subId] || subId);
+        chip.addEventListener('click', function(){ selectChip(subId); });
+        subrow.appendChild(chip);
+      });
+      document.getElementById('tsArchSubWrap').classList.add('open');
+      document.getElementById('tsArchCardWrap').classList.remove('open');
+    }
+    function selectChip(subId) { activeChip = subId; document.querySelectorAll('.ts-arch-chip').forEach(function(el){ el.classList.toggle('active', el.dataset.sub === subId); }); showCard(subId, NODES[activeNode].label); }
+    function showCard(cardId, parentLabel) {
+      var s = CARDS[cardId]; if (!s) return;
+      document.getElementById('tsArchCardBar').style.background = s.grad;
+      var h = '';
+      if (parentLabel) { h += '<button class="ts-arch-back" id="tsArchBack"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5m5-5-5 5 5 5"/></svg> Back to ' + parentLabel + '</button>'; }
+      h += '<div class="ts-arch-card-head"><div class="ts-arch-card-icon" style="background:'+s.iconBg+'">'+s.icon+'</div><div><div class="ts-arch-card-title">'+s.title+'</div><div class="ts-arch-card-tag">'+s.tag+'</div></div></div>';
+      if (s.alsoCalled && s.alsoCalled.length) { h += '<div class="ts-arch-also"><div class="ts-arch-also-label">Also called</div>'; s.alsoCalled.forEach(function(t){ h += '<span class="ts-arch-also-tag">'+t+'</span>'; }); h += '</div>'; }
+      h += '<div class="ts-arch-analogy" style="border-color:'+s.color+'"><div class="ts-arch-analogy-label" style="color:'+s.color+'">Think of it as</div><div class="ts-arch-analogy-text">'+s.analogy+'</div></div>';
+      h += '<ul class="ts-arch-points">'; s.points.forEach(function(p){ h += '<li style="--accent:'+s.color+'">'+p+'</li>'; }); h += '</ul>';
+      if (s.why) { h += '<div class="ts-arch-why"><div class="ts-arch-why-label">Why it matters for your business</div>'+s.why+'</div>'; }
+      document.getElementById('tsArchCardBody').innerHTML = h;
+      document.getElementById('tsArchCardWrap').classList.add('open');
+      var backBtn = document.getElementById('tsArchBack');
+      if (backBtn) { backBtn.addEventListener('click', function() { activeChip = null; document.querySelectorAll('.ts-arch-chip').forEach(function(el){ el.classList.remove('active'); }); document.getElementById('tsArchCardWrap').classList.remove('open'); }); }
+    }
+    // Attach click handlers to nodes
+    document.querySelectorAll('.ts-arch-node').forEach(function(el) {
+      el.addEventListener('click', function() { selectNode(el.dataset.node); });
+    });
+  })();
+  /* ── Flip Cards ── */
+  (function() {
+    var cards = {
+      sarah: {
+        front: '<div class="ts-flip-icon">&#9986;</div><div class="ts-flip-name">Sarah</div><div class="ts-flip-role">Salon owner · 11 years</div><div class="ts-flip-bio"><ul><li><strong>Interface:</strong> Fresha booking app, Instagram, Square POS</li><li><strong>Connections:</strong> None — each tool is an island</li><li><strong>Intelligence:</strong> Basic AI features built into Fresha and Instagram</li><li><strong>Knowledge:</strong> Client notes in a physical notebook</li><li><strong>Infrastructure:</strong> All cloud, all vendor-managed</li></ul></div><div class="ts-flip-cares">Sarah\'s biggest gap is connections. Her tools don\'t talk to each other.</div><div class="ts-flip-hint">Tap to see the opportunity →</div>',
+        back: '<div class="ts-flip-back-label">The opportunity</div><div class="ts-flip-back"><ul><li>Connect Fresha to her marketing — automated follow-ups after appointments, birthday reminders, no-show recovery</li><li>Move client notes from the physical notebook into a simple digital format — even a shared Google Sheet would be an upgrade</li><li>None of this requires new AI. It requires connecting what she already has.</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      },
+      david: {
+        front: '<div class="ts-flip-icon">&#9881;</div><div class="ts-flip-name">David</div><div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div><div class="ts-flip-bio"><ul><li><strong>Interface:</strong> ServiceM8, Xero, Microsoft 365, Deputy</li><li><strong>Connections:</strong> Manual — Excel spreadsheets bridge the gaps</li><li><strong>Intelligence:</strong> CRM with AI features the team doesn\'t use</li><li><strong>Knowledge:</strong> Tribal knowledge in senior staff\'s heads</li><li><strong>Infrastructure:</strong> Mix of cloud SaaS and on-prem SharePoint</li></ul></div><div class="ts-flip-cares">David\'s biggest gap is knowledge. Critical information lives in people, not systems.</div><div class="ts-flip-hint">Tap to see the opportunity →</div>',
+        back: '<div class="ts-flip-back-label">The opportunity</div><div class="ts-flip-back"><ul><li>Build a knowledge base from the SOPs scattered across SharePoint and email — this is a RAG use case</li><li>Replace the Excel bridges with proper connections between ServiceM8, Xero, and Deputy</li><li>The CRM adoption problem goes away when the knowledge and connection layers are fixed — the tool works better when it has the right data flowing in</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      }
+    };
+    function flip(id) {
+      var d = cards[id]; d.flipped = !d.flipped;
+      var el = document.getElementById('tsFlip' + id.charAt(0).toUpperCase() + id.slice(1) + 'Content');
+      el.innerHTML = d.flipped ? d.back : d.front;
+      el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
+    }
+    document.getElementById('tsFlipSarah').addEventListener('click', function() { flip('sarah'); });
+    document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
+  })();
+</script>

@@ -1,0 +1,463 @@
+<!-- ============================================================
+     AI 101 — Module 2, Section 1: Types of AI
+     Full-step embed for Wix Online Programs HTML block
+     Contains: AI type flip cards (8), scenario quiz activity
+     ============================================================ -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  /* ══════════════════════════════════════════════════════════════
+     DESIGN TOKENS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
+    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
+    --ts-purple: #8a7fff; --ts-black: #101010; --ts-white: #ffffff;
+    --ts-green: #6fcf97; --ts-red: #e57373;
+    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
+    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
+    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
+    --font-family: 'Bricolage Grotesque', sans-serif;
+    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
+    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
+    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
+    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
+    --fs-eyebrow: 0.72rem;
+    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
+    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
+    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
+    --content-max-width: 1200px;
+    --content-padding: clamp(20px, 5vw, 80px);
+    --text-measure: 720px;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     BASE
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    font-family: var(--font-family); background: var(--surface-bg);
+    color: var(--text-primary); line-height: 1.65;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    max-width: var(--content-max-width); margin: 0 auto;
+    padding: var(--space-xl) var(--content-padding); overflow-x: hidden;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     CONTENT BLOCKS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-eyebrow { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); max-width: var(--text-measure); }
+  .ts-step-title { font-size: var(--fs-step-title); font-weight: 700; line-height: 1.2; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-heading { font-size: var(--fs-heading); font-weight: 600; line-height: 1.3; margin-top: var(--space-section); margin-bottom: var(--space-sm); max-width: var(--text-measure); }
+  .ts-body { font-size: var(--fs-body); color: var(--text-secondary); margin-bottom: var(--space-md); line-height: 1.7; column-count: 2; column-gap: var(--space-lg); }
+  .ts-body strong { color: var(--text-primary); font-weight: 600; }
+  .ts-body em { color: var(--text-primary); font-style: italic; }
+  .ts-body--single { column-count: 1; max-width: var(--text-measure); }
+  .ts-body p { margin: 0 0 var(--space-sm) 0; break-inside: avoid; }
+  .ts-body p:last-child { margin-bottom: 0; }
+  .ts-divider { width: 40px; height: 2px; background: var(--border-accent); margin: var(--space-section) 0; border: none; }
+  .ts-callout { background: var(--surface-card); border-left: 3px solid var(--ts-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
+  .ts-callout p { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; margin: 0; }
+  .ts-callout strong { color: var(--text-primary); font-weight: 600; }
+  /* --- Method cards (how it works under the hood) --- */
+  .ts-method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: var(--space-md) 0; }
+  .ts-method-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-sm) var(--space-md); }
+  .ts-method-name { font-size: var(--fs-small); font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+  .ts-method-desc { font-size: var(--fs-small); color: var(--text-muted); line-height: 1.5; }
+  /* --- Capability levels (ANI/AGI/ASI) --- */
+  .ts-capability-row { display: flex; gap: 12px; margin: var(--space-md) 0; }
+  .ts-capability-card { flex: 1; background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-sm) var(--space-md); text-align: center; }
+  .ts-capability-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .ts-capability-name { font-size: var(--fs-small); font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .ts-capability-desc { font-size: 0.72rem; color: var(--text-muted); line-height: 1.4; }
+  .ts-capability-card--exists { border-color: rgba(108,142,255,0.25); }
+  .ts-capability-card--exists .ts-capability-label { color: var(--ts-blue); }
+  .ts-capability-card--future { opacity: 0.5; }
+  .ts-capability-card--future .ts-capability-label { color: var(--text-muted); }
+  /* --- Reflection --- */
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: AI Type Flip Cards (8 cards, 2x4 grid)
+     ══════════════════════════════════════════════════════════════ */
+  .ts-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: var(--space-lg) 0; }
+  .ts-type-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 22px 18px; cursor: pointer; transition: border-color var(--transition-med); min-height: 200px; display: flex; flex-direction: column; }
+  .ts-type-card:hover { border-color: rgba(255,255,255,0.15); }
+  .ts-type-content { animation: tsFadeIn 0.25s ease; display: flex; flex-direction: column; flex: 1; }
+  @keyframes tsFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .ts-type-icon { font-size: 1.4rem; margin-bottom: 8px; }
+  .ts-type-verb { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .ts-type-name { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+  .ts-type-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; flex-grow: 1; }
+  .ts-type-back-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .ts-type-examples { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; }
+  .ts-type-gb { display: flex; flex-direction: column; gap: 8px; flex-grow: 1; }
+  .ts-type-gb-row { font-size: 0.78rem; line-height: 1.45; padding: 8px 10px; border-radius: var(--radius-sm); }
+  .ts-type-gb-good { background: rgba(111,207,151,0.06); border-left: 3px solid rgba(111,207,151,0.3); color: var(--text-secondary); }
+  .ts-type-gb-good strong { color: var(--ts-green); font-weight: 700; }
+  .ts-type-gb-bad { background: rgba(229,115,115,0.04); border-left: 3px solid rgba(229,115,115,0.2); color: var(--text-secondary); }
+  .ts-type-gb-bad strong { color: var(--ts-red); font-weight: 700; }
+  .ts-type-hint { margin-top: 10px; font-size: 0.68rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.4; }
+  /* Card accent colours */
+  .ts-tc0 .ts-type-verb, .ts-tc0 .ts-type-back-label { color: var(--ts-blue); }
+  .ts-tc1 .ts-type-verb, .ts-tc1 .ts-type-back-label { color: var(--ts-light-blue); }
+  .ts-tc2 .ts-type-verb, .ts-tc2 .ts-type-back-label { color: var(--ts-pink); }
+  .ts-tc3 .ts-type-verb, .ts-tc3 .ts-type-back-label { color: var(--ts-peach); }
+  .ts-tc4 .ts-type-verb, .ts-tc4 .ts-type-back-label { color: var(--ts-blue); }
+  .ts-tc5 .ts-type-verb, .ts-tc5 .ts-type-back-label { color: var(--ts-light-blue); }
+  .ts-tc6 .ts-type-verb, .ts-tc6 .ts-type-back-label { color: var(--ts-pink); }
+  .ts-tc7 .ts-type-verb, .ts-tc7 .ts-type-back-label { color: var(--ts-peach); }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Scenario Quiz
+     ══════════════════════════════════════════════════════════════ */
+  .ts-quiz { margin: var(--space-lg) 0; max-width: 680px; }
+  .ts-quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-sm); }
+  .ts-quiz-title { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); }
+  .ts-quiz-progress { font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); }
+  .ts-quiz-progress .ts-quiz-cur { color: var(--ts-blue); }
+  .ts-quiz-bar { width: 100%; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.06); margin-bottom: var(--space-md); overflow: hidden; }
+  .ts-quiz-fill { height: 100%; border-radius: 2px; background: var(--ts-blue); transition: width 0.4s ease; }
+  .ts-quiz-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 26px 22px; animation: tsFadeIn 0.3s ease; }
+  .ts-quiz-scenario { font-size: 0.95rem; color: var(--text-primary); line-height: 1.55; margin-bottom: 20px; }
+  .ts-quiz-options { display: flex; flex-direction: column; gap: 10px; }
+  .ts-quiz-opt { width: 100%; text-align: left; padding: 14px 16px; background: var(--surface-raised); border: 1.5px solid var(--border-subtle); border-radius: 10px; cursor: pointer; font-family: var(--font-family); font-size: 0.88rem; font-weight: 600; color: var(--text-primary); transition: all var(--transition-fast); }
+  .ts-quiz-opt:hover:not(.ts-quiz-answered) { border-color: rgba(108,142,255,0.4); background: rgba(108,142,255,0.06); }
+  .ts-quiz-opt.ts-quiz-correct { border-color: var(--ts-green); background: rgba(111,207,151,0.08); color: var(--ts-green); cursor: default; }
+  .ts-quiz-opt.ts-quiz-wrong { border-color: var(--ts-red); background: rgba(229,115,115,0.06); color: var(--ts-red); opacity: 0.7; cursor: default; }
+  .ts-quiz-opt.ts-quiz-dimmed { opacity: 0.35; cursor: default; }
+  .ts-quiz-feedback { margin-top: var(--space-sm); padding: 14px 16px; border-radius: 10px; font-size: 0.84rem; line-height: 1.5; animation: tsFadeIn 0.25s ease; }
+  .ts-quiz-feedback--correct { background: rgba(111,207,151,0.06); border: 1px solid rgba(111,207,151,0.2); color: var(--ts-green); }
+  .ts-quiz-feedback--wrong { background: rgba(229,115,115,0.04); border: 1px solid rgba(229,115,115,0.15); color: var(--text-secondary); }
+  .ts-quiz-feedback strong { color: var(--text-primary); }
+  .ts-quiz-next { margin-top: 14px; width: 100%; padding: 12px; background: var(--ts-blue); border: none; border-radius: 10px; font-family: var(--font-family); font-size: 0.88rem; font-weight: 600; color: #fff; cursor: pointer; transition: background var(--transition-fast); display: none; }
+  .ts-quiz-next:hover { background: #5a7de6; }
+  .ts-quiz-next.show { display: block; animation: tsFadeIn 0.25s ease; }
+  .ts-quiz-results { text-align: center; padding: 32px 20px; animation: tsFadeIn 0.3s ease; }
+  .ts-quiz-score { font-size: 2.4rem; font-weight: 700; color: var(--ts-blue); margin-bottom: 4px; }
+  .ts-quiz-score-label { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: var(--space-md); }
+  .ts-quiz-msg { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: var(--space-md); }
+  .ts-quiz-restart { padding: 10px 28px; background: var(--surface-raised); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); font-family: var(--font-family); font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: all var(--transition-fast); }
+  .ts-quiz-restart:hover { border-color: rgba(108,142,255,0.3); color: var(--ts-blue); }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Case Study Block
+     ══════════════════════════════════════════════════════════════ */
+  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
+  .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
+  .ts-flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+  .ts-flip-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-md) 20px; cursor: pointer; transition: border-color var(--transition-med); display: flex; flex-direction: column; }
+  .ts-flip-card:hover { border-color: rgba(255,255,255,0.15); }
+  .ts-flip-content { animation: tsFadeIn 0.3s ease; display: flex; flex-direction: column; flex: 1; }
+  .ts-flip-icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .ts-flip-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+  .ts-flip-role { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; }
+  .ts-flip-bio { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px; }
+  .ts-flip-bio ul, .ts-flip-back ul { list-style: none; padding: 0; margin: 0; }
+  .ts-flip-bio ul li, .ts-flip-back ul li { padding-left: 16px; position: relative; margin-bottom: 6px; }
+  .ts-flip-bio ul li::before, .ts-flip-back ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-secondary); opacity: 0.5; }
+  .ts-flip-cares { padding: 10px 12px; border-radius: var(--radius-sm); font-size: 0.8rem; font-style: italic; color: var(--text-secondary); line-height: 1.45; }
+  .ts-flip-back-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+  .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
+  .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
+  .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
+  .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
+  .ts-flip-card--david .ts-flip-back-label { color: var(--ts-light-blue); }
+  /* ══════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .ts-step { padding: var(--space-lg) var(--space-sm); }
+    .ts-body { column-count: 1; }
+    .ts-type-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ts-type-card { min-height: 180px; padding: 18px 16px; }
+    .ts-method-grid { grid-template-columns: 1fr; }
+    .ts-capability-row { flex-direction: column; }
+    .ts-flip-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ts-flip-card { padding: 20px 16px; }
+    .ts-quiz-opt { padding: 12px 14px; font-size: 0.84rem; }
+  }
+</style>
+<!-- ══════════════════════════════════════════════════════════════
+     STEP CONTENT
+     ══════════════════════════════════════════════════════════════ -->
+<div class="ts-step">
+  <p class="ts-eyebrow">Module 2</p>
+  <h1 class="ts-step-title">Types of AI</h1>
+  <div class="ts-body">
+    <p>Not all AI does the same thing. That sounds obvious but it's the mistake
+    most businesses make first. Someone sees a competitor using AI and assumes
+    they need the same thing. A vendor pitches "AI-powered" and nobody asks
+    what that actually means.</p>
+    <p>Picking the wrong type of AI for the wrong problem is like hiring an
+    accountant to fix your plumbing. Both are skilled. One is useless for the
+    job.</p>
+  </div>
+  <p class="ts-body ts-body--single">
+    This module gives you a practical map. There's a lot of terminology flying
+    around and most of it falls into three questions: <strong>How capable is
+    it?</strong> <strong>How does it work?</strong> <strong>What does it
+    actually do?</strong>
+  </p>
+  <p class="ts-body ts-body--single">
+    The third one is where you'll spend most of your time — that's where the
+    decisions live.
+  </p>
+  <!-- ══════════════════════════════════════════════
+       How capable is it?
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">How capable is it?</h2>
+  <p class="ts-body ts-body--single">
+    Three levels. Only one exists.
+  </p>
+  <div class="ts-capability-row">
+    <div class="ts-capability-card ts-capability-card--exists">
+      <div class="ts-capability-label">ANI</div>
+      <div class="ts-capability-name">Narrow AI</div>
+      <div class="ts-capability-desc">One job, does it well. Everything on the market today.</div>
+    </div>
+    <div class="ts-capability-card ts-capability-card--future">
+      <div class="ts-capability-label">AGI</div>
+      <div class="ts-capability-name">General AI</div>
+      <div class="ts-capability-desc">Human-level reasoning across any domain. Doesn't exist yet.</div>
+    </div>
+    <div class="ts-capability-card ts-capability-card--future">
+      <div class="ts-capability-label">ASI</div>
+      <div class="ts-capability-name">Super AI</div>
+      <div class="ts-capability-desc">Surpasses humans at everything. Also doesn't exist yet.</div>
+    </div>
+  </div>
+  <div class="ts-callout">
+    <p>When anyone says "AI" they mean narrow. The gap between narrow and general
+    is enormous. Worth knowing these terms so you can spot when someone's selling
+    a vision instead of a product.</p>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       How does it work?
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">How does it work?</h2>
+  <div class="ts-body">
+    <p>Before we get into the types you'd actually choose between, a quick look
+    at what's happening underneath. You don't need to remember any of this —
+    it's here so the terminology doesn't trip you up when a vendor or a headline
+    throws it at you.</p>
+    <p>Not all AI works the same way. Some follows rules someone wrote. Some
+    learns from data. The difference matters because it changes what a tool can
+    and can't do for you.</p>
+  </div>
+  <div class="ts-method-grid">
+    <div class="ts-method-card">
+      <div class="ts-method-name">Rule-based systems</div>
+      <div class="ts-method-desc">If/then logic. No learning. Predictable, rigid. Still powers a lot of business software.</div>
+    </div>
+    <div class="ts-method-card">
+      <div class="ts-method-name">Machine learning (ML)</div>
+      <div class="ts-method-desc">Finds its own patterns from data. The more data, the better it gets. Behind most "smart" features in your tools.</div>
+    </div>
+    <div class="ts-method-card">
+      <div class="ts-method-name">Deep learning</div>
+      <div class="ts-method-desc">ML with many layers. The breakthrough that made modern AI useful. Powers image recognition, language models, voice.</div>
+    </div>
+    <div class="ts-method-card">
+      <div class="ts-method-name">Reinforcement learning</div>
+      <div class="ts-method-desc">Learns by trial and error. Reward what works, penalise what doesn't. How robotics and game-playing AI improve.</div>
+    </div>
+    <div class="ts-method-card" style="grid-column: span 2;">
+      <div class="ts-method-name">Neuro-symbolic AI</div>
+      <div class="ts-method-desc">Combines pattern recognition with logical reasoning. The emerging approach for 2026. AI that can explain why it reached an answer, not just give you one.</div>
+    </div>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       What does it actually do?
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">What does it actually do?</h2>
+  <p class="ts-body ts-body--single">
+    This is what most people mean when they talk about "types of AI." Not the
+    method — the job it does, the problem it solves. These are the types you'd
+    choose between when looking at a real business problem.
+  </p>
+  <!-- ── AI Type Flip Cards ── -->
+  <div class="ts-type-grid" id="tsTypeGrid"></div>
+  <!-- ══════════════════════════════════════════════
+       Activity: What would you reach for?
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <div class="ts-quiz" id="tsQuizApp">
+    <!-- Populated by JS -->
+  </div>
+  <!-- ══════════════════════════════════════════════
+       CASE STUDY
+       ══════════════════════════════════════════════ -->
+  <div class="ts-case-study">
+    <div class="ts-case-study-label">Case study</div>
+    <p class="ts-case-study-intro">
+      Now that you know what each type of AI does, look at what Sarah and David
+      actually need — and whether the type they're reaching for is the right one.
+    </p>
+    <div class="ts-flip-grid">
+      <div class="ts-flip-card ts-flip-card--sarah" id="tsFlipSarah">
+        <div class="ts-flip-content" id="tsFlipSarahContent">
+          <div class="ts-flip-icon">&#9986;</div>
+          <div class="ts-flip-name">Sarah</div>
+          <div class="ts-flip-role">Salon owner · 11 years</div>
+          <div class="ts-flip-bio"><ul>
+            <li>Her problem: clients drifting to a competitor with better follow-ups</li>
+            <li>Her instinct: "I need AI" (vaguely)</li>
+            <li>What she actually needs: the RPA and Generative AI already in her booking system</li>
+          </ul></div>
+          <div class="ts-flip-cares">Sarah doesn't need a new type of AI. She needs to turn on what she has.</div>
+          <div class="ts-flip-hint">Tap to see the right match →</div>
+        </div>
+      </div>
+      <div class="ts-flip-card ts-flip-card--david" id="tsFlipDavid">
+        <div class="ts-flip-content" id="tsFlipDavidContent">
+          <div class="ts-flip-icon">&#9881;</div>
+          <div class="ts-flip-name">David</div>
+          <div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div>
+          <div class="ts-flip-bio"><ul>
+            <li>His problem: the team won't adopt the AI-powered CRM</li>
+            <li>His instinct: "We need better training"</li>
+            <li>The real issue: the CRM is Predictive AI (lead scoring) but the team needs Generative AI (draft follow-ups)</li>
+          </ul></div>
+          <div class="ts-flip-cares">David bought the wrong type of AI for the problem the team actually has.</div>
+          <div class="ts-flip-hint">Tap to see the right match →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ── Reflection ── -->
+  <div class="ts-reflection">
+    <div class="ts-reflection-label">Reflection</div>
+    <p class="ts-reflection-text">
+      Pick one task you or your team spent time on last week. Which type fits
+      it best? Why that one and not the others? Be specific — name the task,
+      not "improve efficiency."
+    </p>
+  </div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── AI Type Flip Cards ── */
+  (function() {
+    var types = [
+      { icon: '&#9998;', verb: 'Creates things', name: 'Generative AI / LLMs', desc: 'Text, images, code, audio, video from a prompt. Powered by deep learning.', examples: 'ChatGPT and Claude drafting emails. Canva Magic Write turning a brief into social copy. Copilot building proposals from rough notes.', good: 'First drafts, summarising, brainstorming, translating tone or format, code generation', bad: 'Factual accuracy without review, real-time data, replacing domain expertise, legal/financial decisions' },
+      { icon: '&#128200;', verb: 'Predicts things', name: 'Predictive AI / Analytics', desc: "Analyses historical data to forecast what's likely to happen next. Powered by machine learning.", examples: 'Xero auto-categorising transactions. Shopify forecasting demand. CommBank flagging unusual spending. CRM lead scoring.', good: "Any 'what\\'s next' question with historical data. Demand forecasting, churn prediction, fraud detection", bad: "No historical data, explaining why (spots correlations not causes), new markets or products" },
+      { icon: '&#128172;', verb: 'Reads language', name: 'Natural Language Processing', desc: 'Makes machines understand, interpret, and generate human language. Powered by deep learning.', examples: 'Sentiment analysis on customer reviews. Chatbots understanding intent. Redacting personal info from legal docs.', good: 'Large volumes of text, sentiment analysis, document classification, extracting data from invoices', bad: 'Context beyond the text, sarcasm, low-resource languages, high-stakes without human review' },
+      { icon: '&#128065;', verb: 'Sees and interprets', name: 'Computer Vision', desc: 'Turns images and video into structured, usable data. Powered by deep learning.', examples: 'Self-checkout matching scanned items. Drone footage vs blueprints. Manufacturing QC spotting cracks.', good: 'Quality control at speed, security, inventory counting, any "look at this" task at scale', bad: "When context matters more than what's visible, low-volume tasks, highly variable environments" },
+      { icon: '&#9881;', verb: 'Repeats tasks', name: 'RPA (Robotic Process Automation)', desc: "Not intelligent — rule-based. Clicks, copies, pastes, moves data between systems. Often the cheapest place to start.", examples: 'Pulling data from Xero into templates. Triggering onboarding from a signed offer. Processing claims across systems.', good: 'High-volume repetitive tasks, bridging systems, reducing data entry errors, quick wins', bad: 'Anything needing judgment, frequently changing processes, unstructured inputs' },
+      { icon: '&#127919;', verb: 'Recommends things', name: 'Recommendation Systems', desc: "Predicts what you'll want based on your behaviour and similar people. Powered by ML.", examples: "Netflix and Spotify suggestions. Amazon's 'also bought.' E-commerce personalised homepages.", good: 'Cross-selling, keeping users engaged, personalising large catalogues without manual curation', bad: 'Small catalogues, new users with no history, where personalisation feels invasive' },
+      { icon: '&#129302;', verb: 'Acts on your behalf', name: 'AI Agents / Agentic AI', desc: 'You give it a goal, it figures out the steps. Uses your actual tools to take action, not just suggest.', examples: 'Intercom Fin resolving support tickets end to end. Sales agents researching prospects. Multiple agents coordinating.', good: 'Multi-step tasks needing judgment, end-to-end resolution, coordinating across tools', bad: 'Simple rule-based tasks (use RPA), anything where errors are irreversible without checks' },
+      { icon: '&#129470;', verb: 'Operates physically', name: 'Robotics / Physical AI', desc: 'AI in the physical world. Combines computer vision, reinforcement learning, and sensors.', examples: 'Warehouse picking and packing. Surgical robot assistance. Waymo robotaxis. Agricultural crop monitoring.', good: 'Dangerous, dirty, physically demanding tasks. Precision at scale. 24/7 operation', bad: 'Most small businesses (high cost), rapidly changing environments, tasks needing empathy' }
+    ];
+    var flipped = {};
+    var grid = document.getElementById('tsTypeGrid');
+    function render() {
+      grid.innerHTML = '';
+      for (var i = 0; i < types.length; i++) {
+        var t = types[i];
+        var div = document.createElement('div');
+        div.className = 'ts-type-card ts-tc' + i;
+        (function(idx) { div.addEventListener('click', function() { flipped[idx] = !flipped[idx]; render(); }); })(i);
+        var inner = document.createElement('div');
+        inner.className = 'ts-type-content';
+        if (!flipped[i]) {
+          inner.innerHTML = '<div class="ts-type-icon">' + t.icon + '</div><div class="ts-type-verb">' + t.verb + '</div><div class="ts-type-name">' + t.name + '</div><div class="ts-type-desc">' + t.desc + '</div><div class="ts-type-hint">Tap for details →</div>';
+        } else {
+          inner.innerHTML = '<div class="ts-type-back-label">' + t.verb + '</div><div class="ts-type-examples">' + t.examples + '</div><div class="ts-type-gb"><div class="ts-type-gb-row ts-type-gb-good"><strong>Good for:</strong> ' + t.good + '</div><div class="ts-type-gb-row ts-type-gb-bad"><strong>Not good for:</strong> ' + t.bad + '</div></div><div class="ts-type-hint">← Tap to flip back</div>';
+        }
+        div.appendChild(inner);
+        grid.appendChild(div);
+      }
+    }
+    render();
+  })();
+  /* ── Scenario Quiz ── */
+  (function() {
+    var scenarios = [
+      { scenario: "Your marketing person spends half their week writing first-draft social posts, email subject lines, and blog outlines. The quality is fine but the volume is killing them.", options: ["Generative AI", "Predictive AI", "RPA"], correct: 0, feedback: { right: "Generative AI handles first drafts, brainstorming, and translating a brief into multiple formats. Your person reviews and refines instead of starting from blank.", wrong: [null, "Predictive AI forecasts what's likely to happen next — it doesn't create content.", "RPA copies, clicks, and moves data between systems. It can't write anything."] } },
+      { scenario: "You want to know which of your current customers are most likely to cancel their subscription in the next 90 days so your team can intervene early.", options: ["NLP", "Predictive AI", "Generative AI"], correct: 1, feedback: { right: "Predictive AI analyses historical patterns — who cancelled before, what they looked like beforehand — and flags current customers showing the same signals.", wrong: ["NLP processes language. It could analyse what cancelling customers said, but can't forecast who's likely to leave.", null, "Generative AI creates content. It could write the retention email, but can't identify who's at risk."] } },
+      { scenario: "Your accounts team processes 200+ supplier invoices a month. Each one arrives as a PDF and someone manually types the amounts, dates, and ABNs into your system.", options: ["Computer Vision", "NLP", "RPA"], correct: 1, feedback: { right: "NLP extracts structured data from messy documents — invoices, contracts, forms. It reads the PDF and pulls out the fields you need.", wrong: ["Computer Vision works with images and video — for PDFs with text already in them, NLP is the better fit.", null, "RPA could automate the typing, but it can't read and interpret an invoice. You'd use RPA after NLP has extracted the data."] } },
+      { scenario: "A construction firm needs to compare drone footage of a building site against the original blueprints to spot where the build has deviated from the plan.", options: ["Generative AI", "Computer Vision", "Predictive AI"], correct: 1, feedback: { right: "Computer Vision turns images and video into structured data. It can compare what the drone sees against what the blueprint says should be there.", wrong: ["Generative AI creates content from prompts. It can't analyse real-world images or compare them against technical drawings.", null, "Predictive AI forecasts future outcomes. This task is about seeing what's there right now."] } },
+      { scenario: "Every time a new employee starts, someone in HR manually creates their email account, adds them to five systems, sends three welcome emails, and updates a spreadsheet. It takes 45 minutes per person.", options: ["AI Agents", "RPA", "Generative AI"], correct: 1, feedback: { right: "RPA replicates exactly what a human does on a computer — clicking, copying, entering data. No judgment needed, just the same steps every time.", wrong: ["An AI agent could handle this if decisions were involved, but this is a fixed sequence. RPA is simpler, cheaper, and more reliable.", null, "Generative AI writes content. It could draft the welcome emails, but it can't log into systems and create accounts."] } },
+      { scenario: "An e-commerce store has 4,000 products. They want each returning customer to see a homepage personalised to what they're most likely to buy next.", options: ["Recommendation Systems", "Generative AI", "NLP"], correct: 0, feedback: { right: "Recommendation systems predict what you'll want based on your behaviour and the behaviour of similar people. Personalise a large catalogue without curating it manually.", wrong: [null, "Generative AI could write product descriptions, but it doesn't know which products a specific customer wants.", "NLP understands language. Unless the personalisation is based on what customers wrote, this is a behaviour-pattern problem."] } },
+      { scenario: "A support team gets 300 tickets a day. They want AI that can read the ticket, look up the customer's account, check the refund policy, and either resolve it or escalate — without a human touching straightforward cases.", options: ["RPA", "NLP", "AI Agents"], correct: 2, feedback: { right: "This needs judgment, tool use, and multi-step reasoning — read, look up, check, decide, act. That's an agent.", wrong: ["RPA follows a fixed script. It can't read a ticket, interpret the problem, and decide whether to refund or escalate.", "NLP could read and classify the ticket, but can't then log into the account system, check the policy, and take action."] } },
+      { scenario: "A warehouse processes 10,000 orders a day. They need robots that can pick items from shelves, pack them, and load them onto conveyors — running three shifts without breaks.", options: ["AI Agents", "RPA", "Robotics / Physical AI"], correct: 2, feedback: { right: "Robotics combines computer vision, sensor data, and reinforcement learning to operate in the physical world.", wrong: ["AI agents work in digital systems. They can't pick up a box. Physical tasks need physical AI.", "RPA automates what a human does on a screen. It can't interact with the physical world."] } }
+    ];
+    var order = [], current = 0, score = 0, answered = false;
+    var appEl = document.getElementById('tsQuizApp');
+    function shuffle(arr) { var a = arr.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+    function init() { order = shuffle([0,1,2,3,4,5,6,7]); current = 0; score = 0; answered = false; renderQuiz(); }
+    function renderQuiz() {
+      if (current >= 8) {
+        var msg = score >= 7 ? "Sharp instincts. You can match the problem to the tool." : score >= 5 ? "Solid foundation. The types that tripped you up are worth a second look." : "Good start. The feedback on each scenario is where the learning lives — worth a re-run.";
+        appEl.innerHTML = '<div class="ts-quiz-results"><div class="ts-quiz-score">' + score + '/8</div><div class="ts-quiz-score-label">scenarios matched correctly</div><div class="ts-quiz-msg">' + msg + '</div><button class="ts-quiz-restart" id="tsQuizRestart">Try again (reshuffled)</button></div>';
+        document.getElementById('tsQuizRestart').addEventListener('click', init);
+        return;
+      }
+      var s = scenarios[order[current]];
+      var h = '<div class="ts-quiz-header"><span class="ts-quiz-title">What would you reach for?</span><span class="ts-quiz-progress"><span class="ts-quiz-cur">' + (current + 1) + '</span> / 8</span></div>';
+      h += '<div class="ts-quiz-bar"><div class="ts-quiz-fill" style="width:' + ((current / 8) * 100) + '%"></div></div>';
+      h += '<div class="ts-quiz-card"><div class="ts-quiz-scenario">' + s.scenario + '</div><div class="ts-quiz-options">';
+      for (var i = 0; i < s.options.length; i++) { h += '<button class="ts-quiz-opt" data-idx="' + i + '">' + s.options[i] + '</button>'; }
+      h += '</div><div id="tsQuizFeedback"></div><button class="ts-quiz-next" id="tsQuizNext">Next →</button></div>';
+      appEl.innerHTML = h;
+      answered = false;
+      var opts = appEl.querySelectorAll('.ts-quiz-opt');
+      opts.forEach(function(btn) { btn.addEventListener('click', function() { pick(parseInt(this.getAttribute('data-idx'))); }); });
+      document.getElementById('tsQuizNext').addEventListener('click', function() { current++; renderQuiz(); });
+    }
+    function pick(idx) {
+      if (answered) return;
+      answered = true;
+      var s = scenarios[order[current]];
+      var isCorrect = idx === s.correct;
+      if (isCorrect) score++;
+      var opts = appEl.querySelectorAll('.ts-quiz-opt');
+      opts.forEach(function(btn, i) {
+        btn.classList.add('ts-quiz-answered');
+        if (i === s.correct) btn.classList.add('ts-quiz-correct');
+        else if (i === idx && !isCorrect) btn.classList.add('ts-quiz-wrong');
+        else btn.classList.add('ts-quiz-dimmed');
+      });
+      var fb = document.getElementById('tsQuizFeedback');
+      if (isCorrect) {
+        fb.innerHTML = '<div class="ts-quiz-feedback ts-quiz-feedback--correct">' + s.feedback.right + '</div>';
+      } else {
+        fb.innerHTML = '<div class="ts-quiz-feedback ts-quiz-feedback--wrong">' + s.feedback.wrong[idx] + '<br><br><strong>The answer: ' + s.options[s.correct] + '.</strong> ' + s.feedback.right + '</div>';
+      }
+      document.getElementById('tsQuizNext').classList.add('show');
+    }
+    init();
+  })();
+  /* ── Flip Cards ── */
+  (function() {
+    var cards = {
+      sarah: {
+        front: '<div class="ts-flip-icon">&#9986;</div><div class="ts-flip-name">Sarah</div><div class="ts-flip-role">Salon owner · 11 years</div><div class="ts-flip-bio"><ul><li>Her problem: clients drifting to a competitor with better follow-ups</li><li>Her instinct: "I need AI" (vaguely)</li><li>What she actually needs: the RPA and Generative AI already in her booking system</li></ul></div><div class="ts-flip-cares">Sarah doesn\'t need a new type of AI. She needs to turn on what she has.</div><div class="ts-flip-hint">Tap to see the right match →</div>',
+        back: '<div class="ts-flip-back-label">The right match</div><div class="ts-flip-back"><ul><li><strong>RPA:</strong> auto-send confirmations and reminders (already built in)</li><li><strong>Generative AI:</strong> draft personalised follow-up messages (the "suggested reply" button)</li><li><strong>Not needed:</strong> Predictive AI, Computer Vision, AI Agents — all overkill for this problem</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      },
+      david: {
+        front: '<div class="ts-flip-icon">&#9881;</div><div class="ts-flip-name">David</div><div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div><div class="ts-flip-bio"><ul><li>His problem: the team won\'t adopt the AI-powered CRM</li><li>His instinct: "We need better training"</li><li>The real issue: the CRM is Predictive AI (lead scoring) but the team needs Generative AI (draft follow-ups)</li></ul></div><div class="ts-flip-cares">David bought the wrong type of AI for the problem the team actually has.</div><div class="ts-flip-hint">Tap to see the right match →</div>',
+        back: '<div class="ts-flip-back-label">The right match</div><div class="ts-flip-back"><ul><li><strong>What he bought:</strong> Predictive AI (lead scoring — tells the team who to call)</li><li><strong>What the team needs:</strong> Generative AI (help them write the email once they know who to call)</li><li><strong>The fix:</strong> add a Generative AI layer on top, or find a CRM that has both built in</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      }
+    };
+    function flip(id) {
+      var d = cards[id];
+      d.flipped = !d.flipped;
+      var el = document.getElementById('tsFlip' + id.charAt(0).toUpperCase() + id.slice(1) + 'Content');
+      el.innerHTML = d.flipped ? d.back : d.front;
+      el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
+    }
+    document.getElementById('tsFlipSarah').addEventListener('click', function() { flip('sarah'); });
+    document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
+  })();
+</script>

@@ -1,0 +1,407 @@
+<!-- ============================================================
+     AI 101 — Module 3, Section 1: What Happens When You Press Send
+     Full-step embed for Wix Online Programs HTML block
+     Contains: animated token flow SVG diagram, case study flips
+     ============================================================ -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  /* ══════════════════════════════════════════════════════════════
+     DESIGN TOKENS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
+    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
+    --ts-purple: #8a7fff; --ts-black: #101010; --ts-white: #ffffff;
+    --ts-green: #6fcf97; --ts-red: #e57373;
+    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
+    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
+    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
+    --font-family: 'Bricolage Grotesque', sans-serif;
+    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
+    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
+    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
+    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
+    --fs-eyebrow: 0.72rem;
+    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
+    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
+    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
+    --content-max-width: 1200px;
+    --content-padding: clamp(20px, 5vw, 80px);
+    --text-measure: 720px;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     BASE
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    font-family: var(--font-family); background: var(--surface-bg);
+    color: var(--text-primary); line-height: 1.65;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    max-width: var(--content-max-width); margin: 0 auto;
+    padding: var(--space-xl) var(--content-padding); overflow-x: hidden;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     CONTENT BLOCKS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-eyebrow { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); max-width: var(--text-measure); }
+  .ts-step-title { font-size: var(--fs-step-title); font-weight: 700; line-height: 1.2; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-heading { font-size: var(--fs-heading); font-weight: 600; line-height: 1.3; margin-top: var(--space-section); margin-bottom: var(--space-sm); max-width: var(--text-measure); }
+  .ts-body { font-size: var(--fs-body); color: var(--text-secondary); margin-bottom: var(--space-md); line-height: 1.7; column-count: 2; column-gap: var(--space-lg); }
+  .ts-body strong { color: var(--text-primary); font-weight: 600; }
+  .ts-body em { color: var(--text-primary); font-style: italic; }
+  .ts-body--single { column-count: 1; max-width: var(--text-measure); }
+  .ts-body p { margin: 0 0 var(--space-sm) 0; break-inside: avoid; }
+  .ts-body p:last-child { margin-bottom: 0; }
+  .ts-divider { width: 40px; height: 2px; background: var(--border-accent); margin: var(--space-section) 0; border: none; }
+  .ts-callout { background: var(--surface-card); border-left: 3px solid var(--ts-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
+  .ts-callout p { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; margin: 0; }
+  .ts-callout strong { color: var(--text-primary); font-weight: 600; }
+  /* --- Numbered section heading --- */
+  .ts-num-heading { display: flex; align-items: baseline; gap: 12px; margin-top: var(--space-section); margin-bottom: var(--space-sm); max-width: var(--text-measure); }
+  .ts-num-heading-num { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; line-height: 1; opacity: 0.15; }
+  .ts-num-heading-title { font-size: var(--fs-heading); font-weight: 600; line-height: 1.3; }
+  /* --- Try-this prompt (activity inline with text) --- */
+  .ts-try-this { background: rgba(108,142,255,0.04); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
+  .ts-try-this-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-try-this-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; }
+  /* --- Reflection --- */
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Token Flow Diagram (animated SVG)
+     ══════════════════════════════════════════════════════════════ */
+  .ts-flow { margin: var(--space-lg) auto; max-width: 540px; }
+  .ts-flow-svg { width: 100%; height: auto; display: block; }
+  @keyframes tsModelPulse {
+    0%, 100% { r: 52; opacity: 0.08; }
+    50% { r: 60; opacity: 0.16; }
+  }
+  .ts-model-glow { animation: tsModelPulse 2s ease-in-out infinite; }
+  @keyframes tsLoopDash {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -24; }
+  }
+  .ts-loop-path { animation: tsLoopDash 1.5s linear infinite; }
+  @keyframes tsOutputType {
+    0%, 20% { opacity: 0; }
+    30%, 80% { opacity: 1; }
+    90%, 100% { opacity: 0; }
+  }
+  .ts-ow1 { animation: tsOutputType 6s ease-in-out infinite; }
+  .ts-ow2 { animation: tsOutputType 6s ease-in-out infinite 1s; }
+  .ts-ow3 { animation: tsOutputType 6s ease-in-out infinite 2s; }
+  .ts-ow4 { animation: tsOutputType 6s ease-in-out infinite 3s; }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Why It Works cards (three reasons)
+     ══════════════════════════════════════════════════════════════ */
+  .ts-reason-grid { display: flex; flex-direction: column; gap: 12px; margin: var(--space-md) 0; }
+  .ts-reason-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: var(--space-md); display: flex; gap: var(--space-sm); align-items: flex-start; }
+  .ts-reason-num { font-size: 1.4rem; font-weight: 700; opacity: 0.2; flex-shrink: 0; width: 32px; }
+  .ts-reason-content { flex: 1; }
+  .ts-reason-name { font-size: var(--fs-body); font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .ts-reason-desc { font-size: var(--fs-small); color: var(--text-secondary); line-height: 1.6; }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Case Study Block
+     ══════════════════════════════════════════════════════════════ */
+  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
+  .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
+  .ts-flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+  .ts-flip-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-md) 20px; cursor: pointer; transition: border-color var(--transition-med); display: flex; flex-direction: column; }
+  .ts-flip-card:hover { border-color: rgba(255,255,255,0.15); }
+  .ts-flip-content { animation: tsFadeIn 0.3s ease; display: flex; flex-direction: column; flex: 1; }
+  @keyframes tsFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .ts-flip-icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .ts-flip-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+  .ts-flip-role { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; }
+  .ts-flip-bio { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px; }
+  .ts-flip-bio ul, .ts-flip-back ul { list-style: none; padding: 0; margin: 0; }
+  .ts-flip-bio ul li, .ts-flip-back ul li { padding-left: 16px; position: relative; margin-bottom: 6px; }
+  .ts-flip-bio ul li::before, .ts-flip-back ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-secondary); opacity: 0.5; }
+  .ts-flip-cares { padding: 10px 12px; border-radius: var(--radius-sm); font-size: 0.8rem; font-style: italic; color: var(--text-secondary); line-height: 1.45; }
+  .ts-flip-back-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+  .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
+  .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
+  .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
+  .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
+  .ts-flip-card--david .ts-flip-back-label { color: var(--ts-light-blue); }
+  /* ══════════════════════════════════════════════════════════════
+     RESPONSIVE
+     ══════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .ts-step { padding: var(--space-lg) var(--space-sm); }
+    .ts-body { column-count: 1; }
+    .ts-flow { padding: 0; }
+    .ts-flip-grid { grid-template-columns: 1fr; gap: 12px; }
+    .ts-flip-card { padding: 20px 16px; }
+  }
+</style>
+<!-- ══════════════════════════════════════════════════════════════
+     STEP CONTENT
+     ══════════════════════════════════════════════════════════════ -->
+<div class="ts-step">
+  <p class="ts-eyebrow">Module 3</p>
+  <h1 class="ts-step-title">What Happens When You Press Send</h1>
+  <p class="ts-body ts-body--single">
+    You type "Write me a follow-up email for a client who hasn't replied in two
+    weeks" into ChatGPT. Three seconds later, a perfectly structured email
+    appears. Knowing what happened in those three seconds changes how you use
+    every AI tool from here on.
+  </p>
+  <!-- ── Animated Token Flow Diagram ── -->
+  <div class="ts-flow">
+    <svg class="ts-flow-svg" viewBox="0 0 460 820" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <path id="tsP1" d="M 230 130 L 230 210" fill="none"/>
+        <path id="tsP2" d="M 230 310 L 230 390" fill="none"/>
+        <path id="tsP3" d="M 230 530 L 230 610" fill="none"/>
+        <path id="tsLoop" d="M 380 680 C 420 580, 420 480, 370 460" fill="none"/>
+      </defs>
+      <!-- STAGE 1: YOU -->
+      <circle cx="230" cy="55" r="30" fill="rgba(108,142,255,0.12)" stroke="rgba(108,142,255,0.3)" stroke-width="2"/>
+      <circle cx="230" cy="46" r="10" fill="#6c8eff"/>
+      <path d="M215 65 a15 11 0 0 1 30 0" fill="#6c8eff" opacity="0.7"/>
+      <text x="230" y="105" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="700" letter-spacing="3">YOU</text>
+      <rect x="95" y="118" width="270" height="28" rx="8" fill="rgba(108,142,255,0.08)" stroke="rgba(108,142,255,0.2)" stroke-width="1.5"/>
+      <text x="230" y="137" text-anchor="middle" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="13" opacity="0.7">"Write me a follow-up email..."</text>
+      <line x1="230" y1="150" x2="230" y2="210" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+      <!-- Word particles -->
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0s"/><rect x="-26" y="-12" width="52" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">Write</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0.7s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0.7s"/><rect x="-18" y="-12" width="36" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">me</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="1.4s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="1.4s"/><rect x="-14" y="-12" width="28" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">a</text></g>
+      <!-- STAGE 2: TOKENISER -->
+      <rect x="145" y="215" width="170" height="80" rx="16" fill="rgba(255,183,144,0.06)" stroke="rgba(255,183,144,0.25)" stroke-width="2"/>
+      <text x="230" y="250" text-anchor="middle" fill="#ffb790" font-family="'Bricolage Grotesque',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">TOKENISER</text>
+      <text x="230" y="275" text-anchor="middle" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="13" opacity="0.4">words &#8594; tokens</text>
+      <line x1="230" y1="300" x2="230" y2="390" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+      <!-- Token particles -->
+      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0s"/><rect x="-16" y="-11" width="32" height="22" rx="5" fill="rgba(255,166,180,0.25)" stroke="rgba(255,166,180,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#ffa6b4" font-family="'Bricolage Grotesque',sans-serif" font-size="12" font-weight="600">foll</text></g>
+      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0.45s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0.45s"/><rect x="-14" y="-11" width="28" height="22" rx="5" fill="rgba(108,142,255,0.25)" stroke="rgba(108,142,255,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="12" font-weight="600">ow</text></g>
+      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0.9s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0.9s"/><rect x="-10" y="-11" width="20" height="22" rx="5" fill="rgba(255,183,144,0.25)" stroke="rgba(255,183,144,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#ffb790" font-family="'Bricolage Grotesque',sans-serif" font-size="12" font-weight="600">-</text></g>
+      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="1.35s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="1.35s"/><rect x="-14" y="-11" width="28" height="22" rx="5" fill="rgba(108,142,255,0.25)" stroke="rgba(108,142,255,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="12" font-weight="600">up</text></g>
+      <!-- STAGE 3: MODEL -->
+      <circle class="ts-model-glow" cx="230" cy="460" r="52" fill="#6c8eff"/>
+      <circle cx="230" cy="460" r="48" fill="#1a1a1a" stroke="rgba(108,142,255,0.35)" stroke-width="2"/>
+      <circle cx="216" cy="444" r="4.5" fill="rgba(108,142,255,0.5)"/><circle cx="240" cy="438" r="3.5" fill="rgba(255,166,180,0.5)"/><circle cx="254" cy="458" r="4.5" fill="rgba(108,142,255,0.5)"/><circle cx="236" cy="478" r="3.5" fill="rgba(255,183,144,0.5)"/><circle cx="212" cy="468" r="3.5" fill="rgba(158,204,255,0.5)"/><circle cx="248" cy="476" r="3" fill="rgba(108,142,255,0.35)"/>
+      <line x1="216" y1="444" x2="240" y2="438" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="240" y1="438" x2="254" y2="458" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="254" y1="458" x2="236" y2="478" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="236" y1="478" x2="212" y2="468" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="212" y1="468" x2="216" y2="444" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="216" y1="444" x2="254" y2="458" stroke="rgba(108,142,255,0.1)" stroke-width="0.8"/><line x1="240" y1="438" x2="236" y2="478" stroke="rgba(108,142,255,0.1)" stroke-width="0.8"/>
+      <text x="230" y="528" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">MODEL</text>
+      <line x1="230" y1="540" x2="230" y2="620" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
+      <!-- Prediction particles -->
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0s"/><rect x="-28" y="-12" width="56" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">Subject</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0.7s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0.7s"/><rect x="-10" y="-12" width="20" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">:</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="1.4s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="1.4s"/><rect x="-34" y="-12" width="68" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">Following</text></g>
+      <!-- STAGE 4: OUTPUT -->
+      <rect x="140" y="625" width="180" height="100" rx="16" fill="rgba(111,207,151,0.04)" stroke="rgba(111,207,151,0.2)" stroke-width="1.5"/>
+      <text class="ts-ow1" x="158" y="656" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="600" opacity="0">Subject:</text>
+      <text class="ts-ow2" x="238" y="656" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="14" opacity="0">Following</text>
+      <text class="ts-ow3" x="158" y="680" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="14" opacity="0">up - quick check-in</text>
+      <text class="ts-ow4" x="158" y="704" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="14" opacity="0">Hi [Name],</text>
+      <text x="230" y="748" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">OUTPUT</text>
+      <!-- LOOP -->
+      <path class="ts-loop-path" d="M 380 680 C 420 580, 420 480, 370 460" fill="none" stroke="rgba(108,142,255,0.35)" stroke-width="2" stroke-dasharray="6,5"/>
+      <polygon points="370,460 378,468 374,454" fill="rgba(108,142,255,0.5)"/>
+      <g opacity="0"><animateMotion dur="2.5s" repeatCount="indefinite" begin="0s"><mpath href="#tsLoop"/></animateMotion><animate attributeName="opacity" values="0;0.8;0.8;0" keyTimes="0;0.1;0.8;1" dur="2.5s" repeatCount="indefinite" begin="0s"/><circle r="5" fill="#6c8eff" opacity="0.6"/></g>
+      <g opacity="0"><animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s"><mpath href="#tsLoop"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.1;0.8;1" dur="2.5s" repeatCount="indefinite" begin="1.2s"/><circle r="4" fill="#6c8eff" opacity="0.4"/></g>
+      <text x="420" y="570" text-anchor="start" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="11" font-weight="600" opacity="0.4">each token</text>
+      <text x="420" y="586" text-anchor="start" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="11" font-weight="600" opacity="0.4">feeds back</text>
+      <text x="420" y="602" text-anchor="start" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="11" font-weight="600" opacity="0.4">into the model</text>
+    </svg>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       Your words become tokens
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">Your words become tokens</h2>
+  <div class="ts-body">
+    <p>AI doesn't read words the way you do. The first thing it does is break
+    your message into chunks called tokens — somewhere between letters and whole
+    words. "Don't" becomes two tokens. "The" is one. "Entrepreneurial" might be
+    three.</p>
+    <p>One token is roughly three-quarters of a word in English. A 1,000-word
+    document is about 1,300 tokens. This matters because tokens are how AI
+    measures everything — the length of your question, the length of the answer,
+    and what you get charged for. When a response cuts off mid-sentence, it hit
+    a token limit.</p>
+  </div>
+  <div class="ts-try-this">
+    <div class="ts-try-this-label">Try this</div>
+    <div class="ts-try-this-text">Ask ChatGPT or Claude "How many tokens is this message?" with a short sentence, then a long paragraph. You'll see the difference immediately.</div>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       The model predicts the next token
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">The model predicts the next token. One at a time.</h2>
+  <div class="ts-body">
+    <p>The AI doesn't read your prompt and plan a response. No outline, no
+    draft, no "I know what email this person needs." It does one thing: looks at
+    all the tokens so far and calculates which token is most likely to come next.
+    Not which is correct. Not which is best. Which is most probable, based on
+    patterns from training.</p>
+    <p>Every token in its vocabulary — tens of thousands of them — gets a
+    probability score. "Subject" might score high (emails often start there).
+    "Dear" scores high too. "Banana" scores near zero. It picks from the top.
+    Now it has your original prompt plus "Subject". Same question: what's most
+    likely next? ":" scores high. Picked.</p>
+  </div>
+  <div class="ts-callout" style="border-left-color: var(--ts-peach);">
+    <p><strong>Every word you've ever received from an AI tool was chosen this
+    way.</strong> Token by token. Each one the highest-probability next piece
+    given everything before it.</p>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       It sees everything behind it
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">It sees everything behind it. Nothing ahead.</h2>
+  <div class="ts-body">
+    <p>Each time the model picks a token, it can see your full prompt plus every
+    token of the response it's already written — all at once, all weighed
+    against each other simultaneously. That's the engineering breakthrough that
+    made modern AI work. Older AI read left to right and lost track of the start
+    by the time it reached the end. Current models hold the full picture at
+    every step.</p>
+    <p>But the model hasn't planned what comes next. When it's writing token 50,
+    token 51 doesn't exist yet. The email you're reading was never drafted as a
+    whole — it emerged one prediction at a time, each informed by everything
+    before it, with no blueprint for what follows.</p>
+  </div>
+  <div class="ts-callout">
+    <p>Watch the text appear in ChatGPT or Claude next time you use it. That's
+    not a typing animation. Each word lands because the model just decided it
+    was the most probable next token.</p>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       Why this works far better than autocomplete
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">Why this works far better than autocomplete</h2>
+  <p class="ts-body ts-body--single">
+    "Predicting the next word" sounds like it should produce garbage. Your phone
+    does the same thing and the results are usually useless. Three things make
+    AI different:
+  </p>
+  <div class="ts-reason-grid">
+    <div class="ts-reason-card">
+      <div class="ts-reason-num" style="color: var(--ts-blue);">1</div>
+      <div class="ts-reason-content">
+        <div class="ts-reason-name">Training at scale</div>
+        <div class="ts-reason-desc">These models processed billions of pages of text. At that volume, the patterns go far beyond word associations. The model learned how professional emails are structured, how arguments build, how a follow-up differs from a cold outreach. The patterns run deep enough that prediction produces genuinely useful output — even though no "understanding" is happening underneath.</div>
+      </div>
+    </div>
+    <div class="ts-reason-card">
+      <div class="ts-reason-num" style="color: var(--ts-pink);">2</div>
+      <div class="ts-reason-content">
+        <div class="ts-reason-name">Human feedback</div>
+        <div class="ts-reason-desc">After training, humans rated thousands of AI responses — this one's helpful, this one's not, this one's harmful — and the model was tuned to favour the kind of output people actually wanted. That's why it answers your question instead of continuing your text like a paragraph generator.</div>
+      </div>
+    </div>
+    <div class="ts-reason-card">
+      <div class="ts-reason-num" style="color: var(--ts-peach);">3</div>
+      <div class="ts-reason-content">
+        <div class="ts-reason-name">Reasoning (in newer models)</div>
+        <div class="ts-reason-desc">The latest versions of Claude, ChatGPT, and Gemini can generate a chain of internal reasoning tokens before the response you see — working through the problem step by step. Still next-token prediction, but now the model is predicting against its own working-out, not just your prompt. Better scratch paper, better output.</div>
+      </div>
+    </div>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       What this means for you
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">What this means for you</h2>
+  <div class="ts-body">
+    <p>Every AI tool you use runs on this same mechanic. You're not talking to
+    something that knows things. You're working with something that is
+    extraordinarily good at predicting what a helpful response looks like —
+    based on patterns, feedback, and context.</p>
+    <p>Most of the time, that prediction is right. When it's not, it's wrong
+    with total confidence. Understanding this single fact will save you from
+    the two biggest mistakes people make with AI: trusting it completely, or
+    dismissing it entirely.</p>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       CASE STUDY
+       ══════════════════════════════════════════════ -->
+  <div class="ts-case-study">
+    <div class="ts-case-study-label">Case study</div>
+    <p class="ts-case-study-intro">
+      Understanding how AI generates responses changes what Sarah and David
+      expect from it — and how they check its work.
+    </p>
+    <div class="ts-flip-grid">
+      <div class="ts-flip-card ts-flip-card--sarah" id="tsFlipSarah">
+        <div class="ts-flip-content" id="tsFlipSarahContent">
+          <div class="ts-flip-icon">&#9986;</div>
+          <div class="ts-flip-name">Sarah</div>
+          <div class="ts-flip-role">Salon owner · 11 years</div>
+          <div class="ts-flip-bio"><ul>
+            <li>Used the "suggested reply" button in her booking app</li>
+            <li>The reply sounded perfect — professional, warm, specific</li>
+            <li>It also included a service she doesn't offer</li>
+          </ul></div>
+          <div class="ts-flip-cares">The AI predicted what a good salon reply looks like. It didn't check her actual menu.</div>
+          <div class="ts-flip-hint">Tap to see why this matters →</div>
+        </div>
+      </div>
+      <div class="ts-flip-card ts-flip-card--david" id="tsFlipDavid">
+        <div class="ts-flip-content" id="tsFlipDavidContent">
+          <div class="ts-flip-icon">&#9881;</div>
+          <div class="ts-flip-name">David</div>
+          <div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div>
+          <div class="ts-flip-bio"><ul>
+            <li>Asked Claude to draft a business case for the founders</li>
+            <li>The structure was excellent — executive summary, costs, timeline, risks</li>
+            <li>The cost figures were plausible but completely made up</li>
+          </ul></div>
+          <div class="ts-flip-cares">The AI predicted what a convincing business case looks like. It didn't have his actual numbers.</div>
+          <div class="ts-flip-hint">Tap to see why this matters →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ── Reflection ── -->
+  <div class="ts-reflection">
+    <div class="ts-reflection-label">Reflection</div>
+    <p class="ts-reflection-text">
+      Next time you get a response from an AI tool, watch the text appear word
+      by word. Now you know what's happening: each word is the model's best
+      guess at what should come next. Where might that guess be confidently
+      wrong in your line of work?
+    </p>
+  </div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── Flip Cards ── */
+  (function() {
+    var cards = {
+      sarah: {
+        front: '<div class="ts-flip-icon">&#9986;</div><div class="ts-flip-name">Sarah</div><div class="ts-flip-role">Salon owner · 11 years</div><div class="ts-flip-bio"><ul><li>Used the "suggested reply" button in her booking app</li><li>The reply sounded perfect — professional, warm, specific</li><li>It also included a service she doesn\'t offer</li></ul></div><div class="ts-flip-cares">The AI predicted what a good salon reply looks like. It didn\'t check her actual menu.</div><div class="ts-flip-hint">Tap to see why this matters →</div>',
+        back: '<div class="ts-flip-back-label">Why this matters</div><div class="ts-flip-back"><ul><li>The reply was token-by-token prediction of "what a salon follow-up looks like"</li><li>It was right about tone, structure, and warmth</li><li>It was wrong about a factual detail — because facts aren\'t how it works</li><li>Sarah now reads AI suggestions before sending. Takes 10 seconds. Catches the errors.</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      },
+      david: {
+        front: '<div class="ts-flip-icon">&#9881;</div><div class="ts-flip-name">David</div><div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div><div class="ts-flip-bio"><ul><li>Asked Claude to draft a business case for the founders</li><li>The structure was excellent — executive summary, costs, timeline, risks</li><li>The cost figures were plausible but completely made up</li></ul></div><div class="ts-flip-cares">The AI predicted what a convincing business case looks like. It didn\'t have his actual numbers.</div><div class="ts-flip-hint">Tap to see why this matters →</div>',
+        back: '<div class="ts-flip-back-label">Why this matters</div><div class="ts-flip-back"><ul><li>David now uses AI for structure and framing, not for data</li><li>He feeds it his actual numbers and asks it to build the case around them</li><li>The output is better because the prediction has real facts to anchor to</li><li>The lesson: AI is best when you give it the truth and ask for the format, not the other way around</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      }
+    };
+    function flip(id) {
+      var d = cards[id];
+      d.flipped = !d.flipped;
+      var el = document.getElementById('tsFlip' + id.charAt(0).toUpperCase() + id.slice(1) + 'Content');
+      el.innerHTML = d.flipped ? d.back : d.front;
+      el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
+    }
+    document.getElementById('tsFlipSarah').addEventListener('click', function() { flip('sarah'); });
+    document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
+  })();
+</script>

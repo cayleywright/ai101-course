@@ -1,0 +1,1057 @@
+<!-- ============================================================
+     AI 101 — Module 1, Section 1: The AI Moment
+     Full-step embed for Wix Online Programs HTML block
+     Contains: slider, headlines carousel, case study flip cards
+
+     REUSABLE DESIGN SYSTEM
+     All colours, fonts, spacing, and component styles are
+     controlled via CSS custom properties on .ts-step.
+     To create a new step: copy this file, keep everything
+     above "STEP CONTENT STARTS HERE", replace the content
+     inside <div class="ts-step">.
+
+     RESPONSIVE: single breakpoint at 768px
+     FONT: Bricolage Grotesque via Google Fonts
+     BACKGROUND: #101010
+     ============================================================ -->
+<style>
+  /* ── Google Font ── */
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap');
+  /* ── Reset ── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  /* ══════════════════════════════════════════════════════════════
+     DESIGN TOKENS
+     Copy this entire block into every step embed unchanged.
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    /* --- Brand palette --- */
+    --ts-blue: #6c8eff;
+    --ts-light-blue: #9eccff;
+    --ts-pink: #ffa6b4;
+    --ts-peach: #ffb790;
+    --ts-black: #101010;
+    --ts-white: #ffffff;
+    /* --- Surface colours --- */
+    --surface-bg: #101010;
+    --surface-card: #1a1a1a;
+    --surface-raised: #222222;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(108, 142, 255, 0.2);
+    /* --- Text colours --- */
+    --text-primary: #f0f0f0;
+    --text-secondary: rgba(240, 240, 240, 0.6);
+    --text-muted: rgba(240, 240, 240, 0.4);
+    /* --- Typography scale --- */
+    --font-family: 'Bricolage Grotesque', sans-serif;
+    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
+    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
+    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
+    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
+    --fs-eyebrow: 0.72rem;
+    /* --- Spacing scale --- */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 40px;
+    --space-xl: 56px;
+    --space-section: 48px;
+    /* --- Component tokens --- */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 14px;
+    --transition-fast: 0.2s ease;
+    --transition-med: 0.35s ease;
+    /* --- Layout --- */
+    --content-max-width: 1200px;
+    --content-padding: clamp(20px, 5vw, 80px);
+    --text-measure: 720px;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     BASE CONTAINER
+     ══════════════════════════════════════════════════════════════ */
+  .ts-step {
+    font-family: var(--font-family);
+    background: var(--surface-bg);
+    color: var(--text-primary);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: var(--space-xl) var(--content-padding);
+    overflow-x: hidden;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     CONTENT BLOCKS — reusable across all steps
+     ══════════════════════════════════════════════════════════════ */
+  /* --- Eyebrow --- */
+  .ts-eyebrow {
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ts-blue);
+    margin-bottom: var(--space-xs);
+    max-width: var(--text-measure);
+  }
+  /* --- Step title --- */
+  .ts-step-title {
+    font-size: var(--fs-step-title);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+    max-width: var(--text-measure);
+  }
+  /* --- Section heading --- */
+  .ts-heading {
+    font-size: var(--fs-heading);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-top: var(--space-section);
+    margin-bottom: var(--space-sm);
+    max-width: var(--text-measure);
+  }
+  /* --- Body text --- */
+  .ts-body {
+    font-size: var(--fs-body);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+    column-count: 2;
+    column-gap: var(--space-lg);
+    max-width: none;
+  }
+  .ts-body strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  /* Single-column body variant for short text that
+     shouldn't split across columns */
+  .ts-body--single {
+    column-count: 1;
+    max-width: var(--text-measure);
+  }
+  /* Paragraph spacing inside two-column div blocks */
+  .ts-body p {
+    margin: 0 0 var(--space-sm) 0;
+    break-inside: avoid;
+  }
+  .ts-body p:last-child {
+    margin-bottom: 0;
+  }
+  /* --- Divider --- */
+  .ts-divider {
+    width: 40px;
+    height: 2px;
+    background: var(--border-accent);
+    margin: var(--space-section) 0;
+    border: none;
+  }
+  /* --- Narrative pair --- */
+  .ts-narrative-pair {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin: var(--space-md) 0;
+    max-width: var(--text-measure);
+  }
+  .ts-narrative {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    transition: border-color var(--transition-fast);
+  }
+  .ts-narrative:hover {
+    border-color: var(--border-accent);
+  }
+  .ts-narrative-label {
+    font-size: var(--fs-small);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .ts-narrative-text {
+    font-size: var(--fs-body);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  /* --- Evidence items --- */
+  .ts-evidence {
+    margin: var(--space-md) 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ts-evidence-item {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 14px var(--space-md);
+    font-size: var(--fs-body);
+    color: var(--text-secondary);
+    line-height: 1.55;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+  }
+  .ts-evidence-item:hover {
+    border-color: var(--border-accent);
+    transform: translateX(4px);
+  }
+  .ts-evidence-item strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  /* --- Reflection prompt --- */
+  .ts-reflection {
+    background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    margin: var(--space-section) 0 var(--space-md);
+    max-width: var(--text-measure);
+  }
+  .ts-reflection-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ts-blue);
+    margin-bottom: var(--space-xs);
+  }
+  .ts-reflection-text {
+    font-size: var(--fs-body);
+    color: var(--text-secondary);
+    line-height: 1.65;
+    font-style: italic;
+  }
+  /* --- Case study block (standardised, peach/orange accent)
+         Place at the bottom of every step before the reflection --- */
+  .ts-case-study {
+    background: rgba(255, 183, 144, 0.04);
+    border: 1px solid rgba(255, 183, 144, 0.15);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-md) var(--space-sm);
+    margin: var(--space-section) 0 var(--space-md);
+  }
+  .ts-case-study-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ts-peach);
+    margin-bottom: var(--space-sm);
+  }
+  .ts-case-study-intro {
+    font-size: var(--fs-body);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+    max-width: var(--text-measure);
+  }
+  .ts-case-study-intro strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Fear/Hype Slider
+     ══════════════════════════════════════════════════════════════ */
+  .ts-slider-block {
+    margin: var(--space-lg) 0;
+    padding: var(--space-md) 0;
+  }
+  .ts-slider-prompt {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+    text-align: center;
+  }
+  .ts-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 0 2px;
+  }
+  .ts-slider-end {
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+  .ts-slider-end--fear { color: var(--ts-pink); }
+  .ts-slider-end--hype { color: var(--ts-peach); }
+  .ts-slider-track {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    margin-bottom: 8px;
+  }
+  .ts-slider-track input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(to right, var(--ts-pink), var(--ts-blue) 50%, var(--ts-peach));
+  }
+  .ts-slider-track input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--text-primary);
+    border: 3px solid var(--ts-blue);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    cursor: grab;
+    transition: border-color var(--transition-fast);
+  }
+  .ts-slider-track input[type="range"]:active::-webkit-slider-thumb {
+    cursor: grabbing;
+  }
+  .ts-slider-track input[type="range"]::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--text-primary);
+    border: 3px solid var(--ts-blue);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    cursor: grab;
+  }
+  .ts-slider-track input[type="range"]::-moz-range-track {
+    height: 6px;
+    border-radius: 3px;
+    border: none;
+    background: linear-gradient(to right, var(--ts-pink), var(--ts-blue) 50%, var(--ts-peach));
+  }
+  .ts-slider-marker {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    margin-bottom: var(--space-sm);
+  }
+  .ts-slider-marker-inner {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ts-slider-marker-line {
+    width: 1px;
+    height: 10px;
+    background: rgba(108, 142, 255, 0.4);
+  }
+  .ts-slider-marker-label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--ts-blue);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .ts-slider-response {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 18px var(--space-md);
+    text-align: center;
+    min-height: 72px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: border-color var(--transition-med);
+  }
+  .ts-slider-response-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    transition: color var(--transition-med);
+  }
+  .ts-slider-response-text {
+    font-size: var(--fs-small);
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Headlines Carousel
+     ══════════════════════════════════════════════════════════════ */
+  .ts-carousel {
+    margin: var(--space-lg) 0;
+  }
+  .ts-carousel-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .ts-carousel-counter {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .ts-carousel-counter .ts-cur {
+    color: var(--ts-blue);
+    font-weight: 700;
+  }
+  .ts-carousel-dots {
+    display: flex;
+    gap: 6px;
+  }
+  .ts-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .ts-dot.on {
+    background: var(--ts-blue);
+    width: 20px;
+    border-radius: 4px;
+  }
+  .ts-carousel-track {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+  .ts-slide {
+    display: none;
+    animation: tsFadeSlide 0.35s ease;
+  }
+  .ts-slide.on { display: block; }
+  @keyframes tsFadeSlide {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* Headline card */
+  .ts-hl-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 28px 26px;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .ts-hl-tag {
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--ts-blue);
+    margin-bottom: 12px;
+  }
+  .ts-hl-title {
+    font-size: clamp(1.15rem, 3vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+  .ts-hl-context {
+    font-size: var(--fs-body);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+  .ts-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ts-pill {
+    background: rgba(108, 142, 255, 0.08);
+    border: 1px solid rgba(108, 142, 255, 0.18);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .ts-pill-num {
+    color: var(--ts-blue);
+    font-weight: 700;
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 1px;
+  }
+  .ts-pill-lbl {
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  /* Carousel accent variants */
+  .ts-accent-pink .ts-hl-tag { color: var(--ts-pink); }
+  .ts-accent-pink .ts-pill { background: rgba(255,166,180,0.08); border-color: rgba(255,166,180,0.18); }
+  .ts-accent-pink .ts-pill-num { color: var(--ts-pink); }
+  .ts-accent-peach .ts-hl-tag { color: var(--ts-peach); }
+  .ts-accent-peach .ts-pill { background: rgba(255,183,144,0.08); border-color: rgba(255,183,144,0.18); }
+  .ts-accent-peach .ts-pill-num { color: var(--ts-peach); }
+  .ts-accent-lb .ts-hl-tag { color: var(--ts-light-blue); }
+  .ts-accent-lb .ts-pill { background: rgba(158,204,255,0.08); border-color: rgba(158,204,255,0.18); }
+  .ts-accent-lb .ts-pill-num { color: var(--ts-light-blue); }
+  /* Carousel reflection slide */
+  .ts-hl-ref {
+    background: var(--surface-card);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-lg);
+    padding: 28px 26px;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .ts-hl-ref h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ts-blue);
+    margin-bottom: var(--space-sm);
+  }
+  .ts-hl-ref p {
+    font-size: var(--fs-body);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .ts-hl-ref p:last-child { margin-bottom: 0; }
+  /* Carousel nav */
+  .ts-carousel-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+  }
+  .ts-carousel-btn {
+    background: var(--surface-raised);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    padding: 9px 18px;
+    font-family: var(--font-family);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+  .ts-carousel-btn:hover {
+    background: rgba(108, 142, 255, 0.1);
+    color: var(--ts-blue);
+    border-color: rgba(108, 142, 255, 0.25);
+  }
+  .ts-carousel-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+  .ts-carousel-btn:disabled:hover {
+    background: var(--surface-raised);
+    color: var(--text-secondary);
+    border-color: var(--border-subtle);
+  }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Case Study Flip Cards
+     ══════════════════════════════════════════════════════════════ */
+  .ts-flip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    margin: var(--space-md) 0;
+  }
+  .ts-flip-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) 20px;
+    cursor: pointer;
+    transition: border-color var(--transition-med);
+    display: flex;
+    flex-direction: column;
+  }
+  .ts-flip-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+  }
+  .ts-flip-content {
+    animation: tsFadeIn 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  @keyframes tsFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .ts-flip-icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .ts-flip-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .ts-flip-role {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+  .ts-flip-bio {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .ts-flip-bio ul, .ts-flip-back ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .ts-flip-bio ul li, .ts-flip-back ul li {
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 6px;
+  }
+  .ts-flip-bio ul li::before, .ts-flip-back ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+    opacity: 0.5;
+  }
+  .ts-flip-cares {
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+  .ts-flip-back-label {
+    font-size: var(--fs-eyebrow);
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .ts-flip-back {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .ts-flip-hint {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0.45;
+    margin-top: auto;
+    padding-top: 12px;
+  }
+  /* Card persona colours */
+  .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
+  .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
+  .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
+  .ts-flip-card--david .ts-flip-back-label { color: var(--ts-light-blue); }
+  /* ══════════════════════════════════════════════════════════════
+     RESPONSIVE — single breakpoint
+     ══════════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .ts-step {
+      padding: var(--space-lg) var(--space-sm);
+    }
+    .ts-body {
+      column-count: 1;
+    }
+    .ts-evidence-item:hover {
+      transform: none;
+    }
+    .ts-hl-card, .ts-hl-ref {
+      padding: 22px 18px;
+      min-height: 200px;
+    }
+    .ts-hl-title { font-size: 1.15rem; }
+    .ts-pill {
+      padding: 5px 10px;
+      font-size: 0.74rem;
+    }
+    .ts-pill-num { font-size: 0.9rem; }
+    .ts-flip-grid {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .ts-flip-card {
+      padding: 20px 16px;
+    }
+  }
+</style>
+<!-- ══════════════════════════════════════════════════════════════
+     STEP CONTENT STARTS HERE
+     ══════════════════════════════════════════════════════════════ -->
+<div class="ts-step">
+  <!-- ── Step title ── -->
+  <p class="ts-eyebrow">Module 1</p>
+  <h1 class="ts-step-title">Everyone's Talking, Nobody's Doing</h1>
+  <div class="ts-body">
+    <p>There's a lot of noise around AI right now. Depending on who you listen to,
+    it's either about to replace half the workforce or solve every problem your
+    business has ever had. Neither of those is particularly useful when you're
+    just trying to get through the week.</p>
+    <p>This course is about cutting through that. By the end you'll have a clear
+    picture of what's actually going on, what matters for your context, and what
+    you can safely ignore.</p>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       SECTION: What are you hearing?
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">What are you hearing?</h2>
+  <p class="ts-body ts-body--single">
+    There are two stories running right now, and most of what you read falls
+    into one of them.
+  </p>
+  <!-- ── Interactive: Fear/Hype slider ── -->
+  <div class="ts-slider-block">
+    <p class="ts-slider-prompt">Where does your head sit right now? Drag the slider.</p>
+    <div class="ts-slider-labels">
+      <span class="ts-slider-end ts-slider-end--fear">Fear</span>
+      <span class="ts-slider-end ts-slider-end--hype">Hype</span>
+    </div>
+    <div class="ts-slider-track">
+      <input type="range" id="tsSlider" min="0" max="100" value="50">
+    </div>
+    <div class="ts-slider-marker">
+      <div class="ts-slider-marker-inner">
+        <div class="ts-slider-marker-line"></div>
+        <span class="ts-slider-marker-label">&#9650; where most businesses sit</span>
+      </div>
+    </div>
+    <div class="ts-slider-response" id="tsSliderResponse">
+      <div class="ts-slider-response-label" id="tsSliderLabel">The middle</div>
+      <div class="ts-slider-response-text" id="tsSliderText">
+        Aware something is shifting. Not yet sure what to do about it.
+        That's a reasonable place to be.
+      </div>
+    </div>
+  </div>
+  <!-- ── The two narratives ── -->
+  <div class="ts-narrative-pair">
+    <div class="ts-narrative">
+      <div class="ts-narrative-label" style="color: var(--ts-pink);">AI is going to replace us</div>
+      <p class="ts-narrative-text">
+        Jobs are disappearing, entire teams are being restructured, and if
+        you're not already using it you're behind.
+      </p>
+    </div>
+    <div class="ts-narrative">
+      <div class="ts-narrative-label" style="color: var(--ts-peach);">AI is a magic solution</div>
+      <p class="ts-narrative-text">
+        Just subscribe, just plug it in, just click the button and watch
+        everything get better.
+      </p>
+    </div>
+  </div>
+  <div class="ts-body">
+    <p>Both contain some truth, which is what makes them tricky. Lean too far into
+    the first and you either freeze or spend money out of panic. Lean into the
+    second and you buy tools you don't understand from people selling confidence.</p>
+    <p>Most businesses are somewhere in the middle — aware something is shifting,
+    not yet sure what to do about it. That's a reasonable place to be.</p>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       SECTION: What's real?
+       ══════════════════════════════════════════════ -->
+  <hr class="ts-divider">
+  <h2 class="ts-heading">What's real?</h2>
+  <div class="ts-body">
+    <p>The shifts everyone talks about in big tech are already showing up closer
+    to home. Accounting firms, trades businesses, salons, property management
+    companies — anywhere people do repetitive work with digital tools, something
+    is changing.</p>
+    <p>A sole trader can now produce marketing that looks like it came from an
+    agency. A three-person accounting firm can process work that used to need
+    ten. A local manufacturer can forecast demand using the same AI that powers
+    global supply chains.</p>
+    <p>The question isn't whether AI is relevant to your business. It's which
+    parts of your business it's already relevant to — and whether you've
+    noticed yet.</p>
+  </div>
+  <p class="ts-body ts-body--single" style="margin-bottom: var(--space-sm);">
+    <strong>These aren't hypotheticals.</strong> Swipe through what's happened already:
+  </p>
+  <!-- ── Interactive: Headlines carousel ── -->
+  <div class="ts-carousel" id="tsCarousel">
+    <div class="ts-carousel-progress">
+      <span class="ts-carousel-counter"><span class="ts-cur" id="tsCur">1</span> / 8</span>
+      <div class="ts-carousel-dots" id="tsDots"></div>
+    </div>
+    <div class="ts-carousel-track" id="tsTrack">
+      <!-- 1: Block -->
+      <div class="ts-slide on">
+        <div class="ts-hl-card">
+          <div>
+            <div class="ts-hl-tag">Block</div>
+            <h2 class="ts-hl-title">Cuts 40% of workforce</h2>
+            <p class="ts-hl-context">The payments company replaced a significant chunk of its staff with AI systems, calling it a permanent structural change rather than a layoff round.</p>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill"><span class="ts-pill-num">40%</span><span class="ts-pill-lbl">workforce cut</span></div>
+            <div class="ts-pill"><span class="ts-pill-num">Permanent</span><span class="ts-pill-lbl">structural change</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- 2: Chegg -->
+      <div class="ts-slide">
+        <div class="ts-hl-card ts-accent-pink">
+          <div>
+            <div class="ts-hl-tag">Chegg</div>
+            <h2 class="ts-hl-title">Loses 99% of market value</h2>
+            <p class="ts-hl-context">The homework help platform went from a $12B company to near-worthless after students switched to ChatGPT. The product didn't break — the market moved around it.</p>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill"><span class="ts-pill-num">$12B → ~$0</span><span class="ts-pill-lbl">market cap</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- 3: Shopify -->
+      <div class="ts-slide">
+        <div class="ts-hl-card ts-accent-peach">
+          <div>
+            <div class="ts-hl-tag">Shopify</div>
+            <h2 class="ts-hl-title">"Prove AI can't do it" hiring rule</h2>
+            <p class="ts-hl-context">CEO Tobi Lutke told all teams that before requesting a new hire, they need to demonstrate the task can't be done by AI first. Hiring is now the last option, not the first.</p>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill"><span class="ts-pill-num">Zero</span><span class="ts-pill-lbl">hires without AI justification</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- 4: Global -->
+      <div class="ts-slide">
+        <div class="ts-hl-card ts-accent-lb">
+          <div>
+            <div class="ts-hl-tag">Global</div>
+            <h2 class="ts-hl-title">80,000 tech jobs cut in Q1 2026</h2>
+            <p class="ts-hl-context">Not a single company event. A trend across the industry, from startups to enterprise.</p>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill"><span class="ts-pill-num">80,000</span><span class="ts-pill-lbl">jobs, three months</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- 5: Australia -->
+      <div class="ts-slide">
+        <div class="ts-hl-card">
+          <div>
+            <div class="ts-hl-tag">Australia</div>
+            <h2 class="ts-hl-title">Sydney ranks third globally for tech job losses</h2>
+            <p class="ts-hl-context">WiseTech cut 2,000. Atlassian cut 1,600. Telstra cut 650. This isn't somewhere else's problem.</p>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill"><span class="ts-pill-num">2,000</span><span class="ts-pill-lbl">WiseTech</span></div>
+            <div class="ts-pill"><span class="ts-pill-num">1,600</span><span class="ts-pill-lbl">Atlassian</span></div>
+            <div class="ts-pill"><span class="ts-pill-num">650</span><span class="ts-pill-lbl">Telstra</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- 6: Klarna -->
+      <div class="ts-slide">
+        <div class="ts-hl-card ts-accent-pink">
+          <div>
+            <div class="ts-hl-tag">Klarna</div>
+            <h2 class="ts-hl-title">Replaces 700 support agents</h2>
+            <p class="ts-hl-context">The buy-now-pay-later company replaced the equivalent of 700 full-time customer service agents with an AI assistant handling two-thirds of all inquiries within the first month.</p>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill"><span class="ts-pill-num">700</span><span class="ts-pill-lbl">agents replaced</span></div>
+            <div class="ts-pill"><span class="ts-pill-num">66%</span><span class="ts-pill-lbl">inquiries handled by AI</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- 7: Duolingo -->
+      <div class="ts-slide">
+        <div class="ts-hl-card ts-accent-peach">
+          <div>
+            <div class="ts-hl-tag">Duolingo</div>
+            <h2 class="ts-hl-title">Drops contractors for AI</h2>
+            <p class="ts-hl-context">The language learning app cut a large portion of its contract translators and content creators, shifting that work to AI generation with human review.</p>
+          </div>
+          <div class="ts-pills">
+            <div class="ts-pill"><span class="ts-pill-num">AI + review</span><span class="ts-pill-lbl">replaces contract workforce</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- 8: Reflection -->
+      <div class="ts-slide">
+        <div class="ts-hl-ref">
+          <h3>These aren't predictions.</h3>
+          <p>Every one of these already happened. Most of them in the last six months.</p>
+          <p>Which of these felt like news to you — and which had you already heard about?</p>
+        </div>
+      </div>
+    </div>
+    <div class="ts-carousel-nav">
+      <button class="ts-carousel-btn" id="tsPrev" disabled>&#8592; Prev</button>
+      <button class="ts-carousel-btn" id="tsNext">Next &#8594;</button>
+    </div>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       CASE STUDY — standardised block, every step
+       ══════════════════════════════════════════════ -->
+  <div class="ts-case-study">
+    <div class="ts-case-study-label">Case study</div>
+    <p class="ts-case-study-intro">
+      Throughout this course you'll follow <strong>Sarah</strong> and
+      <strong>David</strong>. They're in very different businesses with very
+      different problems, but both are trying to figure out the same thing:
+      what does AI actually mean for how they work?
+    </p>
+    <!-- ── Interactive: Flip cards ── -->
+    <div class="ts-flip-grid">
+      <!-- Sarah -->
+      <div class="ts-flip-card ts-flip-card--sarah" id="tsFlipSarah">
+        <div class="ts-flip-content" id="tsFlipSarahContent">
+          <div class="ts-flip-icon">&#9986;</div>
+          <div class="ts-flip-name">Sarah</div>
+          <div class="ts-flip-role">Salon owner · 11 years</div>
+          <div class="ts-flip-bio"><ul><li>Great with people, not spreadsheets</li><li>AI won't change how she cuts hair</li><li>But it's already in the tools she uses daily</li></ul></div>
+          <div class="ts-flip-cares">Cares about: full bookings, happy clients, less admin.</div>
+          <div class="ts-flip-hint">Tap to see what changed →</div>
+        </div>
+      </div>
+      <!-- David -->
+      <div class="ts-flip-card ts-flip-card--david" id="tsFlipDavid">
+        <div class="ts-flip-content" id="tsFlipDavidContent">
+          <div class="ts-flip-icon">&#9881;</div>
+          <div class="ts-flip-name">David</div>
+          <div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div>
+          <div class="ts-flip-bio"><ul><li>Technical — reads whitepapers, tried the tools</li><li>Awareness isn't the problem</li><li>Needs to turn what he knows into a plan the founders will act on</li></ul></div>
+          <div class="ts-flip-cares">Cares about: proving ROI before spending real money.</div>
+          <div class="ts-flip-hint">Tap to see what changed →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       Reflection
+       ══════════════════════════════════════════════ -->
+  <div class="ts-reflection">
+    <div class="ts-reflection-label">Reflection</div>
+    <p class="ts-reflection-text">
+      Think about the last month. Have you noticed any AI features appearing
+      in tools you already use? A new button, a suggested action, an
+      "AI assistant" you didn't ask for?
+    </p>
+  </div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+  /* ── Fear/Hype Slider ── */
+  (function() {
+    var slider = document.getElementById('tsSlider');
+    var label = document.getElementById('tsSliderLabel');
+    var text = document.getElementById('tsSliderText');
+    var card = document.getElementById('tsSliderResponse');
+    var zones = [
+      { max: 20, label: 'Deep in the fear', text: "Freezing or panic-buying. Every headline feels like a countdown. The risk here is doing nothing — or doing everything at once.", colour: '#ffa6b4' },
+      { max: 40, label: 'Leaning cautious', text: "The headlines have your attention. You're wary of overspending but worried about falling behind. That tension is useful — if you channel it.", colour: '#d49adb' },
+      { max: 60, label: 'The middle', text: "Aware something is shifting. Not yet sure what to do about it. That's a reasonable place to be.", colour: '#6c8eff' },
+      { max: 80, label: 'Leaning optimistic', text: "You see the potential. The danger is buying the pitch before understanding the problem. Enthusiasm is good — aim it carefully.", colour: '#dda888' },
+      { max: 100, label: 'All in on the promise', text: "Every new tool looks like the answer. The risk is spending on things that sound right but don't fit. Confidence without clarity is expensive.", colour: '#ffb790' }
+    ];
+    function update() {
+      var val = parseInt(slider.value);
+      var zone = zones.find(function(z) { return val <= z.max; });
+      label.textContent = zone.label;
+      label.style.color = zone.colour;
+      text.textContent = zone.text;
+      card.style.borderColor = zone.colour + '30';
+    }
+    slider.addEventListener('input', update);
+    update();
+  })();
+  /* ── Headlines Carousel ── */
+  (function() {
+    var slides = document.querySelectorAll('#tsTrack .ts-slide');
+    var total = slides.length;
+    var dotsEl = document.getElementById('tsDots');
+    var curEl = document.getElementById('tsCur');
+    var prevBtn = document.getElementById('tsPrev');
+    var nextBtn = document.getElementById('tsNext');
+    var track = document.getElementById('tsTrack');
+    var i = 0;
+    /* Build dots */
+    for (var d = 0; d < total; d++) {
+      var dot = document.createElement('div');
+      dot.className = 'ts-dot' + (d === 0 ? ' on' : '');
+      (function(idx) {
+        dot.addEventListener('click', function() { go(idx); });
+      })(d);
+      dotsEl.appendChild(dot);
+    }
+    var dots = dotsEl.querySelectorAll('.ts-dot');
+    function go(n) {
+      if (n < 0 || n >= total) return;
+      slides[i].classList.remove('on');
+      dots[i].classList.remove('on');
+      i = n;
+      slides[i].classList.add('on');
+      dots[i].classList.add('on');
+      curEl.textContent = i + 1;
+      prevBtn.disabled = (i === 0);
+      nextBtn.disabled = (i === total - 1);
+    }
+    prevBtn.addEventListener('click', function() { go(i - 1); });
+    nextBtn.addEventListener('click', function() { go(i + 1); });
+    /* Swipe support */
+    var sx = 0, sy = 0;
+    track.addEventListener('touchstart', function(e) {
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+    }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      var dx = e.changedTouches[0].clientX - sx;
+      var dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        dx < 0 ? go(i + 1) : go(i - 1);
+      }
+    }, { passive: true });
+  })();
+  /* ── Flip Cards ── */
+  (function() {
+    var cards = {
+      sarah: {
+        front: '<div class="ts-flip-icon">&#9986;</div><div class="ts-flip-name">Sarah</div><div class="ts-flip-role">Salon owner · 11 years</div><div class="ts-flip-bio"><ul><li>Great with people, not spreadsheets</li><li>AI won\'t change how she cuts hair</li><li>But it\'s already in the tools she uses daily</li></ul></div><div class="ts-flip-cares">Cares about: full bookings, happy clients, less admin.</div><div class="ts-flip-hint">Tap to see what changed →</div>',
+        back: '<div class="ts-flip-back-label">What changed for Sarah</div><div class="ts-flip-back"><ul><li>Her booking app added an "AI-suggested reply" button</li><li>She ignored it</li><li>Then a client mentioned a competitor sending personalised follow-ups after every appointment</li><li>Sarah hadn\'t changed anything — something changed around her</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      },
+      david: {
+        front: '<div class="ts-flip-icon">&#9881;</div><div class="ts-flip-name">David</div><div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div><div class="ts-flip-bio"><ul><li>Technical — reads whitepapers, tried the tools</li><li>Awareness isn\'t the problem</li><li>Needs to turn what he knows into a plan the founders will act on</li></ul></div><div class="ts-flip-cares">Cares about: proving ROI before spending real money.</div><div class="ts-flip-hint">Tap to see what changed →</div>',
+        back: '<div class="ts-flip-back-label">What changed for David</div><div class="ts-flip-back"><ul><li>Founders have asked "what should we do about AI?" for months</li><li>Three clients asked him the same thing in a fortnight</li><li>He doesn\'t have a bad answer</li><li>He just doesn\'t have a sharp one — backed by numbers, with a plan</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      }
+    };
+    function flip(id) {
+      var d = cards[id];
+      d.flipped = !d.flipped;
+      var el = document.getElementById('tsFlip' + id.charAt(0).toUpperCase() + id.slice(1) + 'Content');
+      el.innerHTML = d.flipped ? d.back : d.front;
+      el.style.animation = 'none';
+      el.offsetHeight;
+      el.style.animation = '';
+    }
+    document.getElementById('tsFlipSarah').addEventListener('click', function() { flip('sarah'); });
+    document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
+  })();
+</script>

@@ -1,0 +1,379 @@
+<!-- ============================================================
+     AI 101 — Module 4, Section 1: The Knowledge Gap
+     Layout: side-by-side (text left, visual right)
+     Contains: memory diagram, case study flips
+     ============================================================ -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  .ts-step {
+    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
+    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
+    --ts-black: #101010; --ts-white: #ffffff;
+    --ts-green: #6fcf97; --ts-red: #e57373;
+    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
+    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
+    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
+    --font-family: 'Bricolage Grotesque', sans-serif;
+    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
+    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
+    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
+    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
+    --fs-eyebrow: 0.72rem;
+    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
+    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
+    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
+    --content-max-width: 1200px;
+    --content-padding: clamp(20px, 5vw, 80px);
+    --text-measure: 720px;
+  }
+  .ts-step { font-family: var(--font-family); background: var(--surface-bg); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; max-width: var(--content-max-width); margin: 0 auto; padding: var(--space-xl) var(--content-padding); overflow-x: hidden; }
+  .ts-eyebrow { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-step-title { font-size: var(--fs-step-title); font-weight: 700; line-height: 1.2; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-lg); max-width: var(--text-measure); }
+  .ts-intro strong { color: var(--text-primary); font-weight: 600; }
+  .ts-heading { font-size: var(--fs-heading); font-weight: 600; line-height: 1.3; margin-bottom: var(--space-sm); max-width: var(--text-measure); }
+  .ts-divider { width: 100%; height: 1px; background: var(--border-subtle); margin: var(--space-section) 0; border: none; }
+  .ts-callout { background: var(--surface-card); border-left: 3px solid var(--ts-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
+  .ts-callout p { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; margin: 0; }
+  .ts-callout strong { color: var(--text-primary); font-weight: 600; }
+  .ts-try-this { background: rgba(108,142,255,0.04); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
+  .ts-try-this-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-try-this-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; }
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
+  .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
+  /* ── Side-by-side layout ── */
+  .ts-split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); align-items: start; margin: var(--space-md) 0 var(--space-section); }
+  .ts-split-text { padding-top: 4px; }
+  .ts-split-text p { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-sm); }
+  .ts-split-text p:last-child { margin-bottom: 0; }
+  .ts-split-text strong { color: var(--text-primary); font-weight: 600; }
+  .ts-split-text em { color: var(--text-primary); font-style: italic; }
+  /* ══════════════════════════════════════════════════════════════
+     COMPONENT: Conversation replay visual
+     Shows messages re-read every turn, then clearing
+     ══════════════════════════════════════════════════════════════ */
+  .ts-replay-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    overflow: hidden;
+  }
+  .ts-replay-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+  .ts-replay-msgs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: var(--space-sm);
+  }
+  .ts-replay-msg {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-small);
+    line-height: 1.4;
+    max-width: 85%;
+  }
+  .ts-replay-msg--user {
+    background: rgba(108,142,255,0.12);
+    border: 1px solid rgba(108,142,255,0.2);
+    color: var(--ts-blue);
+    align-self: flex-end;
+  }
+  .ts-replay-msg--ai {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
+    align-self: flex-start;
+  }
+  .ts-replay-msg--faded {
+    opacity: 0.7;
+  }
+  .ts-replay-arrow {
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    padding: 6px 0;
+    letter-spacing: 1px;
+  }
+  .ts-replay-note {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-align: center;
+    font-style: italic;
+    padding-top: 4px;
+    border-top: 1px solid var(--border-subtle);
+  }
+  /* ── Knowledge gap visual ── */
+  .ts-gap-card {
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+  }
+  .ts-gap-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ts-gap-layer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-small);
+    font-weight: 600;
+    transition: all var(--transition-fast);
+  }
+  .ts-gap-layer-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+  }
+  .ts-gap-layer-text { flex: 1; }
+  .ts-gap-layer-status {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .ts-gap-layer--exists {
+    background: rgba(111,207,151,0.06);
+    border: 1px solid rgba(111,207,151,0.15);
+    color: var(--text-secondary);
+  }
+  .ts-gap-layer--exists .ts-gap-layer-status { color: var(--ts-green); }
+  .ts-gap-layer--partial {
+    background: rgba(255,183,144,0.06);
+    border: 1px solid rgba(255,183,144,0.15);
+    color: var(--text-secondary);
+  }
+  .ts-gap-layer--partial .ts-gap-layer-status { color: var(--ts-peach); }
+  .ts-gap-layer--missing {
+    background: rgba(255,166,180,0.06);
+    border: 1px solid rgba(255,166,180,0.15);
+    color: var(--text-secondary);
+  }
+  .ts-gap-layer--missing .ts-gap-layer-status { color: var(--ts-pink); }
+  /* ══════════════════════════════════════════════════════════════
+     CASE STUDY + FLIP CARDS
+     ══════════════════════════════════════════════════════════════ */
+  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
+  .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
+  .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
+  .ts-flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
+  .ts-flip-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-md) 20px; cursor: pointer; transition: border-color var(--transition-med); display: flex; flex-direction: column; }
+  .ts-flip-card:hover { border-color: rgba(255,255,255,0.15); }
+  .ts-flip-content { animation: tsFadeIn 0.3s ease; display: flex; flex-direction: column; flex: 1; }
+  @keyframes tsFadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .ts-flip-icon { font-size: 1.5rem; margin-bottom: 10px; }
+  .ts-flip-name { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+  .ts-flip-role { font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; }
+  .ts-flip-bio { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.55; margin-bottom: 14px; }
+  .ts-flip-bio ul, .ts-flip-back ul { list-style: none; padding: 0; margin: 0; }
+  .ts-flip-bio ul li, .ts-flip-back ul li { padding-left: 16px; position: relative; margin-bottom: 6px; }
+  .ts-flip-bio ul li::before, .ts-flip-back ul li::before { content: ''; position: absolute; left: 0; top: 8px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-secondary); opacity: 0.5; }
+  .ts-flip-cares { padding: 10px 12px; border-radius: var(--radius-sm); font-size: 0.8rem; font-style: italic; color: var(--text-secondary); line-height: 1.45; }
+  .ts-flip-back-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+  .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
+  .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
+  .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
+  .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
+  .ts-flip-card--david .ts-flip-back-label { color: var(--ts-light-blue); }
+  @media (max-width: 768px) {
+    .ts-step { padding: var(--space-lg) var(--space-sm); }
+    .ts-split { grid-template-columns: 1fr; gap: var(--space-md); }
+    .ts-flip-grid { grid-template-columns: 1fr; gap: 12px; }
+  }
+</style>
+<div class="ts-step">
+  <p class="ts-eyebrow">Module 4</p>
+  <h1 class="ts-step-title">The Knowledge Gap</h1>
+  <p class="ts-intro">
+    Every AI tool you've used so far knows nothing about your business. Your
+    products, your clients, your processes, your pricing — none of it. This
+    section explains why, and what you can do about it.
+  </p>
+  <!-- ══════════════════════════════════════════════
+       Every turn is a full re-read
+       ══════════════════════════════════════════════ -->
+  <h2 class="ts-heading">Every turn is a full re-read</h2>
+  <div class="ts-split">
+    <div class="ts-split-text">
+      <p>As discussed earlier: every time you send a message, the model re-reads
+      the entire conversation from scratch. Your first message, its reply, your
+      second message, its reply — all of it, fed back in, every single time.</p>
+      <p>There's no accumulating understanding. No relationship building over a
+      conversation. Each response is a fresh prediction based on a full re-read.
+      The impression of a flowing conversation is an illusion created by the
+      model seeing the transcript.</p>
+      <p><strong>Practically:</strong> instructions from early in a long thread
+      carry less weight than something you just said. Important context should be
+      restated, not assumed. If the AI starts ignoring what you told it twenty
+      messages ago, this is why.</p>
+    </div>
+    <div class="ts-split-visual">
+      <div class="ts-replay-card">
+        <div class="ts-replay-label">What happens every turn</div>
+        <div class="ts-replay-msgs">
+          <div class="ts-replay-msg ts-replay-msg--user ts-replay-msg--faded">Write me a follow-up email</div>
+          <div class="ts-replay-msg ts-replay-msg--ai ts-replay-msg--faded">Subject: Following up...</div>
+          <div class="ts-replay-msg ts-replay-msg--user ts-replay-msg--faded">Make it more casual</div>
+          <div class="ts-replay-msg ts-replay-msg--ai ts-replay-msg--faded">Hey! Just checking in...</div>
+          <div class="ts-replay-msg ts-replay-msg--user">Add a specific call to action</div>
+        </div>
+        <div class="ts-replay-arrow">↑ entire transcript re-read ↑</div>
+        <div class="ts-replay-msg ts-replay-msg--ai" style="margin-top: 8px;">Hey! Just checking in... Are you free for a 15-min call Thursday?</div>
+        <div class="ts-replay-note">The model doesn't remember the conversation. It re-reads it.</div>
+      </div>
+    </div>
+  </div>
+  <hr class="ts-divider">
+  <!-- ══════════════════════════════════════════════
+       The knowledge gap
+       ══════════════════════════════════════════════ -->
+  <h2 class="ts-heading">Close the chat, the context clears</h2>
+  <div class="ts-split">
+    <div class="ts-split-text">
+      <p>Close the chat, the context window clears. Next session starts empty.</p>
+      <p>The platforms are starting to fix the basics. Claude, ChatGPT, and
+      Gemini now have cross-session memory — the AI remembers facts about you
+      between conversations. Your name, your role, your preferences. But it's a
+      summary layer, not deep knowledge. Basic and improving fast.</p>
+      <p>The bigger gap: <strong>AI doesn't know your business.</strong> Your
+      products, your policies, your clients, your processes. That's not a memory
+      problem — that's a customisation problem. And there's a spectrum of ways
+      to solve it, from free and instant to expensive and slow.</p>
+    </div>
+    <div class="ts-split-visual">
+      <div class="ts-gap-card">
+        <div class="ts-replay-label">What AI knows about you</div>
+        <div class="ts-gap-layers">
+          <div class="ts-gap-layer ts-gap-layer--exists">
+            <div class="ts-gap-layer-icon">&#127760;</div>
+            <div class="ts-gap-layer-text">General knowledge (training data)</div>
+            <div class="ts-gap-layer-status">Built in</div>
+          </div>
+          <div class="ts-gap-layer ts-gap-layer--partial">
+            <div class="ts-gap-layer-icon">&#128100;</div>
+            <div class="ts-gap-layer-text">Your name, role, preferences</div>
+            <div class="ts-gap-layer-status">Basic</div>
+          </div>
+          <div class="ts-gap-layer ts-gap-layer--missing">
+            <div class="ts-gap-layer-icon">&#128188;</div>
+            <div class="ts-gap-layer-text">Your products and services</div>
+            <div class="ts-gap-layer-status">Missing</div>
+          </div>
+          <div class="ts-gap-layer ts-gap-layer--missing">
+            <div class="ts-gap-layer-icon">&#128196;</div>
+            <div class="ts-gap-layer-text">Your policies and processes</div>
+            <div class="ts-gap-layer-status">Missing</div>
+          </div>
+          <div class="ts-gap-layer ts-gap-layer--missing">
+            <div class="ts-gap-layer-icon">&#128101;</div>
+            <div class="ts-gap-layer-text">Your clients and their history</div>
+            <div class="ts-gap-layer-status">Missing</div>
+          </div>
+          <div class="ts-gap-layer ts-gap-layer--missing">
+            <div class="ts-gap-layer-icon">&#128176;</div>
+            <div class="ts-gap-layer-text">Your pricing and commercial terms</div>
+            <div class="ts-gap-layer-status">Missing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ts-try-this">
+    <div class="ts-try-this-label">Try this</div>
+    <div class="ts-try-this-text">Start a new conversation in your main AI tool. Ask it something specific about your work — your product names, your pricing, your team structure. The blank stare you get back is exactly the problem the rest of this module solves.</div>
+  </div>
+  <!-- ══════════════════════════════════════════════
+       CASE STUDY
+       ══════════════════════════════════════════════ -->
+  <div class="ts-case-study">
+    <div class="ts-case-study-label">Case study</div>
+    <p class="ts-case-study-intro">
+      The knowledge gap doesn't just mean AI gives vague answers. It means AI
+      gives <strong>confidently wrong</strong> answers scaled to the wrong
+      business.
+    </p>
+    <div class="ts-flip-grid">
+      <div class="ts-flip-card ts-flip-card--sarah" id="tsFlipSarah">
+        <div class="ts-flip-content" id="tsFlipSarahContent">
+          <div class="ts-flip-icon">&#9986;</div>
+          <div class="ts-flip-name">Sarah</div>
+          <div class="ts-flip-role">The knowledge gap</div>
+          <div class="ts-flip-bio"><ul>
+            <li>Asked AI to recommend accounting software</li>
+            <li>Got Xero Premium, MYOB Business, QuickBooks Advanced</li>
+            <li>Packages built for businesses with employees, payroll, multi-entity reporting</li>
+          </ul></div>
+          <div class="ts-flip-cares">She nearly signed up for $80/month. A $12/month sole trader plan does everything she needs.</div>
+          <div class="ts-flip-hint">Tap to see why →</div>
+        </div>
+      </div>
+      <div class="ts-flip-card ts-flip-card--david" id="tsFlipDavid">
+        <div class="ts-flip-content" id="tsFlipDavidContent">
+          <div class="ts-flip-icon">&#9881;</div>
+          <div class="ts-flip-name">David</div>
+          <div class="ts-flip-role">The knowledge gap</div>
+          <div class="ts-flip-bio"><ul>
+            <li>Used AI to draft a scope of work for a new client site</li>
+            <li>AI generated pricing estimates, SLA response times, service inclusions</li>
+            <li>Looked professional — read like it came from Metro's own templates</li>
+          </ul></div>
+          <div class="ts-flip-cares">He sent the draft to the client before checking the numbers.</div>
+          <div class="ts-flip-hint">Tap to see what happened →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ts-reflection">
+    <div class="ts-reflection-label">Reflection</div>
+    <p class="ts-reflection-text">
+      What's the most important thing about your business that AI doesn't know?
+      The thing that, if it did know, would make its output actually useful
+      instead of generically plausible?
+    </p>
+  </div>
+</div>
+<script>
+  (function() {
+    var cards = {
+      sarah: {
+        front: '<div class="ts-flip-icon">&#9986;</div><div class="ts-flip-name">Sarah</div><div class="ts-flip-role">The knowledge gap</div><div class="ts-flip-bio"><ul><li>Asked AI to recommend accounting software</li><li>Got Xero Premium, MYOB Business, QuickBooks Advanced</li><li>Packages built for businesses with employees, payroll, multi-entity reporting</li></ul></div><div class="ts-flip-cares">She nearly signed up for $80/month. A $12/month sole trader plan does everything she needs.</div><div class="ts-flip-hint">Tap to see why →</div>',
+        back: '<div class="ts-flip-back-label">Why it happened</div><div class="ts-flip-back"><ul><li>AI didn\'t know she\'s a sole trader with one salon</li><li>It defaults to what\'s most common in its training data — which skews corporate</li><li>Without context about your business, AI gives generic answers at the wrong scale</li><li>The fix: tell it who you are before asking for advice</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      },
+      david: {
+        front: '<div class="ts-flip-icon">&#9881;</div><div class="ts-flip-name">David</div><div class="ts-flip-role">The knowledge gap</div><div class="ts-flip-bio"><ul><li>Used AI to draft a scope of work for a new client site</li><li>AI generated pricing estimates, SLA response times, service inclusions</li><li>Looked professional — read like it came from Metro\'s own templates</li></ul></div><div class="ts-flip-cares">He sent the draft to the client before checking the numbers.</div><div class="ts-flip-hint">Tap to see what happened →</div>',
+        back: '<div class="ts-flip-back-label">What happened</div><div class="ts-flip-back"><ul><li>None of the pricing came from Metro\'s docs — AI invented plausible numbers</li><li>The SLA response times didn\'t match Metro\'s actual commitments</li><li>Numbers that look like your data aren\'t your data</li><li>If you don\'t catch it, your client will</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+        flipped: false
+      }
+    };
+    function flip(id) {
+      var d = cards[id]; d.flipped = !d.flipped;
+      var el = document.getElementById('tsFlip' + id.charAt(0).toUpperCase() + id.slice(1) + 'Content');
+      el.innerHTML = d.flipped ? d.back : d.front;
+      el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
+    }
+    document.getElementById('tsFlipSarah').addEventListener('click', function() { flip('sarah'); });
+    document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
+  })();
+</script>
