@@ -1,34 +1,22 @@
-<!-- ============================================================
-     AI 101 — Module 4, Section 2: The Customisation Spectrum
-     Layout: side-by-side (text left, visual right)
-     Contains: customisation dial gauge (draggable), case study flips
-     ============================================================ -->
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Customisation Spectrum &mdash; AI 101 &middot; WrightOps</title>
+  <meta name="description" content="From prompting to fine-tuning to building your own - the spectrum of ways to make AI yours.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps &mdash; AI 101">
+  <meta property="og:title" content="The Customisation Spectrum &mdash; AI 101">
+  <meta property="og:description" content="From prompting to fine-tuning to building your own - the spectrum of ways to make AI yours.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  .ts-step {
-    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
-    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
-    --ts-black: #101010; --ts-white: #ffffff;
-    --ts-green: #6fcf97; --ts-red: #e57373;
-    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
-    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
-    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
-    --font-family: 'Bricolage Grotesque', sans-serif;
-    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
-    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
-    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
-    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
-    --fs-eyebrow: 0.72rem;
-    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
-    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
-    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
-    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
-    --content-max-width: 1200px;
-    --content-padding: clamp(20px, 5vw, 80px);
-    --text-measure: 720px;
-  }
-  .ts-step { font-family: var(--font-family); background: var(--surface-bg); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; max-width: var(--content-max-width); margin: 0 auto; padding: var(--space-xl) var(--content-padding); overflow-x: hidden; }
+.ts-step { font-family: var(--font-family); background: var(--surface-bg); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; max-width: var(--content-max-width); margin: 0 auto; padding: var(--space-xl) var(--content-padding); overflow-x: hidden; }
   .ts-eyebrow { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-step-title { font-size: var(--fs-step-title); font-weight: 700; line-height: 1.2; margin-bottom: var(--space-md); max-width: var(--text-measure); }
   .ts-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-lg); max-width: var(--text-measure); }
@@ -38,7 +26,7 @@
   .ts-callout { background: var(--surface-card); border-left: 3px solid var(--ts-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
   .ts-callout p { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; margin: 0; }
   .ts-callout strong { color: var(--text-primary); font-weight: 600; }
-  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(138,127,255,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
   .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
   /* ── Side-by-side ── */
@@ -158,7 +146,7 @@
   /* ══════════════════════════════════════════════════════════════
      CASE STUDY + FLIP CARDS
      ══════════════════════════════════════════════════════════════ */
-  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study { background: rgba(95,201,138,0.04); border: 1px solid rgba(95,201,138,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
   .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
   .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
   .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
@@ -179,7 +167,7 @@
   .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
   .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
   .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
-  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(138,127,255,0.06); border-left: 3px solid rgba(138,127,255,0.25); }
   .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
   .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
   .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
@@ -192,7 +180,18 @@
     .ts-flip-grid { grid-template-columns: 1fr; gap: 12px; }
   }
 </style>
-<div class="ts-step">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 4 &middot; Section 2</span>
+  </header>
+
+  <main id="main" class="ts-step">
   <p class="ts-eyebrow">Module 4</p>
   <h1 class="ts-step-title">The Customisation Spectrum</h1>
   <p class="ts-intro">
@@ -215,8 +214,8 @@
           <linearGradient id="tsArcGrad" x1="0%" y1="50%" x2="100%" y2="50%">
             <stop offset="0%" stop-color="#6fcf97"/>
             <stop offset="35%" stop-color="#6c8eff"/>
-            <stop offset="65%" stop-color="#ffb790"/>
-            <stop offset="100%" stop-color="#ffa6b4"/>
+            <stop offset="65%" stop-color="#5fc98a"/>
+            <stop offset="100%" stop-color="#8a7fff"/>
           </linearGradient>
         </defs>
         <path d="M 40 200 A 160 160 0 0 1 360 200" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="20" stroke-linecap="round"/>
@@ -224,20 +223,20 @@
         <line x1="40" y1="200" x2="25" y2="200" stroke="#6fcf97" stroke-width="3" stroke-linecap="round"/>
         <line x1="87" y1="87" x2="76" y2="76" stroke="#9eccff" stroke-width="3" stroke-linecap="round"/>
         <line x1="200" y1="40" x2="200" y2="25" stroke="#6c8eff" stroke-width="3" stroke-linecap="round"/>
-        <line x1="313" y1="87" x2="324" y2="76" stroke="#ffb790" stroke-width="3" stroke-linecap="round"/>
-        <line x1="360" y1="200" x2="375" y2="200" stroke="#ffa6b4" stroke-width="3" stroke-linecap="round"/>
-        <text x="14" y="196" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="700">1</text>
-        <text x="64" y="70" text-anchor="middle" fill="#9eccff" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="700">2</text>
-        <text x="200" y="16" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="700">3</text>
-        <text x="336" y="70" text-anchor="middle" fill="#ffb790" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="700">4</text>
-        <text x="388" y="196" text-anchor="middle" fill="#ffa6b4" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="700">5</text>
-        <text x="40" y="228" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="10" font-weight="600" opacity="0.6">GENERIC</text>
-        <text x="360" y="228" text-anchor="middle" fill="#ffa6b4" font-family="'Bricolage Grotesque',sans-serif" font-size="10" font-weight="600" opacity="0.6">FULLY CUSTOM</text>
-        <line id="tsNeedleLine" x1="200" y1="200" x2="80" y2="200" stroke="#f0f0f0" stroke-width="3" stroke-linecap="round"/>
-        <circle id="tsNeedleTip" cx="80" cy="200" r="5" fill="#f0f0f0"/>
-        <circle cx="200" cy="200" r="10" fill="#1a1a1a" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
-        <circle cx="200" cy="200" r="4" fill="#f0f0f0"/>
-        <text x="200" y="180" text-anchor="middle" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="700" id="tsDialCentre">LEVEL 1</text>
+        <line x1="313" y1="87" x2="324" y2="76" stroke="#5fc98a" stroke-width="3" stroke-linecap="round"/>
+        <line x1="360" y1="200" x2="375" y2="200" stroke="#8a7fff" stroke-width="3" stroke-linecap="round"/>
+        <text x="14" y="196" text-anchor="middle" fill="#6fcf97" font-family="'Chakra Petch',sans-serif" font-size="14" font-weight="700">1</text>
+        <text x="64" y="70" text-anchor="middle" fill="#9eccff" font-family="'Chakra Petch',sans-serif" font-size="14" font-weight="700">2</text>
+        <text x="200" y="16" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="14" font-weight="700">3</text>
+        <text x="336" y="70" text-anchor="middle" fill="#5fc98a" font-family="'Chakra Petch',sans-serif" font-size="14" font-weight="700">4</text>
+        <text x="388" y="196" text-anchor="middle" fill="#8a7fff" font-family="'Chakra Petch',sans-serif" font-size="14" font-weight="700">5</text>
+        <text x="40" y="228" text-anchor="middle" fill="#6fcf97" font-family="'Chakra Petch',sans-serif" font-size="10" font-weight="600" opacity="0.6">GENERIC</text>
+        <text x="360" y="228" text-anchor="middle" fill="#8a7fff" font-family="'Chakra Petch',sans-serif" font-size="10" font-weight="600" opacity="0.6">FULLY CUSTOM</text>
+        <line id="tsNeedleLine" x1="200" y1="200" x2="80" y2="200" stroke="#e5dfd6" stroke-width="3" stroke-linecap="round"/>
+        <circle id="tsNeedleTip" cx="80" cy="200" r="5" fill="#e5dfd6"/>
+        <circle cx="200" cy="200" r="10" fill="#151413" stroke="rgba(255,255,255,0.15)" stroke-width="2"/>
+        <circle cx="200" cy="200" r="4" fill="#e5dfd6"/>
+        <text x="200" y="180" text-anchor="middle" fill="#e5dfd6" font-family="'Chakra Petch',sans-serif" font-size="13" font-weight="700" id="tsDialCentre">LEVEL 1</text>
       </svg>
     </div>
     <div class="ts-dial-info" id="tsDialInfo">
@@ -342,7 +341,21 @@
       Where are you right now? Open a browser and go to your favourite AI tool. Find its custom instructions and add some simple things like "Write in British English"
     </p>
   </div>
-</div>
+</main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <a href="m4-s1_the-knowledge-gap.html" class="ts-nav-btn">&larr; Previous</a>
+      <a href="index.html" class="ts-nav-pos">Section <strong>9</strong> of <strong>9</strong></a>
+      <a href="index.html" class="ts-nav-btn">Back to Course &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
 <script>
   /* ── Customisation Dial ── */
   (function() {
@@ -350,8 +363,8 @@
       { angle: 180, label: 'Level 1', name: 'In-chat prompts', colour: '#6fcf97', desc: "Better prompts, custom instructions, conversation context. Everything you can do inside ChatGPT or Claude right now with no technical setup. This is where everyone starts — and where most of the value is for most businesses.", cost: 'Free, instant', who: 'Everyone', mostBiz: true },
       { angle: 135, label: 'Level 2', name: 'API & developer access', colour: '#9eccff', desc: "System prompts, temperature control, structured outputs. What opens up when you move beyond the chat interface into building tools. You control exactly how the AI behaves and connect it to your own workflows.", cost: 'Pay per use, needs a developer', who: 'Businesses building AI into products', mostBiz: false },
       { angle: 90, label: 'Level 3', name: 'Persistent knowledge', colour: '#6c8eff', desc: "Project workspaces, knowledge bases, connected data sources. Giving AI access to your business information so it doesn't start from scratch every time. Ranges from free (uploading files) to significant investment.", cost: 'Free to significant', who: 'Businesses with domain knowledge AI needs', mostBiz: false },
-      { angle: 45, label: 'Level 4', name: 'Changing model behaviour', colour: '#ffb790', desc: "Fine-tuning and model customisation. Teaching the model your specific patterns, style, or classification rules from your own data. The model itself changes to reflect your business.", cost: 'Weeks of work, $$$$', who: 'Businesses with unique data at scale', mostBiz: false },
-      { angle: 0, label: 'Level 5', name: 'Building your own model', colour: '#ffa6b4', desc: "Training from scratch. Millions of dollars, ML engineering team, months of compute. Almost no business will ever do this.", cost: 'Millions, months, ML team', who: 'Almost nobody', mostBiz: false }
+      { angle: 45, label: 'Level 4', name: 'Changing model behaviour', colour: '#5fc98a', desc: "Fine-tuning and model customisation. Teaching the model your specific patterns, style, or classification rules from your own data. The model itself changes to reflect your business.", cost: 'Weeks of work, $$$$', who: 'Businesses with unique data at scale', mostBiz: false },
+      { angle: 0, label: 'Level 5', name: 'Building your own model', colour: '#8a7fff', desc: "Training from scratch. Millions of dollars, ML engineering team, months of compute. Almost no business will ever do this.", cost: 'Millions, months, ML team', who: 'Almost nobody', mostBiz: false }
     ];
     var currentLevel = 0;
     var pivotX = 200, pivotY = 200, needleLen = 120;
@@ -456,73 +469,5 @@
     document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
   })();
 </script>
-
-<!-- ── Course Navigation ── -->
-<style>
-  .ts-course-nav {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-  }
-  .ts-course-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 24px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-  }
-  .ts-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #222222;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    color: #9eccff;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    white-space: nowrap;
-  }
-  .ts-nav-btn:hover {
-    border-color: rgba(108, 142, 255, 0.3);
-    background: #2a2a2a;
-    transform: translateY(-1px);
-  }
-  .ts-nav-btn--hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .ts-nav-pos {
-    font-size: 0.82rem;
-    color: rgba(240, 240, 240, 0.4);
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .ts-nav-pos strong {
-    color: rgba(240, 240, 240, 0.6);
-  }
-  @media (max-width: 600px) {
-    .ts-course-nav { padding: 24px 16px 40px; }
-    .ts-course-nav-inner { padding: 14px 16px; gap: 10px; flex-wrap: nowrap; }
-    .ts-nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-    .ts-nav-pos { font-size: 0.75rem; }
-  }
-</style>
-
-<div class="ts-course-nav">
-  <nav class="ts-course-nav-inner">
-    <a href="m4-s1_the-knowledge-gap.html" class="ts-nav-btn">&larr; Previous</a>
-    <span class="ts-nav-pos">Section <strong>9</strong> of <strong>9</strong></span>
-    <a href="index.html" class="ts-nav-btn">Back to Course &rarr;</a>
-  </nav>
-</div>
+</body>
+</html>

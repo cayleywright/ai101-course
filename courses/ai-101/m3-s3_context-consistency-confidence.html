@@ -1,34 +1,22 @@
-<!-- ============================================================
-     AI 101 — Module 3, Section 3: Context, Consistency, and Confidence
-     Layout: side-by-side (text left, visual right), stacks on mobile
-     Contains: context window bars, temperature slider, case study flips
-     ============================================================ -->
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Context, Consistency, and Confidence &mdash; AI 101 &middot; WrightOps</title>
+  <meta name="description" content="Why the same prompt can give different answers - context windows, temperature, and how much to trust the output.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps &mdash; AI 101">
+  <meta property="og:title" content="Context, Consistency, and Confidence &mdash; AI 101">
+  <meta property="og:description" content="Why the same prompt can give different answers - context windows, temperature, and how much to trust the output.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  .ts-step {
-    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
-    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
-    --ts-black: #101010; --ts-white: #ffffff;
-    --ts-green: #6fcf97; --ts-red: #e57373;
-    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
-    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
-    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
-    --font-family: 'Bricolage Grotesque', sans-serif;
-    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
-    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
-    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
-    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
-    --fs-eyebrow: 0.72rem;
-    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
-    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
-    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
-    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
-    --content-max-width: 1200px;
-    --content-padding: clamp(20px, 5vw, 80px);
-    --text-measure: 720px;
-  }
-  .ts-step { font-family: var(--font-family); background: var(--surface-bg); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; max-width: var(--content-max-width); margin: 0 auto; padding: var(--space-xl) var(--content-padding); overflow-x: hidden; }
+.ts-step { font-family: var(--font-family); background: var(--surface-bg); color: var(--text-primary); line-height: 1.65; -webkit-font-smoothing: antialiased; max-width: var(--content-max-width); margin: 0 auto; padding: var(--space-xl) var(--content-padding); overflow-x: hidden; }
   .ts-eyebrow { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-step-title { font-size: var(--fs-step-title); font-weight: 700; line-height: 1.2; margin-bottom: var(--space-md); max-width: var(--text-measure); }
   .ts-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-lg); max-width: var(--text-measure); }
@@ -40,7 +28,7 @@
   .ts-try-this { background: rgba(108,142,255,0.04); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
   .ts-try-this-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-try-this-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; }
-  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(138,127,255,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
   .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
   /* ── Side-by-side layout ── */
@@ -85,7 +73,7 @@
   .ts-rule-text { font-size: var(--fs-small); color: var(--text-secondary); line-height: 1.6; }
   .ts-rule-text strong { color: var(--text-primary); font-weight: 600; }
   /* ── Case study + flip cards ── */
-  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study { background: rgba(95,201,138,0.04); border: 1px solid rgba(95,201,138,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
   .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
   .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
   .ts-flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
@@ -105,7 +93,7 @@
   .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
   .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
   .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
-  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(138,127,255,0.06); border-left: 3px solid rgba(138,127,255,0.25); }
   .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
   .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
   .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
@@ -119,7 +107,18 @@
     .ts-flip-grid { grid-template-columns: 1fr; gap: 12px; }
   }
 </style>
-<div class="ts-step">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 3 &middot; Section 3</span>
+  </header>
+
+  <main id="main" class="ts-step">
   <p class="ts-eyebrow">Module 3</p>
   <h1 class="ts-step-title">Context, Consistency, and Confidence</h1>
   <p class="ts-intro">Three things trip people up once they start relying on AI. All three make sense once you know how next-token prediction works.</p>
@@ -148,7 +147,7 @@
         </div>
         <div class="ts-context-row">
           <div class="ts-context-name">Gemini</div>
-          <div class="ts-context-track"><div class="ts-context-fill" style="width: 100%; background: linear-gradient(90deg, var(--ts-peach), #e8a070);">750K</div></div>
+          <div class="ts-context-track"><div class="ts-context-fill" style="width: 100%; background: linear-gradient(90deg, var(--ts-peach), #3fa873);">750K</div></div>
           <div class="ts-context-amount">~750K words</div>
         </div>
       </div>
@@ -248,7 +247,21 @@
     <div class="ts-reflection-label">Quick check</div>
     <p class="ts-reflection-text">Think about the last time you used AI for something work-related. Did you verify the output, or did you trust it? Knowing what you now know, would you do anything differently?</p>
   </div>
-</div>
+</main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <a href="m3-s2_inside-the-machine.html" class="ts-nav-btn">&larr; Previous</a>
+      <a href="index.html" class="ts-nav-pos">Section <strong>7</strong> of <strong>9</strong></a>
+      <a href="m4-s1_the-knowledge-gap.html" class="ts-nav-btn">Next &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
 <script>
   (function() {
     var slider = document.getElementById('tsTempSlider');
@@ -260,8 +273,8 @@
       { max: 20, label: 'Low', analogy: '"I\'ll have what I always have."', text: 'Most predictable token every time. Best for data extraction, form filling, standard emails.', colour: '#9eccff' },
       { max: 40, label: 'Low-medium', analogy: '"The usual, maybe a different milk."', text: 'Mostly predictable with minor variation. Standardised documents with slight natural feel.', colour: '#8aabff' },
       { max: 60, label: 'Medium', analogy: '"The usual, but surprise me if you want."', text: 'Where most chat tools sit by default. Natural variation without chaos.', colour: '#6c8eff' },
-      { max: 80, label: 'Medium-high', analogy: '"Something new. Not too weird."', text: 'Noticeably more creative. Good for brainstorming, first drafts, exploring angles.', colour: '#dda888' },
-      { max: 100, label: 'High', analogy: '"Surprise me. Whatever you\'re feeling."', text: 'Maximum variety. Novel ideas but less predictable. More unexpected tangents.', colour: '#ffb790' }
+      { max: 80, label: 'Medium-high', analogy: '"Something new. Not too weird."', text: 'Noticeably more creative. Good for brainstorming, first drafts, exploring angles.', colour: '#5fc98a' },
+      { max: 100, label: 'High', analogy: '"Surprise me. Whatever you\'re feeling."', text: 'Maximum variety. Novel ideas but less predictable. More unexpected tangents.', colour: '#5fc98a' }
     ];
     function update() {
       var val = parseInt(slider.value);
@@ -295,73 +308,5 @@
     document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
   })();
 </script>
-
-<!-- ── Course Navigation ── -->
-<style>
-  .ts-course-nav {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-  }
-  .ts-course-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 24px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-  }
-  .ts-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #222222;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    color: #9eccff;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    white-space: nowrap;
-  }
-  .ts-nav-btn:hover {
-    border-color: rgba(108, 142, 255, 0.3);
-    background: #2a2a2a;
-    transform: translateY(-1px);
-  }
-  .ts-nav-btn--hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .ts-nav-pos {
-    font-size: 0.82rem;
-    color: rgba(240, 240, 240, 0.4);
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .ts-nav-pos strong {
-    color: rgba(240, 240, 240, 0.6);
-  }
-  @media (max-width: 600px) {
-    .ts-course-nav { padding: 24px 16px 40px; }
-    .ts-course-nav-inner { padding: 14px 16px; gap: 10px; flex-wrap: nowrap; }
-    .ts-nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-    .ts-nav-pos { font-size: 0.75rem; }
-  }
-</style>
-
-<div class="ts-course-nav">
-  <nav class="ts-course-nav-inner">
-    <a href="m3-s2_inside-the-machine.html" class="ts-nav-btn">&larr; Previous</a>
-    <span class="ts-nav-pos">Section <strong>7</strong> of <strong>9</strong></span>
-    <a href="m4-s1_the-knowledge-gap.html" class="ts-nav-btn">Next &rarr;</a>
-  </nav>
-</div>
+</body>
+</html>

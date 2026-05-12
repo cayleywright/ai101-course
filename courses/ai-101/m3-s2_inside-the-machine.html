@@ -1,37 +1,25 @@
-<!-- ============================================================
-     AI 101 — Module 3, Section 2: Inside the Machine
-     Full-step embed for Wix Online Programs HTML block
-     Contains: five-layer architecture explainer (interactive)
-     ============================================================ -->
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inside the Machine &mdash; AI 101 &middot; WrightOps</title>
+  <meta name="description" content="A look under the hood at the layers that turn a language model into a working AI system.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps &mdash; AI 101">
+  <meta property="og:title" content="Inside the Machine &mdash; AI 101">
+  <meta property="og:description" content="A look under the hood at the layers that turn a language model into a working AI system.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   /* ══════════════════════════════════════════════════════════════
      DESIGN TOKENS
      ══════════════════════════════════════════════════════════════ */
-  .ts-step {
-    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
-    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
-    --ts-purple: #8a7fff; --ts-black: #101010; --ts-white: #ffffff;
-    --ts-green: #6fcf97; --ts-red: #e57373;
-    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
-    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
-    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
-    --font-family: 'Bricolage Grotesque', sans-serif;
-    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
-    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
-    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
-    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
-    --fs-eyebrow: 0.72rem;
-    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
-    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
-    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
-    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
-    --content-max-width: 1200px;
-    --content-padding: clamp(20px, 5vw, 80px);
-    --text-measure: 720px;
-  }
-  .ts-step {
+.ts-step {
     font-family: var(--font-family); background: var(--surface-bg);
     color: var(--text-primary); line-height: 1.65;
     -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
@@ -53,7 +41,7 @@
   .ts-callout { background: var(--surface-card); border-left: 3px solid var(--ts-blue); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
   .ts-callout p { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; margin: 0; }
   .ts-callout strong { color: var(--text-primary); font-weight: 600; }
-  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(138,127,255,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
   .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
   /* ══════════════════════════════════════════════════════════════
@@ -117,7 +105,7 @@
   /* ══════════════════════════════════════════════════════════════
      COMPONENT: Case Study Block
      ══════════════════════════════════════════════════════════════ */
-  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study { background: rgba(95,201,138,0.04); border: 1px solid rgba(95,201,138,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
   .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
   .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
   .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
@@ -138,7 +126,7 @@
   .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
   .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
   .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
-  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(138,127,255,0.06); border-left: 3px solid rgba(138,127,255,0.25); }
   .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
   .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
   .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
@@ -173,10 +161,18 @@
     .ts-flip-card { padding: 20px 16px; }
   }
 </style>
-<!-- ══════════════════════════════════════════════════════════════
-     STEP CONTENT
-     ══════════════════════════════════════════════════════════════ -->
-<div class="ts-step">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 3 &middot; Section 2</span>
+  </header>
+
+  <main id="main" class="ts-step">
   <p class="ts-eyebrow">Module 3</p>
   <h1 class="ts-step-title">Inside the Machine</h1>
   <div class="ts-body">
@@ -210,14 +206,14 @@
         <div class="ts-arch-node-sub">How it talks</div>
         <svg class="ts-arch-node-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </div>
-      <div class="ts-arch-node" data-node="intelligence" style="--n-color:#ffa6b4; --n-bg:rgba(255,166,180,0.09); --n-glow:rgba(255,166,180,0.2);">
-        <div class="ts-arch-node-icon"><svg fill="none" stroke="#ffa6b4" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.66-5.34l2.83-2.83m11.31-5.66l2.83-2.83M1 12h4m14 0h4m-5.34 8.66l-2.83-2.83M8.17 8.17L5.34 5.34"/></svg></div>
+      <div class="ts-arch-node" data-node="intelligence" style="--n-color:#8a7fff; --n-bg:rgba(138,127,255,0.09); --n-glow:rgba(138,127,255,0.2);">
+        <div class="ts-arch-node-icon"><svg fill="none" stroke="#8a7fff" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.66-5.34l2.83-2.83m11.31-5.66l2.83-2.83M1 12h4m14 0h4m-5.34 8.66l-2.83-2.83M8.17 8.17L5.34 5.34"/></svg></div>
         <div class="ts-arch-node-name">Intelligence</div>
         <div class="ts-arch-node-sub">The brains</div>
         <svg class="ts-arch-node-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </div>
-      <div class="ts-arch-node" data-node="knowledge" style="--n-color:#ffb790; --n-bg:rgba(255,183,144,0.09); --n-glow:rgba(255,183,144,0.2);">
-        <div class="ts-arch-node-icon"><svg fill="none" stroke="#ffb790" stroke-width="1.7" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg></div>
+      <div class="ts-arch-node" data-node="knowledge" style="--n-color:#5fc98a; --n-bg:rgba(95,201,138,0.09); --n-glow:rgba(95,201,138,0.2);">
+        <div class="ts-arch-node-icon"><svg fill="none" stroke="#5fc98a" stroke-width="1.7" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg></div>
         <div class="ts-arch-node-name">Knowledge</div>
         <div class="ts-arch-node-sub">What it knows</div>
         <svg class="ts-arch-node-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
@@ -233,8 +229,8 @@
     <div class="ts-arch-legend">
       <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#9eccff"></span>Interface</div>
       <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#6c8eff"></span>Connections</div>
-      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#ffa6b4"></span>Intelligence</div>
-      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#ffb790"></span>Knowledge</div>
+      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#8a7fff"></span>Intelligence</div>
+      <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#5fc98a"></span>Knowledge</div>
       <div class="ts-arch-legend-item"><span class="ts-arch-legend-dot" style="background:#8a7fff"></span>Infrastructure</div>
     </div>
     <!-- Sub-chip row -->
@@ -305,7 +301,21 @@
       That gap is usually where the most value is hiding.
     </p>
   </div>
-</div>
+</main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <a href="m3-s1_what-happens-when-you-press-send.html" class="ts-nav-btn">&larr; Previous</a>
+      <a href="index.html" class="ts-nav-pos">Section <strong>6</strong> of <strong>9</strong></a>
+      <a href="m3-s3_context-consistency-confidence.html" class="ts-nav-btn">Next &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
 <!-- ══════════════════════════════════════════════════════════════
      SCRIPTS
      ══════════════════════════════════════════════════════════════ -->
@@ -315,8 +325,8 @@
     var NODES = {
       interface: { color: '#9eccff', label: 'Interface', direct: 'interface_main' },
       connections: { color: '#6c8eff', label: 'Connections', subs: ['conn_api', 'conn_mcp'] },
-      intelligence: { color: '#ffa6b4', label: 'Intelligence', subs: ['intel_models', 'intel_agents'] },
-      knowledge: { color: '#ffb790', label: 'Knowledge', subs: ['know_training', 'know_incontext', 'know_rag', 'know_persistent'] },
+      intelligence: { color: '#8a7fff', label: 'Intelligence', subs: ['intel_models', 'intel_agents'] },
+      knowledge: { color: '#5fc98a', label: 'Knowledge', subs: ['know_training', 'know_incontext', 'know_rag', 'know_persistent'] },
       infra: { color: '#8a7fff', label: 'Infrastructure', direct: 'infra_main' }
     };
     var CHIP_LABELS = { conn_api: 'APIs', conn_mcp: 'MCP', intel_models: 'Models', intel_agents: 'AI Agents', know_training: 'Training data', know_incontext: 'In-context memory', know_rag: 'RAG', know_persistent: 'Persistent memory' };
@@ -324,12 +334,12 @@
       interface_main: { color:'#9eccff', iconBg:'rgba(158,204,255,0.12)', grad:'linear-gradient(90deg,#9eccff,#6c8eff)', title:'Interface', tag:'What users actually see and touch', icon:'<svg width="22" height="22" fill="none" stroke="#9eccff" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>', alsoCalled:['Frontend','UI','Application layer','Interaction layer'], analogy:"The menu. You sit down, read what's on offer, and place your order. You never see the kitchen. ChatGPT is fine dining. The AI button in Canva is the ordering screen at a fast-casual chain. Different rooms, same kitchen out the back.", points:['The interface is whatever you interact with — a chat window, a button in your SaaS tool, or a form on a website. The AI model doing the work lives somewhere else entirely','<strong>Most businesses already have more AI interface than they realise.</strong> Microsoft 365 Copilot, Google Workspace AI, Xero, HubSpot, Canva — if you pay for these, you probably have AI features sitting unused','This is why the same underlying model (like GPT-4) can power completely different-looking tools — they just have different interfaces','The interface is also where prompt engineering happens — how you phrase your order determines what the kitchen sends back'], why:"Before buying any new AI tool, audit what your existing stack already offers. Activating what you already have is faster, cheaper, and lower risk than starting fresh." },
       conn_api: { color:'#6c8eff', iconBg:'rgba(108,142,255,0.12)', grad:'linear-gradient(90deg,#6c8eff,#9eccff)', title:'APIs', tag:'How software talks to other software', icon:'<svg width="22" height="22" fill="none" stroke="#6c8eff" stroke-width="1.8" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>', alsoCalled:['REST API','Application programming interface','Integration layer','Webhooks'], analogy:"A handwritten order on a docket. You tell the waiter what you want, they write it down, walk it to the kitchen, and bring back what was made.", points:['An <strong>API</strong> is how one piece of software sends a request to another and gets a response back. It\'s the docket that travels between your apps and the AI','When you type into ChatGPT, the website sends your message to OpenAI\'s servers via an API call. When Canva adds AI features, it\'s calling an AI model\'s API behind the scenes','Automation tools like Zapier, Make, and n8n work entirely through APIs — connecting your apps together by passing requests back and forth','You pay per API call or per token processed — which is why different AI tools cost different amounts even when using the same underlying model'], why:"APIs are the glue of automation. Every integration, every AI feature in your SaaS tools, every workflow you've built works because of APIs. You don't need to build them — understanding they exist helps you see what's possible." },
       conn_mcp: { color:'#6c8eff', iconBg:'rgba(108,142,255,0.12)', grad:'linear-gradient(90deg,#6c8eff,#9eccff)', title:'MCP', tag:'Model Context Protocol — the universal adapter for AI', icon:'<svg width="22" height="22" fill="none" stroke="#6c8eff" stroke-width="1.8" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>', alsoCalled:['Model Context Protocol','Integration protocol','Universal connector','Tool use'], analogy:"An automated ordering system. Instead of a different docket pad for UberEats, DoorDash, and walk-ins, one system prints the same ticket no matter where the order came from.", points:['MCP is an <strong>open standard</strong> created by Anthropic that lets AI connect to your business tools in a standardised way','Instead of custom-building an integration for every AI + tool combination, you build one MCP connection and it works with any compatible AI','OpenAI, Google, Microsoft, and most major AI providers now support MCP — it\'s rapidly becoming the default way AI talks to business systems','You\'ll see MCP when you connect Claude or ChatGPT to your Google Drive, CRM, or project management tools. It\'s the plumbing underneath'], why:"If a vendor pitches you 'AI integration' in 2026, ask if they support MCP. If they don't, they're building custom plumbing that'll be harder to maintain and swap out later." },
-      intel_models: { color:'#ffa6b4', iconBg:'rgba(255,166,180,0.12)', grad:'linear-gradient(90deg,#ffa6b4,#ffb790)', title:'Models', tag:'The core intelligence behind every AI tool', icon:'<svg width="22" height="22" fill="none" stroke="#ffa6b4" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.66-5.34l2.83-2.83m11.31-5.66l2.83-2.83M1 12h4m14 0h4m-5.34 8.66l-2.83-2.83M8.17 8.17L5.34 5.34"/></svg>', alsoCalled:['LLM','Large language model','Foundation model','AI model','e.g. GPT-4, Claude, Gemini'], analogy:"The chef. A Michelin-trained head chef costs more and takes longer. A solid line cook turns out perfect lunch specials all day for a fraction of the price. You don't put your head chef on toasted sandwiches.", points:['GPT-4o, Claude, Gemini, Llama, DeepSeek are all different models with different strengths, sizes, and costs','<strong>Bigger isn\'t always better.</strong> A smaller, cheaper model often outperforms a larger one for a specific, well-defined task','Models are versioned and updated constantly — GPT-4 today is not the same as GPT-4 from 18 months ago','Many SaaS tools let you choose which model runs underneath. This choice matters a lot for both cost and quality'], why:"The model is the most expensive part of the AI stack. Choosing the right model for each task — rather than just the most powerful one — is one of the most effective ways to control costs." },
-      intel_agents: { color:'#ffa6b4', iconBg:'rgba(255,166,180,0.12)', grad:'linear-gradient(90deg,#ffa6b4,#6c8eff)', title:'AI Agents', tag:'AI that can plan, decide, and take action', icon:'<svg width="22" height="22" fill="none" stroke="#ffa6b4" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>', alsoCalled:['Agentic AI','Autonomous agents','AI assistants','Copilots'], analogy:"A head chef who also runs front-of-house. They check the cool room, call the supplier, adjust the menu, brief the floor staff, and handle a complaint at table 6 — all from one brief.", points:['Regular AI responds to one prompt at a time. <strong>Agents can plan and execute multi-step tasks</strong>, use tools like APIs and databases, and adapt based on what they find','Example: an agent could research competitors, pull data from your CRM, draft a report, and send it to your team — all from one instruction','Agents need clear guardrails and permissions — they\'re powerful but can go wrong without proper boundaries','Most "agent" products in 2025/26 are still early. The hype is ahead of the reliability for complex, long-running tasks'], why:"Agents are where AI is heading. Understanding the concept now helps you evaluate what vendors are actually offering — and spot 'agent' features that are really just fancy chatbots." },
-      know_training: { color:'#ffb790', iconBg:'rgba(255,183,144,0.12)', grad:'linear-gradient(90deg,#ffb790,#ffa6b4)', title:'Training data', tag:'What the model learned before it met you', icon:'<svg width="22" height="22" fill="none" stroke="#ffb790" stroke-width="1.8" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>', alsoCalled:['Parametric memory','Pre-training data','Model weights','Base knowledge'], analogy:"Everything the chef learned before they walked into your kitchen — culinary school plus a lifetime of eating out. It's baked into how they cook. You can't remove one recipe from their instincts.", points:['This is knowledge encoded directly into the model\'s parameters during training. It\'s not stored in a database you can edit — it\'s baked into the model itself','Models are trained on massive datasets — internet text, books, code, research papers — up to a specific cutoff date. <strong>The model doesn\'t know what happened after that point</strong> unless it can search the web','Different training data produces different strengths. A model trained heavily on code will be better at programming. One trained on medical literature will be better at clinical language','This is also where bias enters the picture — if the training data skews in a particular direction, the model\'s outputs will reflect that'], why:"This is why you can ask Claude or ChatGPT about history, science, or how to write a function — without giving it any documents. It's also why it can confidently get things wrong, and why it knows nothing about your business until you tell it." },
-      know_incontext: { color:'#ffb790', iconBg:'rgba(255,183,144,0.12)', grad:'linear-gradient(90deg,#ffb790,#6c8eff)', title:'In-context memory', tag:'The working memory of a single session', icon:'<svg width="22" height="22" fill="none" stroke="#ffb790" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>', alsoCalled:['Context window','Prompt','Session memory','Working memory'], analogy:"A gluten-free order. The kitchen knows about it for this sitting. Next service, it's gone unless someone tells them again.", points:['Everything in the active conversation lives here — your messages, the system prompt, any files or instructions you\'ve pasted in','This is <strong>temporary by design</strong>. When the session ends, it\'s gone. The model isn\'t storing anything — it\'s just working within the current window','The context window has a size limit (measured in tokens). When it fills up, the oldest content gets pushed out — which is why AI can seem to "forget" earlier parts of a long conversation','Project files, knowledge base uploads, and attached documents all work by injecting content into this window at the start of a session'], why:"Understanding that in-context memory is temporary and has a size limit explains a lot of the quirks you'll notice in day-to-day AI use — like why it 'forgets' what you said 20 messages ago." },
-      know_rag: { color:'#ffb790', iconBg:'rgba(255,183,144,0.12)', grad:'linear-gradient(90deg,#ffb790,#9eccff)', title:'RAG', tag:'Fetching your documents at runtime — lookup, not learning', icon:'<svg width="22" height="22" fill="none" stroke="#ffb790" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>', alsoCalled:['Retrieval-augmented generation','Vector search','Knowledge base','Semantic search'], analogy:"The recipe card in the kitchen drawer. The chef doesn't memorise your house recipes — they pull out the card each time and follow it.", points:['RAG is how you make AI answer questions about <strong>your specific business data</strong> without retraining the model','Under the hood: your documents get converted into numbers representing meaning (<strong>embeddings</strong>), stored in a <strong>vector database</strong>, then searched every time a question comes in. The closest matches get injected into the prompt','Important distinction: <strong>RAG is retrieval, not memory.</strong> The AI doesn\'t learn from your documents. It fetches them fresh each time. Update a document, and the next query gets the new version','This is how "chat with your documents", knowledge bases, and AI-powered support tools work. If a vendor says "AI trained on your data", RAG is almost always what they actually mean'], why:"RAG is the most practical, cost-effective way to connect AI to your business data. Understanding that it's lookup — not learning — helps you set the right expectations and avoid overpaying for something more complex than you need." },
-      know_persistent: { color:'#ffb790', iconBg:'rgba(255,183,144,0.12)', grad:'linear-gradient(90deg,#ffb790,#ffa6b4)', title:'Persistent memory', tag:'What AI remembers about you across sessions', icon:'<svg width="22" height="22" fill="none" stroke="#ffb790" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l3 3"/><path d="M18 2v4h4"/></svg>', alsoCalled:['Long-term memory','Memory layer','User memory','Session persistence'], analogy:"The reservations book with notes in the margin. 'Table 12 — she's coeliac, he likes the shiraz, corner table.' Someone wrote it down last visit and checks it next time they book.", points:['Unlike in-context memory (gone when the session ends) or RAG (passive document lookup), persistent memory <strong>actively writes facts to storage</strong> and retrieves them in future sessions','The system decides what\'s worth remembering — your preferences, past decisions, key facts about your business — extracts those, stores them, and surfaces them automatically next time','ChatGPT\'s memory feature works this way. So do tools like Mem0 and enterprise agent platforms. It\'s RAG under the hood, but with an intentional write step','This is still early-stage technology for most business tools. It works well for preferences and simple facts; complex multi-session reasoning is harder to get right reliably'], why:"Persistent memory is what turns a stateless AI tool into something that actually feels like it knows you. As agents become more capable, this becomes the layer that enables continuity — and the one that raises the most interesting questions about privacy and data governance." },
+      intel_models: { color:'#8a7fff', iconBg:'rgba(138,127,255,0.12)', grad:'linear-gradient(90deg,#8a7fff,#5fc98a)', title:'Models', tag:'The core intelligence behind every AI tool', icon:'<svg width="22" height="22" fill="none" stroke="#8a7fff" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4m-8.66-5.34l2.83-2.83m11.31-5.66l2.83-2.83M1 12h4m14 0h4m-5.34 8.66l-2.83-2.83M8.17 8.17L5.34 5.34"/></svg>', alsoCalled:['LLM','Large language model','Foundation model','AI model','e.g. GPT-4, Claude, Gemini'], analogy:"The chef. A Michelin-trained head chef costs more and takes longer. A solid line cook turns out perfect lunch specials all day for a fraction of the price. You don't put your head chef on toasted sandwiches.", points:['GPT-4o, Claude, Gemini, Llama, DeepSeek are all different models with different strengths, sizes, and costs','<strong>Bigger isn\'t always better.</strong> A smaller, cheaper model often outperforms a larger one for a specific, well-defined task','Models are versioned and updated constantly — GPT-4 today is not the same as GPT-4 from 18 months ago','Many SaaS tools let you choose which model runs underneath. This choice matters a lot for both cost and quality'], why:"The model is the most expensive part of the AI stack. Choosing the right model for each task — rather than just the most powerful one — is one of the most effective ways to control costs." },
+      intel_agents: { color:'#8a7fff', iconBg:'rgba(138,127,255,0.12)', grad:'linear-gradient(90deg,#8a7fff,#6c8eff)', title:'AI Agents', tag:'AI that can plan, decide, and take action', icon:'<svg width="22" height="22" fill="none" stroke="#8a7fff" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>', alsoCalled:['Agentic AI','Autonomous agents','AI assistants','Copilots'], analogy:"A head chef who also runs front-of-house. They check the cool room, call the supplier, adjust the menu, brief the floor staff, and handle a complaint at table 6 — all from one brief.", points:['Regular AI responds to one prompt at a time. <strong>Agents can plan and execute multi-step tasks</strong>, use tools like APIs and databases, and adapt based on what they find','Example: an agent could research competitors, pull data from your CRM, draft a report, and send it to your team — all from one instruction','Agents need clear guardrails and permissions — they\'re powerful but can go wrong without proper boundaries','Most "agent" products in 2025/26 are still early. The hype is ahead of the reliability for complex, long-running tasks'], why:"Agents are where AI is heading. Understanding the concept now helps you evaluate what vendors are actually offering — and spot 'agent' features that are really just fancy chatbots." },
+      know_training: { color:'#5fc98a', iconBg:'rgba(95,201,138,0.12)', grad:'linear-gradient(90deg,#5fc98a,#8a7fff)', title:'Training data', tag:'What the model learned before it met you', icon:'<svg width="22" height="22" fill="none" stroke="#5fc98a" stroke-width="1.8" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>', alsoCalled:['Parametric memory','Pre-training data','Model weights','Base knowledge'], analogy:"Everything the chef learned before they walked into your kitchen — culinary school plus a lifetime of eating out. It's baked into how they cook. You can't remove one recipe from their instincts.", points:['This is knowledge encoded directly into the model\'s parameters during training. It\'s not stored in a database you can edit — it\'s baked into the model itself','Models are trained on massive datasets — internet text, books, code, research papers — up to a specific cutoff date. <strong>The model doesn\'t know what happened after that point</strong> unless it can search the web','Different training data produces different strengths. A model trained heavily on code will be better at programming. One trained on medical literature will be better at clinical language','This is also where bias enters the picture — if the training data skews in a particular direction, the model\'s outputs will reflect that'], why:"This is why you can ask Claude or ChatGPT about history, science, or how to write a function — without giving it any documents. It's also why it can confidently get things wrong, and why it knows nothing about your business until you tell it." },
+      know_incontext: { color:'#5fc98a', iconBg:'rgba(95,201,138,0.12)', grad:'linear-gradient(90deg,#5fc98a,#6c8eff)', title:'In-context memory', tag:'The working memory of a single session', icon:'<svg width="22" height="22" fill="none" stroke="#5fc98a" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>', alsoCalled:['Context window','Prompt','Session memory','Working memory'], analogy:"A gluten-free order. The kitchen knows about it for this sitting. Next service, it's gone unless someone tells them again.", points:['Everything in the active conversation lives here — your messages, the system prompt, any files or instructions you\'ve pasted in','This is <strong>temporary by design</strong>. When the session ends, it\'s gone. The model isn\'t storing anything — it\'s just working within the current window','The context window has a size limit (measured in tokens). When it fills up, the oldest content gets pushed out — which is why AI can seem to "forget" earlier parts of a long conversation','Project files, knowledge base uploads, and attached documents all work by injecting content into this window at the start of a session'], why:"Understanding that in-context memory is temporary and has a size limit explains a lot of the quirks you'll notice in day-to-day AI use — like why it 'forgets' what you said 20 messages ago." },
+      know_rag: { color:'#5fc98a', iconBg:'rgba(95,201,138,0.12)', grad:'linear-gradient(90deg,#5fc98a,#9eccff)', title:'RAG', tag:'Fetching your documents at runtime — lookup, not learning', icon:'<svg width="22" height="22" fill="none" stroke="#5fc98a" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>', alsoCalled:['Retrieval-augmented generation','Vector search','Knowledge base','Semantic search'], analogy:"The recipe card in the kitchen drawer. The chef doesn't memorise your house recipes — they pull out the card each time and follow it.", points:['RAG is how you make AI answer questions about <strong>your specific business data</strong> without retraining the model','Under the hood: your documents get converted into numbers representing meaning (<strong>embeddings</strong>), stored in a <strong>vector database</strong>, then searched every time a question comes in. The closest matches get injected into the prompt','Important distinction: <strong>RAG is retrieval, not memory.</strong> The AI doesn\'t learn from your documents. It fetches them fresh each time. Update a document, and the next query gets the new version','This is how "chat with your documents", knowledge bases, and AI-powered support tools work. If a vendor says "AI trained on your data", RAG is almost always what they actually mean'], why:"RAG is the most practical, cost-effective way to connect AI to your business data. Understanding that it's lookup — not learning — helps you set the right expectations and avoid overpaying for something more complex than you need." },
+      know_persistent: { color:'#5fc98a', iconBg:'rgba(95,201,138,0.12)', grad:'linear-gradient(90deg,#5fc98a,#8a7fff)', title:'Persistent memory', tag:'What AI remembers about you across sessions', icon:'<svg width="22" height="22" fill="none" stroke="#5fc98a" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l3 3"/><path d="M18 2v4h4"/></svg>', alsoCalled:['Long-term memory','Memory layer','User memory','Session persistence'], analogy:"The reservations book with notes in the margin. 'Table 12 — she's coeliac, he likes the shiraz, corner table.' Someone wrote it down last visit and checks it next time they book.", points:['Unlike in-context memory (gone when the session ends) or RAG (passive document lookup), persistent memory <strong>actively writes facts to storage</strong> and retrieves them in future sessions','The system decides what\'s worth remembering — your preferences, past decisions, key facts about your business — extracts those, stores them, and surfaces them automatically next time','ChatGPT\'s memory feature works this way. So do tools like Mem0 and enterprise agent platforms. It\'s RAG under the hood, but with an intentional write step','This is still early-stage technology for most business tools. It works well for preferences and simple facts; complex multi-session reasoning is harder to get right reliably'], why:"Persistent memory is what turns a stateless AI tool into something that actually feels like it knows you. As agents become more capable, this becomes the layer that enables continuity — and the one that raises the most interesting questions about privacy and data governance." },
       infra_main: { color:'#8a7fff', iconBg:'rgba(138,127,255,0.12)', grad:'linear-gradient(90deg,#8a7fff,#6c8eff)', title:'Infrastructure', tag:'The hardware and hosting that runs everything', icon:'<svg width="22" height="22" fill="none" stroke="#8a7fff" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="#8a7fff"/><circle cx="6" cy="18" r="1" fill="#8a7fff"/><line x1="10" y1="6" x2="18" y2="6"/><line x1="10" y1="18" x2="18" y2="18"/></svg>', alsoCalled:['Compute','Cloud infrastructure','GPU','Hosting','AWS / Azure / GCP'], analogy:"The kitchen itself — the ovens, the gas, the cold storage. Cloud is leasing a fitted kitchen in a shared food hall. On-prem is building your own from the slab up.", points:['<strong>Cloud</strong> is where most AI runs today. AWS, Google Cloud, and Azure host the servers behind ChatGPT, Claude, Gemini, and almost every SaaS AI feature. You pay for what you use','<strong>On-premise</strong> means running AI on servers you own. Required in some industries for data sovereignty (healthcare, legal, defence). Open-source models like Llama make this increasingly practical','<strong>Hybrid</strong> is increasingly the smart default — cloud AI for general tasks, private infrastructure for sensitive data that can\'t leave the network','<strong>GPUs</strong> are the specialised chips that make AI possible. When you use any AI tool, thousands of GPUs are running your request somewhere in a data centre'], why:"For most small businesses, cloud is the obvious starting point. The key question isn't cloud vs. on-prem — it's which cloud region your data is stored in, and whether that matters for your compliance obligations." }
     };
     var activeNode = null, activeChip = null;
@@ -399,73 +409,5 @@
     document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
   })();
 </script>
-
-<!-- ── Course Navigation ── -->
-<style>
-  .ts-course-nav {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-  }
-  .ts-course-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 24px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-  }
-  .ts-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #222222;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    color: #9eccff;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    white-space: nowrap;
-  }
-  .ts-nav-btn:hover {
-    border-color: rgba(108, 142, 255, 0.3);
-    background: #2a2a2a;
-    transform: translateY(-1px);
-  }
-  .ts-nav-btn--hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .ts-nav-pos {
-    font-size: 0.82rem;
-    color: rgba(240, 240, 240, 0.4);
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .ts-nav-pos strong {
-    color: rgba(240, 240, 240, 0.6);
-  }
-  @media (max-width: 600px) {
-    .ts-course-nav { padding: 24px 16px 40px; }
-    .ts-course-nav-inner { padding: 14px 16px; gap: 10px; flex-wrap: nowrap; }
-    .ts-nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-    .ts-nav-pos { font-size: 0.75rem; }
-  }
-</style>
-
-<div class="ts-course-nav">
-  <nav class="ts-course-nav-inner">
-    <a href="m3-s1_what-happens-when-you-press-send.html" class="ts-nav-btn">&larr; Previous</a>
-    <span class="ts-nav-pos">Section <strong>6</strong> of <strong>9</strong></span>
-    <a href="m3-s3_context-consistency-confidence.html" class="ts-nav-btn">Next &rarr;</a>
-  </nav>
-</div>
+</body>
+</html>

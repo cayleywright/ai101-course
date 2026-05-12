@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three Shifts at Once — AI 101 · WrightOps</title>
+  <meta name="description" content="AI has been around for decades — so why does right now feel different? Three things changed at once: the pace, the cost, and the capability.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps — AI 101">
+  <meta property="og:title" content="Three Shifts at Once — AI 101">
+  <meta property="og:description" content="Three things changed at once: the pace, the cost, and the capability.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
+    /* ── page-specific: radar pulse diagram + stat cards ── */
+    .ts-radar { margin: var(--space-lg) auto; max-width: 620px; }
+    .ts-radar-svg { width: 100%; height: auto; display: block; }
+    @keyframes tsPulse1 { 0% { r: 30; opacity: 0.6; } 100% { r: 120; opacity: 0; } }
+    @keyframes tsPulse2 { 0% { r: 30; opacity: 0.5; } 100% { r: 140; opacity: 0; } }
+    @keyframes tsPulse3 { 0% { r: 30; opacity: 0.5; } 100% { r: 160; opacity: 0; } }
+    .ts-ring1 { animation: tsPulse1 3s ease-out infinite; }
+    .ts-ring2 { animation: tsPulse2 3s ease-out 1s infinite; }
+    .ts-ring3 { animation: tsPulse3 3s ease-out 2s infinite; }
+    .ts-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: var(--space-sm); }
+    .ts-stat-card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: 0; padding: 14px 12px; text-align: center; }
+    .ts-stat-num { font-size: 1.3rem; font-weight: 700; margin-bottom: 2px; color: var(--text-primary); }
+    .ts-stat-label { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.35; }
+    @media (max-width: 768px) { .ts-stats { grid-template-columns: 1fr; gap: 8px; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 1 &middot; Section 2</span>
+  </header>
+
+  <main id="main" class="ts-step">
+    <p class="ts-eyebrow">Module 1</p>
+    <h1 class="ts-step-title">Three Shifts at Once</h1>
+    <div class="ts-body">
+      <p>AI has been around for decades. Your spam filter is AI. Netflix
+      recommendations are AI. So why does right now feel different?</p>
+      <p>Because three things changed in a short window. Any one alone would
+      matter. All three together is why this moment is different from the last
+      ten years of "AI is coming."</p>
+    </div>
+    <!-- ── Radar pulse diagram ── -->
+    <div class="ts-radar">
+      <svg class="ts-radar-svg" viewBox="0 0 500 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Radar diagram: NOW at the centre, with three forces converging — the pace, the cost, and the capability.">
+        <circle cx="250" cy="200" r="60" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+        <circle cx="250" cy="200" r="100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+        <circle cx="250" cy="200" r="140" fill="none" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+        <circle class="ts-ring1" cx="250" cy="200" r="30" fill="none" stroke="#5fc98a" stroke-width="1.5"/>
+        <circle class="ts-ring2" cx="250" cy="200" r="30" fill="none" stroke="#8a7fff" stroke-width="1.5"/>
+        <circle class="ts-ring3" cx="250" cy="200" r="30" fill="none" stroke="#6c8eff" stroke-width="1.5"/>
+        <circle cx="250" cy="200" r="20" fill="rgba(108,142,255,0.08)"/>
+        <circle cx="250" cy="200" r="8" fill="#6c8eff"/>
+        <circle cx="250" cy="200" r="4" fill="#e5dfd6"/>
+        <text x="250" y="200" text-anchor="middle" dominant-baseline="middle" fill="#e5dfd6" font-family="'Chakra Petch', sans-serif" font-size="8" font-weight="700" letter-spacing="2.5">NOW</text>
+        <line x1="250" y1="192" x2="250" y2="68" stroke="#5fc98a" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="3,4"/>
+        <line x1="244" y1="206" x2="105" y2="340" stroke="#8a7fff" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="3,4"/>
+        <line x1="256" y1="206" x2="395" y2="340" stroke="#6c8eff" stroke-width="1" stroke-opacity="0.35" stroke-dasharray="3,4"/>
+        <circle cx="250" cy="52" r="18" fill="rgba(95,201,138,0.1)" stroke="rgba(95,201,138,0.25)" stroke-width="1"/>
+        <text x="250" y="56" text-anchor="middle" dominant-baseline="middle" fill="#5fc98a" font-family="'Chakra Petch', sans-serif" font-size="14">&#9889;</text>
+        <text x="250" y="24" text-anchor="middle" fill="#5fc98a" font-family="'Chakra Petch', sans-serif" font-size="11" font-weight="700" letter-spacing="2">THE PACE</text>
+        <text x="250" y="88" text-anchor="middle" fill="#e5dfd6" fill-opacity="0.5" font-family="'Chakra Petch', sans-serif" font-size="9.5">New capability every week</text>
+        <circle cx="105" cy="356" r="18" fill="rgba(138,127,255,0.1)" stroke="rgba(138,127,255,0.25)" stroke-width="1"/>
+        <text x="105" y="360" text-anchor="middle" dominant-baseline="middle" fill="#8a7fff" font-family="'Chakra Petch', sans-serif" font-size="14">&#128181;</text>
+        <text x="105" y="394" text-anchor="middle" fill="#8a7fff" font-family="'Chakra Petch', sans-serif" font-size="11" font-weight="700" letter-spacing="2">THE COST</text>
+        <text x="105" y="410" text-anchor="middle" fill="#e5dfd6" fill-opacity="0.5" font-family="'Chakra Petch', sans-serif" font-size="9.5">99% cheaper, but scale bites</text>
+        <circle cx="395" cy="356" r="18" fill="rgba(108,142,255,0.1)" stroke="rgba(108,142,255,0.25)" stroke-width="1"/>
+        <text x="395" y="360" text-anchor="middle" dominant-baseline="middle" fill="#6c8eff" font-family="'Chakra Petch', sans-serif" font-size="14">&#9881;</text>
+        <text x="395" y="394" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch', sans-serif" font-size="11" font-weight="700" letter-spacing="2">THE CAPABILITY</text>
+        <text x="395" y="410" text-anchor="middle" fill="#e5dfd6" fill-opacity="0.5" font-family="'Chakra Petch', sans-serif" font-size="9.5">AI acts, not just answers</text>
+      </svg>
+      <div class="ts-stats">
+        <div class="ts-stat-card">
+          <div class="ts-stat-num">Weekly</div>
+          <div class="ts-stat-label">New models and features launching</div>
+        </div>
+        <div class="ts-stat-card">
+          <div class="ts-stat-num">99%</div>
+          <div class="ts-stat-label">Cost drop per AI query since 2023</div>
+        </div>
+        <div class="ts-stat-card">
+          <div class="ts-stat-num">70%</div>
+          <div class="ts-stat-label">Of Uber's code now from AI</div>
+        </div>
+      </div>
+    </div>
+    <!-- SHIFT 1 -->
+    <hr class="ts-divider">
+    <div class="ts-shift-heading">
+      <span class="ts-shift-num">1</span>
+      <span class="ts-shift-title">The pace is relentless</span>
+    </div>
+    <div class="ts-body">
+      <p>A new model, a new feature, a new capability — every week. Not annual
+      product cycles. Not quarterly updates. Weekly. The gap between "cutting edge
+      research" and "button in your software" has collapsed from years to months,
+      sometimes weeks. By the time you've finished evaluating one tool, three more
+      have launched.</p>
+      <p>This is why it feels impossible to keep up. It's not a knowledge problem —
+      it's a speed problem. And it's not slowing down. Roughly 95% of companies
+      haven't seen real financial impact from AI yet. Most businesses are where you
+      are right now — aware, interested, not sure where to start. That's normal.</p>
+    </div>
+    <div class="ts-callout">
+      <p><strong>79% of enterprises say AI adoption is getting harder, not easier.</strong>
+      The window doesn't stay open just because most people haven't climbed
+      through it yet.</p>
+    </div>
+    <!-- SHIFT 2 -->
+    <hr class="ts-divider">
+    <div class="ts-shift-heading">
+      <span class="ts-shift-num">2</span>
+      <span class="ts-shift-title">The cost collapsed — then the bills arrived</span>
+    </div>
+    <div class="ts-body">
+      <p>The cost of a single AI query dropped over 99% between 2023 and today.
+      That's why every piece of software you use suddenly has an AI button — for
+      the vendor, adding it cost almost nothing. Most of these features are already
+      included in what you pay.</p>
+      <p>But cheap per query doesn't mean cheap at scale. Uber gave their engineers
+      access to AI coding tools and burned through their entire 2026 AI budget by
+      April — four months in. Nvidia's own VP said publicly that his team's compute
+      costs now exceed what he pays the people. Getting started is nearly free.
+      Scaling without understanding what you're scaling is where it gets expensive.</p>
+    </div>
+    <!-- SHIFT 3 -->
+    <hr class="ts-divider">
+    <div class="ts-shift-heading">
+      <span class="ts-shift-num">3</span>
+      <span class="ts-shift-title">The capability jumped</span>
+    </div>
+    <div class="ts-body">
+      <p>Until recently, AI was a search engine with better grammar. You asked, it
+      answered, you did the work. That's not where it is now. AI agents log into
+      your actual business tools and take action. Sending follow-up emails.
+      Updating records. Generating reports from live data.</p>
+      <p>And it's not just the boring work. AI writes production code. It reads
+      contracts and spots risk clauses. It handles nuanced customer conversations,
+      not scripted FAQ responses. The line between "AI work" and "human work" is
+      moving — not just at the admin end, through the middle and into the complex,
+      skilled, well-paid end.</p>
+    </div>
+    <div class="ts-callout">
+      <p><strong>Block's AI resolves customer issues end to end</strong> without a
+      human involved. <strong>Seventy percent of Uber's code</strong> now
+      originates from AI.</p>
+    </div>
+    <!-- CASE STUDY -->
+    <div class="ts-case-study">
+      <div class="ts-case-study-label">Case study</div>
+      <p class="ts-case-study-intro">
+        These three shifts are already showing up for Sarah and David — just in
+        very different ways.
+      </p>
+      <div class="ts-flip-grid">
+        <!-- Sarah -->
+        <div class="ts-flip-card ts-flip-card--sarah" id="tsFlipSarah" role="button" tabindex="0" aria-pressed="false">
+          <div class="ts-flip-content" id="tsFlipSarahContent">
+            <div class="ts-flip-icon" aria-hidden="true">&#9986;</div>
+            <div class="ts-flip-name">Sarah</div>
+            <div class="ts-flip-role">Salon owner · 11 years</div>
+            <div class="ts-flip-bio"><ul>
+              <li>Auto-confirmations and reminders — already in her booking system</li>
+              <li>AI-enabled promotions and birthday offers — already in her booking system</li>
+              <li>Smart follow-ups after appointments — already in her booking system</li>
+            </ul></div>
+            <div class="ts-flip-cares">She's paying for all of it. None of it is switched on.</div>
+            <div class="ts-flip-hint">Tap to see what's happening &#8594;</div>
+          </div>
+        </div>
+        <!-- David -->
+        <div class="ts-flip-card ts-flip-card--david" id="tsFlipDavid" role="button" tabindex="0" aria-pressed="false">
+          <div class="ts-flip-content" id="tsFlipDavidContent">
+            <div class="ts-flip-icon" aria-hidden="true">&#9881;</div>
+            <div class="ts-flip-name">David</div>
+            <div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div>
+            <div class="ts-flip-bio"><ul>
+              <li>Got the budget approved</li>
+              <li>Chose the platform, ran the implementation</li>
+              <li>Rolled out an AI-powered CRM across the team</li>
+            </ul></div>
+            <div class="ts-flip-cares">The hard part is done. The system is live.</div>
+            <div class="ts-flip-hint">Tap to see what went wrong &#8594;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Reflection -->
+    <div class="ts-reflection">
+      <div class="ts-reflection-label">Reflection</div>
+      <p class="ts-reflection-text">
+        Which of the three shifts — pace, cost, or capability — feels most
+        relevant to your business right now? Which one are you least prepared for?
+      </p>
+    </div>
+  </main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <a href="m1-s1_the-ai-moment.html" class="ts-nav-btn">&larr; Previous</a>
+      <a href="index.html" class="ts-nav-pos">Section <strong>2</strong> of <strong>9</strong></a>
+      <a href="m1-s3_ai-through-the-ages.html" class="ts-nav-btn">Next &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
+  <script>
+    /* ── Flip Cards ── */
+    (function () {
+      var cards = {
+        sarah: {
+          front: '<div class="ts-flip-icon" aria-hidden="true">&#9986;</div><div class="ts-flip-name">Sarah</div><div class="ts-flip-role">Salon owner · 11 years</div><div class="ts-flip-bio"><ul><li>Auto-confirmations and reminders — already in her booking system</li><li>AI-enabled promotions and birthday offers — already in her booking system</li><li>Smart follow-ups after appointments — already in her booking system</li></ul></div><div class="ts-flip-cares">She\'s paying for all of it. None of it is switched on.</div><div class="ts-flip-hint">Tap to see what\'s happening →</div>',
+          back: '<div class="ts-flip-back-label">Meanwhile</div><div class="ts-flip-back"><ul><li>The salon two suburbs over switched it all on</li><li>They didn\'t hire anyone new or buy new software — just turned on what was already there</li><li>Sarah\'s clients are noticing the difference</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+          flipped: false
+        },
+        david: {
+          front: '<div class="ts-flip-icon" aria-hidden="true">&#9881;</div><div class="ts-flip-name">David</div><div class="ts-flip-role">IT &amp; Innovation Manager · facilities co. · 45 staff</div><div class="ts-flip-bio"><ul><li>Got the budget approved</li><li>Chose the platform, ran the implementation</li><li>Rolled out an AI-powered CRM across the team</li></ul></div><div class="ts-flip-cares">The hard part is done. The system is live.</div><div class="ts-flip-hint">Tap to see what went wrong →</div>',
+          back: '<div class="ts-flip-back-label">What actually happened</div><div class="ts-flip-back"><ul><li>The team went back to their old spreadsheets</li><li>Adoption is flat</li><li>The ROI isn\'t matching the promise</li></ul></div><div class="ts-flip-hint">← Tap to flip back</div>',
+          flipped: false
+        }
+      };
+      function flip(id, cardEl) {
+        var d = cards[id];
+        d.flipped = !d.flipped;
+        var el = document.getElementById('tsFlip' + id.charAt(0).toUpperCase() + id.slice(1) + 'Content');
+        el.innerHTML = d.flipped ? d.back : d.front;
+        el.style.animation = 'none';
+        el.offsetHeight;
+        el.style.animation = '';
+        if (cardEl) cardEl.setAttribute('aria-pressed', d.flipped ? 'true' : 'false');
+      }
+      function wire(cardId, key) {
+        var card = document.getElementById(cardId);
+        if (!card) return;
+        card.addEventListener('click', function () { flip(key, card); });
+        card.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(key, card); }
+        });
+      }
+      wire('tsFlipSarah', 'sarah');
+      wire('tsFlipDavid', 'david');
+    })();
+  </script>
+</body>
+</html>

@@ -1,37 +1,25 @@
-<!-- ============================================================
-     AI 101 — Module 3, Section 1: What Happens When You Press Send
-     Full-step embed for Wix Online Programs HTML block
-     Contains: animated token flow SVG diagram, case study flips
-     ============================================================ -->
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Happens When You Press Send &mdash; AI 101 &middot; WrightOps</title>
+  <meta name="description" content="From your prompt to the reply: tokens, context, and what actually happens in the moment you press send.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps &mdash; AI 101">
+  <meta property="og:title" content="What Happens When You Press Send &mdash; AI 101">
+  <meta property="og:description" content="From your prompt to the reply: tokens, context, and what actually happens in the moment you press send.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   /* ══════════════════════════════════════════════════════════════
      DESIGN TOKENS
      ══════════════════════════════════════════════════════════════ */
-  .ts-step {
-    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
-    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
-    --ts-purple: #8a7fff; --ts-black: #101010; --ts-white: #ffffff;
-    --ts-green: #6fcf97; --ts-red: #e57373;
-    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
-    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
-    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
-    --font-family: 'Bricolage Grotesque', sans-serif;
-    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
-    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
-    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
-    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
-    --fs-eyebrow: 0.72rem;
-    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
-    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
-    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
-    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
-    --content-max-width: 1200px;
-    --content-padding: clamp(20px, 5vw, 80px);
-    --text-measure: 720px;
-  }
-  /* ══════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════
      BASE
      ══════════════════════════════════════════════════════════════ */
   .ts-step {
@@ -66,7 +54,7 @@
   .ts-try-this-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-try-this-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; }
   /* --- Reflection --- */
-  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(138,127,255,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
   .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
   /* ══════════════════════════════════════════════════════════════
@@ -105,7 +93,7 @@
   /* ══════════════════════════════════════════════════════════════
      COMPONENT: Case Study Block
      ══════════════════════════════════════════════════════════════ */
-  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study { background: rgba(95,201,138,0.04); border: 1px solid rgba(95,201,138,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
   .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
   .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
   .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
@@ -126,7 +114,7 @@
   .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
   .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
   .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
-  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(138,127,255,0.06); border-left: 3px solid rgba(138,127,255,0.25); }
   .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
   .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
   .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
@@ -142,10 +130,18 @@
     .ts-flip-card { padding: 20px 16px; }
   }
 </style>
-<!-- ══════════════════════════════════════════════════════════════
-     STEP CONTENT
-     ══════════════════════════════════════════════════════════════ -->
-<div class="ts-step">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 3 &middot; Section 1</span>
+  </header>
+
+  <main id="main" class="ts-step">
   <p class="ts-eyebrow">Module 3</p>
   <h1 class="ts-step-title">What Happens When You Press Send</h1>
   <p class="ts-body ts-body--single">
@@ -167,50 +163,50 @@
       <circle cx="230" cy="55" r="30" fill="rgba(108,142,255,0.12)" stroke="rgba(108,142,255,0.3)" stroke-width="2"/>
       <circle cx="230" cy="46" r="10" fill="#6c8eff"/>
       <path d="M215 65 a15 11 0 0 1 30 0" fill="#6c8eff" opacity="0.7"/>
-      <text x="230" y="105" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="700" letter-spacing="3">YOU</text>
+      <text x="230" y="105" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="14" font-weight="700" letter-spacing="3">YOU</text>
       <rect x="95" y="118" width="270" height="28" rx="8" fill="rgba(108,142,255,0.08)" stroke="rgba(108,142,255,0.2)" stroke-width="1.5"/>
-      <text x="230" y="137" text-anchor="middle" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="13" opacity="0.7">"Write me a follow-up email..."</text>
+      <text x="230" y="137" text-anchor="middle" fill="#e5dfd6" font-family="'Chakra Petch',sans-serif" font-size="13" opacity="0.7">"Write me a follow-up email..."</text>
       <line x1="230" y1="150" x2="230" y2="210" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
       <!-- Word particles -->
-      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0s"/><rect x="-26" y="-12" width="52" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">Write</text></g>
-      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0.7s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0.7s"/><rect x="-18" y="-12" width="36" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">me</text></g>
-      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="1.4s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="1.4s"/><rect x="-14" y="-12" width="28" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">a</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0s"/><rect x="-26" y="-12" width="52" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="13" font-weight="600">Write</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0.7s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0.7s"/><rect x="-18" y="-12" width="36" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="13" font-weight="600">me</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="1.4s"><mpath href="#tsP1"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="1.4s"/><rect x="-14" y="-12" width="28" height="24" rx="6" fill="rgba(108,142,255,0.18)" stroke="rgba(108,142,255,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="13" font-weight="600">a</text></g>
       <!-- STAGE 2: TOKENISER -->
-      <rect x="145" y="215" width="170" height="80" rx="16" fill="rgba(255,183,144,0.06)" stroke="rgba(255,183,144,0.25)" stroke-width="2"/>
-      <text x="230" y="250" text-anchor="middle" fill="#ffb790" font-family="'Bricolage Grotesque',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">TOKENISER</text>
-      <text x="230" y="275" text-anchor="middle" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="13" opacity="0.4">words &#8594; tokens</text>
+      <rect x="145" y="215" width="170" height="80" rx="16" fill="rgba(95,201,138,0.06)" stroke="rgba(95,201,138,0.25)" stroke-width="2"/>
+      <text x="230" y="250" text-anchor="middle" fill="#5fc98a" font-family="'Chakra Petch',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">TOKENISER</text>
+      <text x="230" y="275" text-anchor="middle" fill="#e5dfd6" font-family="'Chakra Petch',sans-serif" font-size="13" opacity="0.4">words &#8594; tokens</text>
       <line x1="230" y1="300" x2="230" y2="390" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
       <!-- Token particles -->
-      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0s"/><rect x="-16" y="-11" width="32" height="22" rx="5" fill="rgba(255,166,180,0.25)" stroke="rgba(255,166,180,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#ffa6b4" font-family="'Bricolage Grotesque',sans-serif" font-size="12" font-weight="600">foll</text></g>
-      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0.45s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0.45s"/><rect x="-14" y="-11" width="28" height="22" rx="5" fill="rgba(108,142,255,0.25)" stroke="rgba(108,142,255,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="12" font-weight="600">ow</text></g>
-      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0.9s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0.9s"/><rect x="-10" y="-11" width="20" height="22" rx="5" fill="rgba(255,183,144,0.25)" stroke="rgba(255,183,144,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#ffb790" font-family="'Bricolage Grotesque',sans-serif" font-size="12" font-weight="600">-</text></g>
-      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="1.35s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="1.35s"/><rect x="-14" y="-11" width="28" height="22" rx="5" fill="rgba(108,142,255,0.25)" stroke="rgba(108,142,255,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="12" font-weight="600">up</text></g>
+      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0s"/><rect x="-16" y="-11" width="32" height="22" rx="5" fill="rgba(138,127,255,0.25)" stroke="rgba(138,127,255,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#8a7fff" font-family="'Chakra Petch',sans-serif" font-size="12" font-weight="600">foll</text></g>
+      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0.45s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0.45s"/><rect x="-14" y="-11" width="28" height="22" rx="5" fill="rgba(108,142,255,0.25)" stroke="rgba(108,142,255,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="12" font-weight="600">ow</text></g>
+      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="0.9s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="0.9s"/><rect x="-10" y="-11" width="20" height="22" rx="5" fill="rgba(95,201,138,0.25)" stroke="rgba(95,201,138,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#5fc98a" font-family="'Chakra Petch',sans-serif" font-size="12" font-weight="600">-</text></g>
+      <g opacity="0"><animateMotion dur="1.8s" repeatCount="indefinite" begin="1.35s"><mpath href="#tsP2"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="1.8s" repeatCount="indefinite" begin="1.35s"/><rect x="-14" y="-11" width="28" height="22" rx="5" fill="rgba(108,142,255,0.25)" stroke="rgba(108,142,255,0.35)" stroke-width="0.8"/><text x="0" y="4" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="12" font-weight="600">up</text></g>
       <!-- STAGE 3: MODEL -->
       <circle class="ts-model-glow" cx="230" cy="460" r="52" fill="#6c8eff"/>
-      <circle cx="230" cy="460" r="48" fill="#1a1a1a" stroke="rgba(108,142,255,0.35)" stroke-width="2"/>
-      <circle cx="216" cy="444" r="4.5" fill="rgba(108,142,255,0.5)"/><circle cx="240" cy="438" r="3.5" fill="rgba(255,166,180,0.5)"/><circle cx="254" cy="458" r="4.5" fill="rgba(108,142,255,0.5)"/><circle cx="236" cy="478" r="3.5" fill="rgba(255,183,144,0.5)"/><circle cx="212" cy="468" r="3.5" fill="rgba(158,204,255,0.5)"/><circle cx="248" cy="476" r="3" fill="rgba(108,142,255,0.35)"/>
+      <circle cx="230" cy="460" r="48" fill="#151413" stroke="rgba(108,142,255,0.35)" stroke-width="2"/>
+      <circle cx="216" cy="444" r="4.5" fill="rgba(108,142,255,0.5)"/><circle cx="240" cy="438" r="3.5" fill="rgba(138,127,255,0.5)"/><circle cx="254" cy="458" r="4.5" fill="rgba(108,142,255,0.5)"/><circle cx="236" cy="478" r="3.5" fill="rgba(95,201,138,0.5)"/><circle cx="212" cy="468" r="3.5" fill="rgba(158,204,255,0.5)"/><circle cx="248" cy="476" r="3" fill="rgba(108,142,255,0.35)"/>
       <line x1="216" y1="444" x2="240" y2="438" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="240" y1="438" x2="254" y2="458" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="254" y1="458" x2="236" y2="478" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="236" y1="478" x2="212" y2="468" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="212" y1="468" x2="216" y2="444" stroke="rgba(108,142,255,0.2)" stroke-width="0.8"/><line x1="216" y1="444" x2="254" y2="458" stroke="rgba(108,142,255,0.1)" stroke-width="0.8"/><line x1="240" y1="438" x2="236" y2="478" stroke="rgba(108,142,255,0.1)" stroke-width="0.8"/>
-      <text x="230" y="528" text-anchor="middle" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">MODEL</text>
+      <text x="230" y="528" text-anchor="middle" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">MODEL</text>
       <line x1="230" y1="540" x2="230" y2="620" stroke="rgba(255,255,255,0.07)" stroke-width="1.5"/>
       <!-- Prediction particles -->
-      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0s"/><rect x="-28" y="-12" width="56" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">Subject</text></g>
-      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0.7s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0.7s"/><rect x="-10" y="-12" width="20" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">:</text></g>
-      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="1.4s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="1.4s"/><rect x="-34" y="-12" width="68" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="13" font-weight="600">Following</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0s"/><rect x="-28" y="-12" width="56" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Chakra Petch',sans-serif" font-size="13" font-weight="600">Subject</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="0.7s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="0.7s"/><rect x="-10" y="-12" width="20" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Chakra Petch',sans-serif" font-size="13" font-weight="600">:</text></g>
+      <g opacity="0"><animateMotion dur="2s" repeatCount="indefinite" begin="1.4s"><mpath href="#tsP3"/></animateMotion><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.8;1" dur="2s" repeatCount="indefinite" begin="1.4s"/><rect x="-34" y="-12" width="68" height="24" rx="6" fill="rgba(111,207,151,0.18)" stroke="rgba(111,207,151,0.3)" stroke-width="0.8"/><text x="0" y="5" text-anchor="middle" fill="#6fcf97" font-family="'Chakra Petch',sans-serif" font-size="13" font-weight="600">Following</text></g>
       <!-- STAGE 4: OUTPUT -->
       <rect x="140" y="625" width="180" height="100" rx="16" fill="rgba(111,207,151,0.04)" stroke="rgba(111,207,151,0.2)" stroke-width="1.5"/>
-      <text class="ts-ow1" x="158" y="656" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="14" font-weight="600" opacity="0">Subject:</text>
-      <text class="ts-ow2" x="238" y="656" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="14" opacity="0">Following</text>
-      <text class="ts-ow3" x="158" y="680" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="14" opacity="0">up - quick check-in</text>
-      <text class="ts-ow4" x="158" y="704" fill="#f0f0f0" font-family="'Bricolage Grotesque',sans-serif" font-size="14" opacity="0">Hi [Name],</text>
-      <text x="230" y="748" text-anchor="middle" fill="#6fcf97" font-family="'Bricolage Grotesque',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">OUTPUT</text>
+      <text class="ts-ow1" x="158" y="656" fill="#6fcf97" font-family="'Chakra Petch',sans-serif" font-size="14" font-weight="600" opacity="0">Subject:</text>
+      <text class="ts-ow2" x="238" y="656" fill="#e5dfd6" font-family="'Chakra Petch',sans-serif" font-size="14" opacity="0">Following</text>
+      <text class="ts-ow3" x="158" y="680" fill="#e5dfd6" font-family="'Chakra Petch',sans-serif" font-size="14" opacity="0">up - quick check-in</text>
+      <text class="ts-ow4" x="158" y="704" fill="#e5dfd6" font-family="'Chakra Petch',sans-serif" font-size="14" opacity="0">Hi [Name],</text>
+      <text x="230" y="748" text-anchor="middle" fill="#6fcf97" font-family="'Chakra Petch',sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">OUTPUT</text>
       <!-- LOOP -->
       <path class="ts-loop-path" d="M 380 680 C 420 580, 420 480, 370 460" fill="none" stroke="rgba(108,142,255,0.35)" stroke-width="2" stroke-dasharray="6,5"/>
       <polygon points="370,460 378,468 374,454" fill="rgba(108,142,255,0.5)"/>
       <g opacity="0"><animateMotion dur="2.5s" repeatCount="indefinite" begin="0s"><mpath href="#tsLoop"/></animateMotion><animate attributeName="opacity" values="0;0.8;0.8;0" keyTimes="0;0.1;0.8;1" dur="2.5s" repeatCount="indefinite" begin="0s"/><circle r="5" fill="#6c8eff" opacity="0.6"/></g>
       <g opacity="0"><animateMotion dur="2.5s" repeatCount="indefinite" begin="1.2s"><mpath href="#tsLoop"/></animateMotion><animate attributeName="opacity" values="0;0.6;0.6;0" keyTimes="0;0.1;0.8;1" dur="2.5s" repeatCount="indefinite" begin="1.2s"/><circle r="4" fill="#6c8eff" opacity="0.4"/></g>
-      <text x="420" y="570" text-anchor="start" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="11" font-weight="600" opacity="0.4">each token</text>
-      <text x="420" y="586" text-anchor="start" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="11" font-weight="600" opacity="0.4">feeds back</text>
-      <text x="420" y="602" text-anchor="start" fill="#6c8eff" font-family="'Bricolage Grotesque',sans-serif" font-size="11" font-weight="600" opacity="0.4">into the model</text>
+      <text x="420" y="570" text-anchor="start" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="11" font-weight="600" opacity="0.4">each token</text>
+      <text x="420" y="586" text-anchor="start" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="11" font-weight="600" opacity="0.4">feeds back</text>
+      <text x="420" y="602" text-anchor="start" fill="#6c8eff" font-family="'Chakra Petch',sans-serif" font-size="11" font-weight="600" opacity="0.4">into the model</text>
     </svg>
   </div>
   <!-- ══════════════════════════════════════════════
@@ -375,7 +371,21 @@
       wrong in your line of work?
     </p>
   </div>
-</div>
+</main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <a href="m2-s1_types-of-ai.html" class="ts-nav-btn">&larr; Previous</a>
+      <a href="index.html" class="ts-nav-pos">Section <strong>5</strong> of <strong>9</strong></a>
+      <a href="m3-s2_inside-the-machine.html" class="ts-nav-btn">Next &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
 <!-- ══════════════════════════════════════════════════════════════
      SCRIPTS
      ══════════════════════════════════════════════════════════════ -->
@@ -405,73 +415,5 @@
     document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
   })();
 </script>
-
-<!-- ── Course Navigation ── -->
-<style>
-  .ts-course-nav {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-  }
-  .ts-course-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 24px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-  }
-  .ts-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #222222;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    color: #9eccff;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    white-space: nowrap;
-  }
-  .ts-nav-btn:hover {
-    border-color: rgba(108, 142, 255, 0.3);
-    background: #2a2a2a;
-    transform: translateY(-1px);
-  }
-  .ts-nav-btn--hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .ts-nav-pos {
-    font-size: 0.82rem;
-    color: rgba(240, 240, 240, 0.4);
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .ts-nav-pos strong {
-    color: rgba(240, 240, 240, 0.6);
-  }
-  @media (max-width: 600px) {
-    .ts-course-nav { padding: 24px 16px 40px; }
-    .ts-course-nav-inner { padding: 14px 16px; gap: 10px; flex-wrap: nowrap; }
-    .ts-nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-    .ts-nav-pos { font-size: 0.75rem; }
-  }
-</style>
-
-<div class="ts-course-nav">
-  <nav class="ts-course-nav-inner">
-    <a href="m2-s1_types-of-ai.html" class="ts-nav-btn">&larr; Previous</a>
-    <span class="ts-nav-pos">Section <strong>5</strong> of <strong>9</strong></span>
-    <a href="m3-s2_inside-the-machine.html" class="ts-nav-btn">Next &rarr;</a>
-  </nav>
-</div>
+</body>
+</html>

@@ -1,63 +1,26 @@
-<!-- ============================================================
-     AI 101 — Module 1, Section 3: AI Through the Ages
-     Full-step embed for Wix Online Programs HTML block
-     Contains: eras timeline, era classifier activity, flip cards
-     ============================================================ -->
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
-
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Through the Ages &mdash; AI 101 &middot; WrightOps</title>
+  <meta name="description" content="AI didn't start with ChatGPT. A walk through the eras of artificial intelligence and what each one made possible.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps &mdash; AI 101">
+  <meta property="og:title" content="AI Through the Ages &mdash; AI 101">
+  <meta property="og:description" content="AI didn't start with ChatGPT. A walk through the eras of artificial intelligence and what each one made possible.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   /* ══════════════════════════════════════════════════════════════
      DESIGN TOKENS
      ══════════════════════════════════════════════════════════════ */
-  .ts-step {
-    --ts-blue: #6c8eff;
-    --ts-light-blue: #9eccff;
-    --ts-pink: #ffa6b4;
-    --ts-peach: #ffb790;
-    --ts-purple: #8a7fff;
-    --ts-pale-blue: #c8e8ff;
-    --ts-black: #101010;
-    --ts-white: #ffffff;
-
-    --surface-bg: #101010;
-    --surface-card: #1a1a1a;
-    --surface-raised: #222222;
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-accent: rgba(108, 142, 255, 0.2);
-
-    --text-primary: #f0f0f0;
-    --text-secondary: rgba(240, 240, 240, 0.6);
-    --text-muted: rgba(240, 240, 240, 0.4);
-
-    --font-family: 'Bricolage Grotesque', sans-serif;
-    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
-    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
-    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
-    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
-    --fs-eyebrow: 0.72rem;
-
-    --space-xs: 8px;
-    --space-sm: 16px;
-    --space-md: 24px;
-    --space-lg: 40px;
-    --space-xl: 56px;
-    --space-section: 48px;
-
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 14px;
-    --transition-fast: 0.2s ease;
-    --transition-med: 0.35s ease;
-
-    --content-max-width: 1200px;
-    --content-padding: clamp(20px, 5vw, 80px);
-    --text-measure: 720px;
-  }
-
-  /* ══════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════
      BASE
      ══════════════════════════════════════════════════════════════ */
   .ts-step {
@@ -109,7 +72,7 @@
   .ts-question-a { font-size: var(--fs-small); color: var(--text-secondary); line-height: 1.6; }
 
   /* --- Reflection --- */
-  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(138,127,255,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
   .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
 
@@ -190,7 +153,7 @@
   .ts-placed-items { display: flex; flex-direction: column; gap: 6px; flex-grow: 1; }
   .ts-placed-item { font-size: 0.76rem; font-weight: 600; padding: 5px 10px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-secondary); display: flex; align-items: center; justify-content: space-between; }
   .ts-placed-item.correct { background: rgba(108,142,255,0.1); color: var(--ts-blue); }
-  .ts-placed-item.incorrect { background: rgba(255,166,180,0.1); color: var(--ts-pink); }
+  .ts-placed-item.incorrect { background: rgba(138,127,255,0.1); color: var(--ts-pink); }
   .ts-placed-item .ts-remove-btn { background: none; border: none; color: inherit; cursor: pointer; font-size: 0.85rem; padding: 0 2px; opacity: 0.6; font-family: var(--font-family); }
   .ts-placed-item .ts-remove-btn:hover { opacity: 1; }
 
@@ -207,7 +170,7 @@
   /* ══════════════════════════════════════════════════════════════
      COMPONENT: Case Study Block
      ══════════════════════════════════════════════════════════════ */
-  .ts-case-study { background: rgba(255, 183, 144, 0.04); border: 1px solid rgba(255, 183, 144, 0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study { background: rgba(95,201,138, 0.04); border: 1px solid rgba(95,201,138, 0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
   .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
   .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
   .ts-case-study-intro strong { color: var(--text-primary); font-weight: 600; }
@@ -230,7 +193,7 @@
   .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
 
   .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
-  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(138,127,255,0.06); border-left: 3px solid rgba(138,127,255,0.25); }
   .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
   .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
   .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
@@ -254,13 +217,18 @@
     .ts-flip-card { padding: 20px 16px; }
   }
 </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 1 &middot; Section 3</span>
+  </header>
 
-<!-- ══════════════════════════════════════════════════════════════
-     STEP CONTENT
-     ══════════════════════════════════════════════════════════════ -->
-
-<div class="ts-step">
+  <main id="main" class="ts-step">
 
   <p class="ts-eyebrow">Module 1</p>
   <h1 class="ts-step-title">AI Didn't Start with ChatGPT</h1>
@@ -286,8 +254,8 @@
       <button class="ts-era-tab active" style="--era-color:#8a7fff" data-era="0"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">1950s-70s</div><div class="ts-era-tab-name">Concept</div></button>
       <button class="ts-era-tab" style="--era-color:#6c8eff" data-era="1"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">1980s-90s</div><div class="ts-era-tab-name">Rules</div></button>
       <button class="ts-era-tab" style="--era-color:#9eccff" data-era="2"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">2000s-10s</div><div class="ts-era-tab-name">Pattern</div></button>
-      <button class="ts-era-tab" style="--era-color:#ffa6b4" data-era="3"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">2020-2024</div><div class="ts-era-tab-name">Generation</div></button>
-      <button class="ts-era-tab" style="--era-color:#ffb790" data-era="4"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">2024-Now</div><div class="ts-era-tab-name">Action</div></button>
+      <button class="ts-era-tab" style="--era-color:#8a7fff" data-era="3"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">2020-2024</div><div class="ts-era-tab-name">Generation</div></button>
+      <button class="ts-era-tab" style="--era-color:#5fc98a" data-era="4"><div class="ts-era-tab-dot"></div><div class="ts-era-tab-year">2024-Now</div><div class="ts-era-tab-name">Action</div></button>
     </div>
 
     <div class="ts-eras-panels" id="tsEraPanels">
@@ -364,7 +332,7 @@
       </div>
 
       <!-- Era 4: Generation -->
-      <div class="ts-era-panel" style="--era-color:#ffa6b4">
+      <div class="ts-era-panel" style="--era-color:#8a7fff">
         <div class="ts-era-identity">
           <div class="ts-era-badge">Era 4</div>
           <div class="ts-era-big-name">Generation Era</div>
@@ -384,7 +352,7 @@
       </div>
 
       <!-- Era 5: Action -->
-      <div class="ts-era-panel" style="--era-color:#ffb790">
+      <div class="ts-era-panel" style="--era-color:#5fc98a">
         <div class="ts-era-identity">
           <div class="ts-era-badge">Era 5 — Now</div>
           <div class="ts-era-big-name">Action Era</div>
@@ -539,7 +507,21 @@
     </p>
   </div>
 
-</div>
+</main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <a href="m1-s2_three-shifts-at-once.html" class="ts-nav-btn">&larr; Previous</a>
+      <a href="index.html" class="ts-nav-pos">Section <strong>3</strong> of <strong>9</strong></a>
+      <a href="m2-s1_types-of-ai.html" class="ts-nav-btn">Next &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
 
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -711,73 +693,5 @@
     document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
   })();
 </script>
-
-<!-- ── Course Navigation ── -->
-<style>
-  .ts-course-nav {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-  }
-  .ts-course-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 24px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-  }
-  .ts-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #222222;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    color: #9eccff;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    white-space: nowrap;
-  }
-  .ts-nav-btn:hover {
-    border-color: rgba(108, 142, 255, 0.3);
-    background: #2a2a2a;
-    transform: translateY(-1px);
-  }
-  .ts-nav-btn--hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .ts-nav-pos {
-    font-size: 0.82rem;
-    color: rgba(240, 240, 240, 0.4);
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .ts-nav-pos strong {
-    color: rgba(240, 240, 240, 0.6);
-  }
-  @media (max-width: 600px) {
-    .ts-course-nav { padding: 24px 16px 40px; }
-    .ts-course-nav-inner { padding: 14px 16px; gap: 10px; flex-wrap: nowrap; }
-    .ts-nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-    .ts-nav-pos { font-size: 0.75rem; }
-  }
-</style>
-
-<div class="ts-course-nav">
-  <nav class="ts-course-nav-inner">
-    <a href="m1-s2_three-shifts-at-once.html" class="ts-nav-btn">&larr; Previous</a>
-    <span class="ts-nav-pos">Section <strong>3</strong> of <strong>9</strong></span>
-    <a href="m2-s1_types-of-ai.html" class="ts-nav-btn">Next &rarr;</a>
-  </nav>
-</div>
+</body>
+</html>

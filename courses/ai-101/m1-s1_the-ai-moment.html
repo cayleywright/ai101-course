@@ -1,72 +1,28 @@
-<!-- ============================================================
-     AI 101 — Module 1, Section 1: The AI Moment
-     Full-step embed for Wix Online Programs HTML block
-     Contains: slider, headlines carousel, case study flip cards
-
-     REUSABLE DESIGN SYSTEM
-     All colours, fonts, spacing, and component styles are
-     controlled via CSS custom properties on .ts-step.
-     To create a new step: copy this file, keep everything
-     above "STEP CONTENT STARTS HERE", replace the content
-     inside <div class="ts-step">.
-
-     RESPONSIVE: single breakpoint at 768px
-     FONT: Bricolage Grotesque via Google Fonts
-     BACKGROUND: #101010
-     ============================================================ -->
-<style>
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The AI Moment &mdash; AI 101 &middot; WrightOps</title>
+  <meta name="description" content="Everyone's talking about AI. Far fewer are actually using it. A look at the gap between the conversation and the doing.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps &mdash; AI 101">
+  <meta property="og:title" content="The AI Moment &mdash; AI 101">
+  <meta property="og:description" content="Everyone's talking about AI. Far fewer are actually using it. A look at the gap between the conversation and the doing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
   /* ── Google Font ── */
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap');
   /* ── Reset ── */
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   /* ══════════════════════════════════════════════════════════════
      DESIGN TOKENS
      Copy this entire block into every step embed unchanged.
      ══════════════════════════════════════════════════════════════ */
-  .ts-step {
-    /* --- Brand palette --- */
-    --ts-blue: #6c8eff;
-    --ts-light-blue: #9eccff;
-    --ts-pink: #ffa6b4;
-    --ts-peach: #ffb790;
-    --ts-black: #101010;
-    --ts-white: #ffffff;
-    /* --- Surface colours --- */
-    --surface-bg: #101010;
-    --surface-card: #1a1a1a;
-    --surface-raised: #222222;
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-accent: rgba(108, 142, 255, 0.2);
-    /* --- Text colours --- */
-    --text-primary: #f0f0f0;
-    --text-secondary: rgba(240, 240, 240, 0.6);
-    --text-muted: rgba(240, 240, 240, 0.4);
-    /* --- Typography scale --- */
-    --font-family: 'Bricolage Grotesque', sans-serif;
-    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
-    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
-    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
-    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
-    --fs-eyebrow: 0.72rem;
-    /* --- Spacing scale --- */
-    --space-xs: 8px;
-    --space-sm: 16px;
-    --space-md: 24px;
-    --space-lg: 40px;
-    --space-xl: 56px;
-    --space-section: 48px;
-    /* --- Component tokens --- */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 14px;
-    --transition-fast: 0.2s ease;
-    --transition-med: 0.35s ease;
-    /* --- Layout --- */
-    --content-max-width: 1200px;
-    --content-padding: clamp(20px, 5vw, 80px);
-    --text-measure: 720px;
-  }
-  /* ══════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════
      BASE CONTAINER
      ══════════════════════════════════════════════════════════════ */
   .ts-step {
@@ -206,7 +162,7 @@
   }
   /* --- Reflection prompt --- */
   .ts-reflection {
-    background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%);
+    background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(138,127,255,0.04) 100%);
     border: 1px solid var(--border-accent);
     border-radius: var(--radius-md);
     padding: var(--space-md);
@@ -230,8 +186,8 @@
   /* --- Case study block (standardised, peach/orange accent)
          Place at the bottom of every step before the reflection --- */
   .ts-case-study {
-    background: rgba(255, 183, 144, 0.04);
-    border: 1px solid rgba(255, 183, 144, 0.15);
+    background: rgba(95,201,138, 0.04);
+    border: 1px solid rgba(95,201,138, 0.15);
     border-radius: var(--radius-lg);
     padding: var(--space-md) var(--space-md) var(--space-sm);
     margin: var(--space-section) 0 var(--space-md);
@@ -493,10 +449,10 @@
   }
   /* Carousel accent variants */
   .ts-accent-pink .ts-hl-tag { color: var(--ts-pink); }
-  .ts-accent-pink .ts-pill { background: rgba(255,166,180,0.08); border-color: rgba(255,166,180,0.18); }
+  .ts-accent-pink .ts-pill { background: rgba(138,127,255,0.08); border-color: rgba(138,127,255,0.18); }
   .ts-accent-pink .ts-pill-num { color: var(--ts-pink); }
   .ts-accent-peach .ts-hl-tag { color: var(--ts-peach); }
-  .ts-accent-peach .ts-pill { background: rgba(255,183,144,0.08); border-color: rgba(255,183,144,0.18); }
+  .ts-accent-peach .ts-pill { background: rgba(95,201,138,0.08); border-color: rgba(95,201,138,0.18); }
   .ts-accent-peach .ts-pill-num { color: var(--ts-peach); }
   .ts-accent-lb .ts-hl-tag { color: var(--ts-light-blue); }
   .ts-accent-lb .ts-pill { background: rgba(158,204,255,0.08); border-color: rgba(158,204,255,0.18); }
@@ -657,7 +613,7 @@
   }
   /* Card persona colours */
   .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
-  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(138,127,255,0.06); border-left: 3px solid rgba(138,127,255,0.25); }
   .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
   .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
   .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
@@ -694,10 +650,18 @@
     }
   }
 </style>
-<!-- ══════════════════════════════════════════════════════════════
-     STEP CONTENT STARTS HERE
-     ══════════════════════════════════════════════════════════════ -->
-<div class="ts-step">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 1 &middot; Section 1</span>
+  </header>
+
+  <main id="main" class="ts-step">
   <!-- ── Step title ── -->
   <p class="ts-eyebrow">Module 1</p>
   <h1 class="ts-step-title">Everyone's Talking, Nobody's Doing</h1>
@@ -952,7 +916,21 @@
       "AI assistant" you didn't ask for?
     </p>
   </div>
-</div>
+</main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <span class="ts-nav-btn ts-nav-btn--hidden" aria-hidden="true">&larr; Previous</span>
+      <a href="index.html" class="ts-nav-pos">Section <strong>1</strong> of <strong>9</strong></a>
+      <a href="m1-s2_three-shifts-at-once.html" class="ts-nav-btn">Next &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
 <!-- ══════════════════════════════════════════════════════════════
      SCRIPTS
      ══════════════════════════════════════════════════════════════ -->
@@ -964,11 +942,11 @@
     var text = document.getElementById('tsSliderText');
     var card = document.getElementById('tsSliderResponse');
     var zones = [
-      { max: 20, label: 'Deep in the fear', text: "Freezing or panic-buying. Every headline feels like a countdown. The risk here is doing nothing — or doing everything at once.", colour: '#ffa6b4' },
+      { max: 20, label: 'Deep in the fear', text: "Freezing or panic-buying. Every headline feels like a countdown. The risk here is doing nothing — or doing everything at once.", colour: '#8a7fff' },
       { max: 40, label: 'Leaning cautious', text: "The headlines have your attention. You're wary of overspending but worried about falling behind. That tension is useful — if you channel it.", colour: '#d49adb' },
       { max: 60, label: 'The middle', text: "Aware something is shifting. Not yet sure what to do about it. That's a reasonable place to be.", colour: '#6c8eff' },
-      { max: 80, label: 'Leaning optimistic', text: "You see the potential. The danger is buying the pitch before understanding the problem. Enthusiasm is good — aim it carefully.", colour: '#dda888' },
-      { max: 100, label: 'All in on the promise', text: "Every new tool looks like the answer. The risk is spending on things that sound right but don't fit. Confidence without clarity is expensive.", colour: '#ffb790' }
+      { max: 80, label: 'Leaning optimistic', text: "You see the potential. The danger is buying the pitch before understanding the problem. Enthusiasm is good — aim it carefully.", colour: '#5fc98a' },
+      { max: 100, label: 'All in on the promise', text: "Every new tool looks like the answer. The risk is spending on things that sound right but don't fit. Confidence without clarity is expensive.", colour: '#5fc98a' }
     ];
     function update() {
       var val = parseInt(slider.value);
@@ -1055,73 +1033,5 @@
     document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
   })();
 </script>
-
-<!-- ── Course Navigation ── -->
-<style>
-  .ts-course-nav {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-  }
-  .ts-course-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 24px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-  }
-  .ts-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #222222;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    color: #9eccff;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    white-space: nowrap;
-  }
-  .ts-nav-btn:hover {
-    border-color: rgba(108, 142, 255, 0.3);
-    background: #2a2a2a;
-    transform: translateY(-1px);
-  }
-  .ts-nav-btn--hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .ts-nav-pos {
-    font-size: 0.82rem;
-    color: rgba(240, 240, 240, 0.4);
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .ts-nav-pos strong {
-    color: rgba(240, 240, 240, 0.6);
-  }
-  @media (max-width: 600px) {
-    .ts-course-nav { padding: 24px 16px 40px; }
-    .ts-course-nav-inner { padding: 14px 16px; gap: 10px; flex-wrap: nowrap; }
-    .ts-nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-    .ts-nav-pos { font-size: 0.75rem; }
-  }
-</style>
-
-<div class="ts-course-nav">
-  <nav class="ts-course-nav-inner">
-    <span class="ts-nav-btn ts-nav-btn--hidden">&larr; Previous</span>
-    <span class="ts-nav-pos">Section <strong>1</strong> of <strong>9</strong></span>
-    <a href="m1-s2_three-shifts-at-once.html" class="ts-nav-btn">Next &rarr;</a>
-  </nav>
-</div>
+</body>
+</html>
