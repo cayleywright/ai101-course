@@ -1,63 +1,26 @@
-<!-- ============================================================
-     AI 101 — Module 1, Section 3: AI Through the Ages
-     Full-step embed for Wix Online Programs HTML block
-     Contains: eras timeline, era classifier activity, flip cards
-     ============================================================ -->
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
-
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Through the Ages &mdash; AI 101 &middot; WrightOps</title>
+  <meta name="description" content="AI didn't start with ChatGPT. A walk through the eras of artificial intelligence and what each one made possible.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps &mdash; AI 101">
+  <meta property="og:title" content="AI Through the Ages &mdash; AI 101">
+  <meta property="og:description" content="AI didn't start with ChatGPT. A walk through the eras of artificial intelligence and what each one made possible.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   /* ══════════════════════════════════════════════════════════════
      DESIGN TOKENS
      ══════════════════════════════════════════════════════════════ */
-  .ts-step {
-    --ts-blue: #6c8eff;
-    --ts-light-blue: #9eccff;
-    --ts-pink: #ffa6b4;
-    --ts-peach: #ffb790;
-    --ts-purple: #8a7fff;
-    --ts-pale-blue: #c8e8ff;
-    --ts-black: #101010;
-    --ts-white: #ffffff;
-
-    --surface-bg: #101010;
-    --surface-card: #1a1a1a;
-    --surface-raised: #222222;
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-accent: rgba(108, 142, 255, 0.2);
-
-    --text-primary: #f0f0f0;
-    --text-secondary: rgba(240, 240, 240, 0.6);
-    --text-muted: rgba(240, 240, 240, 0.4);
-
-    --font-family: 'Bricolage Grotesque', sans-serif;
-    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
-    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
-    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
-    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
-    --fs-eyebrow: 0.72rem;
-
-    --space-xs: 8px;
-    --space-sm: 16px;
-    --space-md: 24px;
-    --space-lg: 40px;
-    --space-xl: 56px;
-    --space-section: 48px;
-
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 14px;
-    --transition-fast: 0.2s ease;
-    --transition-med: 0.35s ease;
-
-    --content-max-width: 1200px;
-    --content-padding: clamp(20px, 5vw, 80px);
-    --text-measure: 720px;
-  }
-
-  /* ══════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════
      BASE
      ══════════════════════════════════════════════════════════════ */
   .ts-step {
@@ -254,13 +217,18 @@
     .ts-flip-card { padding: 20px 16px; }
   }
 </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 1 &middot; Section 3</span>
+  </header>
 
-<!-- ══════════════════════════════════════════════════════════════
-     STEP CONTENT
-     ══════════════════════════════════════════════════════════════ -->
-
-<div class="ts-step">
+  <main id="main" class="ts-step">
 
   <p class="ts-eyebrow">Module 1</p>
   <h1 class="ts-step-title">AI Didn't Start with ChatGPT</h1>
@@ -539,7 +507,21 @@
     </p>
   </div>
 
-</div>
+</main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <a href="m1-s2_three-shifts-at-once.html" class="ts-nav-btn">&larr; Previous</a>
+      <a href="index.html" class="ts-nav-pos">Section <strong>3</strong> of <strong>9</strong></a>
+      <a href="m2-s1_types-of-ai.html" class="ts-nav-btn">Next &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
 
 
 <!-- ══════════════════════════════════════════════════════════════
@@ -711,73 +693,5 @@
     document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
   })();
 </script>
-
-<!-- ── Course Navigation ── -->
-<style>
-  .ts-course-nav {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-  }
-  .ts-course-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 24px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-  }
-  .ts-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #222222;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    color: #9eccff;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    white-space: nowrap;
-  }
-  .ts-nav-btn:hover {
-    border-color: rgba(108, 142, 255, 0.3);
-    background: #2a2a2a;
-    transform: translateY(-1px);
-  }
-  .ts-nav-btn--hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .ts-nav-pos {
-    font-size: 0.82rem;
-    color: rgba(240, 240, 240, 0.4);
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .ts-nav-pos strong {
-    color: rgba(240, 240, 240, 0.6);
-  }
-  @media (max-width: 600px) {
-    .ts-course-nav { padding: 24px 16px 40px; }
-    .ts-course-nav-inner { padding: 14px 16px; gap: 10px; flex-wrap: nowrap; }
-    .ts-nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-    .ts-nav-pos { font-size: 0.75rem; }
-  }
-</style>
-
-<div class="ts-course-nav">
-  <nav class="ts-course-nav-inner">
-    <a href="m1-s2_three-shifts-at-once.html" class="ts-nav-btn">&larr; Previous</a>
-    <span class="ts-nav-pos">Section <strong>3</strong> of <strong>9</strong></span>
-    <a href="m2-s1_types-of-ai.html" class="ts-nav-btn">Next &rarr;</a>
-  </nav>
-</div>
+</body>
+</html>

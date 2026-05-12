@@ -1,37 +1,25 @@
-<!-- ============================================================
-     AI 101 — Module 2, Section 1: Types of AI
-     Full-step embed for Wix Online Programs HTML block
-     Contains: AI type flip cards (8), scenario quiz activity
-     ============================================================ -->
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Types of AI &mdash; AI 101 &middot; WrightOps</title>
+  <meta name="description" content="Generative, predictive, agentic - and ANI, AGI, ASI. The main types of AI, what each is good for, and what it isn't.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="WrightOps &mdash; AI 101">
+  <meta property="og:title" content="Types of AI &mdash; AI 101">
+  <meta property="og:description" content="Generative, predictive, agentic - and ANI, AGI, ASI. The main types of AI, what each is good for, and what it isn't.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/brand.css">
+  <link rel="stylesheet" href="../../assets/css/lesson.css">
+  <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   /* ══════════════════════════════════════════════════════════════
      DESIGN TOKENS
      ══════════════════════════════════════════════════════════════ */
-  .ts-step {
-    --ts-blue: #6c8eff; --ts-light-blue: #9eccff;
-    --ts-pink: #ffa6b4; --ts-peach: #ffb790;
-    --ts-purple: #8a7fff; --ts-black: #101010; --ts-white: #ffffff;
-    --ts-green: #6fcf97; --ts-red: #e57373;
-    --surface-bg: #101010; --surface-card: #1a1a1a; --surface-raised: #222222;
-    --border-subtle: rgba(255,255,255,0.08); --border-accent: rgba(108,142,255,0.2);
-    --text-primary: #f0f0f0; --text-secondary: rgba(240,240,240,0.6); --text-muted: rgba(240,240,240,0.4);
-    --font-family: 'Bricolage Grotesque', sans-serif;
-    --fs-step-title: clamp(1.8rem, 3.5vw, 2.6rem);
-    --fs-heading: clamp(1.2rem, 2.2vw, 1.55rem);
-    --fs-body: clamp(0.9rem, 1.5vw, 1.05rem);
-    --fs-small: clamp(0.75rem, 1.2vw, 0.85rem);
-    --fs-eyebrow: 0.72rem;
-    --space-xs: 8px; --space-sm: 16px; --space-md: 24px;
-    --space-lg: 40px; --space-xl: 56px; --space-section: 48px;
-    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
-    --transition-fast: 0.2s ease; --transition-med: 0.35s ease;
-    --content-max-width: 1200px;
-    --content-padding: clamp(20px, 5vw, 80px);
-    --text-measure: 720px;
-  }
-  /* ══════════════════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════════════════
      BASE
      ══════════════════════════════════════════════════════════════ */
   .ts-step {
@@ -180,10 +168,18 @@
     .ts-quiz-opt { padding: 12px 14px; font-size: 0.84rem; }
   }
 </style>
-<!-- ══════════════════════════════════════════════════════════════
-     STEP CONTENT
-     ══════════════════════════════════════════════════════════════ -->
-<div class="ts-step">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a href="../../index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <span class="site-header-sep" aria-hidden="true">/</span>
+    <a class="site-header-course" href="index.html">AI 101</a>
+    <span class="site-header-pos">Module 2 &middot; Section 1</span>
+  </header>
+
+  <main id="main" class="ts-step">
   <p class="ts-eyebrow">Module 2</p>
   <h1 class="ts-step-title">Types of AI</h1>
   <div class="ts-body">
@@ -339,7 +335,21 @@
       not "improve efficiency."
     </p>
   </div>
-</div>
+</main>
+
+  <nav class="ts-course-nav" aria-label="Course section navigation">
+    <div class="ts-course-nav-inner">
+      <a href="m1-s3_ai-through-the-ages.html" class="ts-nav-btn">&larr; Previous</a>
+      <a href="index.html" class="ts-nav-pos">Section <strong>4</strong> of <strong>9</strong></a>
+      <a href="m3-s1_what-happens-when-you-press-send.html" class="ts-nav-btn">Next &rarr;</a>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span><a href="index.html">AI 101</a> &middot; <a href="../../courses.html">All courses</a></span>
+  </footer>
+
 <!-- ══════════════════════════════════════════════════════════════
      SCRIPTS
      ══════════════════════════════════════════════════════════════ -->
@@ -461,73 +471,5 @@
     document.getElementById('tsFlipDavid').addEventListener('click', function() { flip('david'); });
   })();
 </script>
-
-<!-- ── Course Navigation ── -->
-<style>
-  .ts-course-nav {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 32px 24px 48px;
-  }
-  .ts-course-nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 24px;
-    background: #1a1a1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-  }
-  .ts-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #222222;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    color: #9eccff;
-    font-family: inherit;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    white-space: nowrap;
-  }
-  .ts-nav-btn:hover {
-    border-color: rgba(108, 142, 255, 0.3);
-    background: #2a2a2a;
-    transform: translateY(-1px);
-  }
-  .ts-nav-btn--hidden {
-    visibility: hidden;
-    pointer-events: none;
-  }
-  .ts-nav-pos {
-    font-size: 0.82rem;
-    color: rgba(240, 240, 240, 0.4);
-    font-weight: 500;
-    text-align: center;
-    white-space: nowrap;
-  }
-  .ts-nav-pos strong {
-    color: rgba(240, 240, 240, 0.6);
-  }
-  @media (max-width: 600px) {
-    .ts-course-nav { padding: 24px 16px 40px; }
-    .ts-course-nav-inner { padding: 14px 16px; gap: 10px; flex-wrap: nowrap; }
-    .ts-nav-btn { padding: 8px 14px; font-size: 0.82rem; }
-    .ts-nav-pos { font-size: 0.75rem; }
-  }
-</style>
-
-<div class="ts-course-nav">
-  <nav class="ts-course-nav-inner">
-    <a href="m1-s3_ai-through-the-ages.html" class="ts-nav-btn">&larr; Previous</a>
-    <span class="ts-nav-pos">Section <strong>4</strong> of <strong>9</strong></span>
-    <a href="m3-s1_what-happens-when-you-press-send.html" class="ts-nav-btn">Next &rarr;</a>
-  </nav>
-</div>
+</body>
+</html>
