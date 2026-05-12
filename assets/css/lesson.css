@@ -103,9 +103,9 @@
 .ts-body p { margin: 0 0 var(--space-sm) 0; break-inside: avoid; }
 .ts-body p:last-child { margin-bottom: 0; }
 .ts-divider {
-  width: 56px;
+  width: 48px;
   height: 2px;
-  background: linear-gradient(90deg, var(--ts-blue), var(--ts-purple));
+  background: var(--wo-steel);
   margin: var(--space-section) 0;
   border: none;
 }
@@ -287,9 +287,9 @@
   gap: 8px;
   padding: 10px 20px;
   background: var(--wo-ink);
-  border: 1px solid var(--wo-steel);
+  border: 1px solid var(--wo-stone);
   border-radius: 0;
-  color: var(--wo-blue-soft);
+  color: var(--wo-bone);
   font-family: inherit;
   font-size: 0.78rem;
   font-weight: 600;
@@ -307,14 +307,14 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--wo-steel);
+  color: var(--wo-stone);
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
   transition: color 0.2s ease;
 }
-a.ts-nav-pos:hover, a.ts-nav-pos:focus-visible { color: var(--wo-blue-soft); }
-.ts-nav-pos strong { color: var(--wo-blue-soft); font-weight: 700; }
+a.ts-nav-pos:hover, a.ts-nav-pos:focus-visible { color: var(--wo-bone); }
+.ts-nav-pos strong { color: var(--wo-sand); font-weight: 700; }
 
 /* ---- responsive ---- */
 @media (max-width: 768px) {
