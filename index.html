@@ -3,303 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 101 — TechSweet Course</title>
+  <title>WrightOps — Build it right, run it smooth</title>
+  <meta name="description" content="WrightOps — AI and automation consulting for businesses that want clarity, not complexity. We design systems that work, then make them work harder.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="WrightOps">
+  <meta property="og:title" content="WrightOps — Build it right, run it smooth">
+  <meta property="og:description" content="AI and automation consulting for businesses that want clarity, not complexity.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --ts-blue: #6c8eff;
-      --ts-light-blue: #9eccff;
-      --ts-pink: #ffa6b4;
-      --ts-peach: #ffb790;
-      --ts-black: #101010;
-      --ts-white: #ffffff;
-      --surface-bg: #101010;
-      --surface-card: #1a1a1a;
-      --surface-raised: #222222;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-accent: rgba(108, 142, 255, 0.2);
-      --text-primary: #f0f0f0;
-      --text-secondary: rgba(240, 240, 240, 0.6);
-      --text-muted: rgba(240, 240, 240, 0.4);
-      --radius-md: 12px;
-      --radius-lg: 14px;
-    }
-
-    body {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      background: var(--surface-bg);
-      color: var(--text-primary);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      padding: clamp(24px, 5vw, 80px);
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    /* Header */
-    .course-header {
-      text-align: center;
-      margin-bottom: 56px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .course-header .eyebrow {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ts-blue);
-      margin-bottom: 12px;
-    }
-
-    .course-header h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 12px;
-    }
-
-    .course-header .subtitle {
-      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-      color: var(--text-secondary);
-      max-width: 520px;
-      margin: 0 auto;
-    }
-
-    .progress-bar {
-      margin-top: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .progress-bar .bar {
-      width: 180px;
-      height: 6px;
-      background: var(--surface-raised);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .progress-bar .bar-fill {
-      width: 75%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--ts-blue), var(--ts-light-blue));
-      border-radius: 3px;
-    }
-
-    /* Module groups */
-    .module-group {
-      margin-bottom: 40px;
-    }
-
-    .module-title {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--ts-peach);
-      margin-bottom: 14px;
-      padding-left: 4px;
-    }
-
-    /* Section cards */
-    .section-card {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 18px 22px;
-      background: var(--surface-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      margin-bottom: 10px;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
-    }
-
-    .section-card:hover {
-      border-color: var(--border-accent);
-      background: var(--surface-raised);
-      transform: translateX(4px);
-    }
-
-    .section-card.disabled {
-      opacity: 0.45;
-      pointer-events: none;
-    }
-
-    .section-number {
-      flex-shrink: 0;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: var(--surface-raised);
-      border: 1px solid var(--border-subtle);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--ts-light-blue);
-    }
-
-    .section-card.disabled .section-number {
-      color: var(--text-muted);
-    }
-
-    .section-info {
-      flex: 1;
-    }
-
-    .section-info .title {
-      font-size: clamp(0.92rem, 1.4vw, 1.02rem);
-      font-weight: 500;
-    }
-
-    .section-info .badge {
-      display: inline-block;
-      margin-top: 4px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--ts-pink);
-      background: rgba(255, 166, 180, 0.1);
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-
-    .arrow {
-      flex-shrink: 0;
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      transition: color 0.2s ease;
-    }
-
-    .section-card:hover .arrow {
-      color: var(--ts-blue);
-    }
-
-    /* Footer */
-    .course-footer {
-      text-align: center;
-      margin-top: 56px;
-      padding-top: 32px;
-      border-top: 1px solid var(--border-subtle);
-      color: var(--text-muted);
-      font-size: 0.82rem;
-    }
-
-    @media (max-width: 600px) {
-      .section-card { padding: 14px 16px; gap: 12px; }
-      .section-number { width: 30px; height: 30px; font-size: 0.72rem; }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/brand.css">
 </head>
 <body>
-  <div class="container">
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="course-header">
-      <p class="eyebrow">TechSweet</p>
-      <h1>AI 101</h1>
-      <p class="subtitle">A practical introduction to artificial intelligence — what it is, how it works, and how to use it in your organisation.</p>
-      <div class="progress-bar">
-        <span>9 of 9 sections</span>
-        <div class="bar"><div class="bar-fill" style="width:100%"></div></div>
-        <span>100%</span>
+  <header class="site-nav">
+    <a href="index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
+    <details class="nav-disclosure">
+      <summary aria-label="Toggle menu">Menu</summary>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="courses.html">Courses</a>
+        <a href="#services">Services</a>
+        <a href="#method">Method</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </details>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero wrap">
+      <div class="rule" aria-hidden="true"></div>
+      <h1>Build it <strong>right</strong><br><span class="dim">Run it </span><span class="sand">smooth</span></h1>
+      <p>AI and automation consulting for businesses that want clarity, not complexity. We design systems that work — then make them work harder.</p>
+      <div class="cta">
+        <a class="btn" href="courses.html">View courses</a>
+        <a class="btn btn--text" href="#contact">Book a call &#8594;</a>
       </div>
-    </header>
+    </section>
 
-    <!-- Module 1 -->
-    <div class="module-group">
-      <h2 class="module-title">Module 1 — The Big Picture</h2>
+    <div class="wrap"><hr class="hr-line"></div>
 
-      <a href="m1-s1_the-ai-moment.html" class="section-card">
-        <div class="section-number">1</div>
-        <div class="section-info"><span class="title">The AI Moment</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
+    <!-- SERVICES -->
+    <section id="services" class="section wrap">
+      <span class="eyebrow">Services</span>
+      <div class="card-grid">
+        <div class="feature">
+          <span class="num">01</span>
+          <h3>Strategise</h3>
+          <p>Map your operations. Find the friction. Build a plan that makes sense for your business.</p>
+        </div>
+        <div class="feature">
+          <span class="num">02</span>
+          <h3>Design &amp; Build</h3>
+          <p>Architect and deploy AI-driven workflows, automations, and integrations. Documented. Yours.</p>
+        </div>
+        <div class="feature">
+          <span class="num">03</span>
+          <h3>Run</h3>
+          <p>Ongoing optimisation, monitoring, and support. Systems that stay sharp as you scale.</p>
+        </div>
+      </div>
+    </section>
 
-      <a href="m1-s2_three-shifts-at-once.html" class="section-card">
-        <div class="section-number">2</div>
-        <div class="section-info"><span class="title">Three Shifts at Once</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
+    <div class="wrap"><hr class="hr-line"></div>
 
-      <a href="m1-s3_ai-through-the-ages.html" class="section-card">
-        <div class="section-number">3</div>
-        <div class="section-info"><span class="title">AI Through the Ages</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
-    </div>
+    <!-- FEATURED COURSE -->
+    <section id="courses" class="section wrap">
+      <span class="eyebrow">Learn</span>
+      <h2>Start with <strong>the fundamentals</strong></h2>
+      <p class="lead">Before the tooling, the strategy, the build — understand what AI actually is and how it works. Our intro course is free.</p>
+      <div class="course-grid" style="margin-top: clamp(28px, 5vw, 40px);">
+        <a class="course-card" href="courses/ai-101/index.html">
+          <span class="badge">Free</span>
+          <h3>AI 101</h3>
+          <span class="meta">4 modules &middot; 9 sections</span>
+          <span class="desc">A practical introduction to artificial intelligence — what it is, how it works, and how to use it in your organisation.</span>
+          <span class="go">Start course &#8594;</span>
+        </a>
+        <a class="course-card" href="courses.html">
+          <span class="badge">Catalogue</span>
+          <h3>All courses</h3>
+          <span class="meta">Browse the catalogue</span>
+          <span class="desc">More courses on automation, agents, and putting AI to work are on the way.</span>
+          <span class="go">View catalogue &#8594;</span>
+        </a>
+      </div>
+    </section>
 
-    <!-- Module 2 -->
-    <div class="module-group">
-      <h2 class="module-title">Module 2 — Kinds of AI</h2>
+    <!-- TAGLINE -->
+    <section id="method" class="section wrap">
+      <p class="tagline">Automate smarter. <span class="sand">Operate sweeter.</span></p>
+      <p class="lead">Every system has friction. The question is whether you designed it that way or it just happened. We help businesses find the answer — and fix what's slowing them down. Strategise, design, build, run: the same loop, tightened every cycle.</p>
+    </section>
 
-      <a href="m2-s1_types-of-ai.html" class="section-card">
-        <div class="section-number">4</div>
-        <div class="section-info"><span class="title">Types of AI</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
-    </div>
+    <div class="wrap"><hr class="hr-line"></div>
 
-    <!-- Module 3 -->
-    <div class="module-group">
-      <h2 class="module-title">Module 3 — Under the Hood</h2>
+    <!-- ABOUT / CONTACT -->
+    <section id="about" class="section wrap">
+      <span class="eyebrow">About</span>
+      <h2>Clarity, <strong>not complexity</strong></h2>
+      <p class="lead">WrightOps is an AI and automation consultancy. We work with businesses that know AI matters but want a partner who designs systems that actually hold up — documented, owned by you, and built to keep working as you grow.</p>
+      <p class="lead" id="contact" style="margin-top: 28px;">Ready to talk? Reach us at <a href="mailto:hello@wrightops.com.au" style="color: var(--wo-sand); text-decoration: none;">hello@wrightops.com.au</a>.</p>
+    </section>
+  </main>
 
-      <a href="m3-s1_what-happens-when-you-press-send.html" class="section-card">
-        <div class="section-number">5</div>
-        <div class="section-info"><span class="title">What Happens When You Press Send</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
-
-      <a href="m3-s2_inside-the-machine.html" class="section-card">
-        <div class="section-number">6</div>
-        <div class="section-info"><span class="title">Inside the Machine</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
-
-      <a href="m3-s3_context-consistency-confidence.html" class="section-card">
-        <div class="section-number">7</div>
-        <div class="section-info"><span class="title">Context, Consistency, and Confidence</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
-    </div>
-
-    <!-- Module 4 -->
-    <div class="module-group">
-      <h2 class="module-title">Module 4 — Making It Yours</h2>
-
-      <a href="m4-s1_the-knowledge-gap.html" class="section-card">
-        <div class="section-number">8</div>
-        <div class="section-info"><span class="title">The Knowledge Gap</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
-
-      <a href="m4-s2_the-customisation-spectrum.html" class="section-card">
-        <div class="section-number">9</div>
-        <div class="section-info"><span class="title">The Customisation Spectrum</span></div>
-        <span class="arrow">&rsaquo;</span>
-      </a>
-    </div>
-
-    <footer class="course-footer">
-      <p>TechSweet &middot; AI 101 &middot; 4 Modules &middot; 9 Sections</p>
-    </footer>
-
-  </div>
+  <footer class="site-footer">
+    <span>&copy; 2026 WrightOps Pty Ltd</span>
+    <span>Sydney, Australia</span>
+  </footer>
 </body>
 </html>
