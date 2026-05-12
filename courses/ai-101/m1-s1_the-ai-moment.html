@@ -162,7 +162,7 @@
   }
   /* --- Reflection prompt --- */
   .ts-reflection {
-    background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%);
+    background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(138,127,255,0.04) 100%);
     border: 1px solid var(--border-accent);
     border-radius: var(--radius-md);
     padding: var(--space-md);
@@ -186,8 +186,8 @@
   /* --- Case study block (standardised, peach/orange accent)
          Place at the bottom of every step before the reflection --- */
   .ts-case-study {
-    background: rgba(255, 183, 144, 0.04);
-    border: 1px solid rgba(255, 183, 144, 0.15);
+    background: rgba(95,201,138, 0.04);
+    border: 1px solid rgba(95,201,138, 0.15);
     border-radius: var(--radius-lg);
     padding: var(--space-md) var(--space-md) var(--space-sm);
     margin: var(--space-section) 0 var(--space-md);
@@ -449,10 +449,10 @@
   }
   /* Carousel accent variants */
   .ts-accent-pink .ts-hl-tag { color: var(--ts-pink); }
-  .ts-accent-pink .ts-pill { background: rgba(255,166,180,0.08); border-color: rgba(255,166,180,0.18); }
+  .ts-accent-pink .ts-pill { background: rgba(138,127,255,0.08); border-color: rgba(138,127,255,0.18); }
   .ts-accent-pink .ts-pill-num { color: var(--ts-pink); }
   .ts-accent-peach .ts-hl-tag { color: var(--ts-peach); }
-  .ts-accent-peach .ts-pill { background: rgba(255,183,144,0.08); border-color: rgba(255,183,144,0.18); }
+  .ts-accent-peach .ts-pill { background: rgba(95,201,138,0.08); border-color: rgba(95,201,138,0.18); }
   .ts-accent-peach .ts-pill-num { color: var(--ts-peach); }
   .ts-accent-lb .ts-hl-tag { color: var(--ts-light-blue); }
   .ts-accent-lb .ts-pill { background: rgba(158,204,255,0.08); border-color: rgba(158,204,255,0.18); }
@@ -613,7 +613,7 @@
   }
   /* Card persona colours */
   .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
-  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(138,127,255,0.06); border-left: 3px solid rgba(138,127,255,0.25); }
   .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
   .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
   .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
@@ -942,11 +942,11 @@
     var text = document.getElementById('tsSliderText');
     var card = document.getElementById('tsSliderResponse');
     var zones = [
-      { max: 20, label: 'Deep in the fear', text: "Freezing or panic-buying. Every headline feels like a countdown. The risk here is doing nothing — or doing everything at once.", colour: '#ffa6b4' },
+      { max: 20, label: 'Deep in the fear', text: "Freezing or panic-buying. Every headline feels like a countdown. The risk here is doing nothing — or doing everything at once.", colour: '#8a7fff' },
       { max: 40, label: 'Leaning cautious', text: "The headlines have your attention. You're wary of overspending but worried about falling behind. That tension is useful — if you channel it.", colour: '#d49adb' },
       { max: 60, label: 'The middle', text: "Aware something is shifting. Not yet sure what to do about it. That's a reasonable place to be.", colour: '#6c8eff' },
-      { max: 80, label: 'Leaning optimistic', text: "You see the potential. The danger is buying the pitch before understanding the problem. Enthusiasm is good — aim it carefully.", colour: '#dda888' },
-      { max: 100, label: 'All in on the promise', text: "Every new tool looks like the answer. The risk is spending on things that sound right but don't fit. Confidence without clarity is expensive.", colour: '#ffb790' }
+      { max: 80, label: 'Leaning optimistic', text: "You see the potential. The danger is buying the pitch before understanding the problem. Enthusiasm is good — aim it carefully.", colour: '#5fc98a' },
+      { max: 100, label: 'All in on the promise', text: "Every new tool looks like the answer. The risk is spending on things that sound right but don't fit. Confidence without clarity is expensive.", colour: '#5fc98a' }
     ];
     function update() {
       var val = parseInt(slider.value);

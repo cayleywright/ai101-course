@@ -28,7 +28,7 @@
   .ts-try-this { background: rgba(108,142,255,0.04); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-md) 0; max-width: var(--text-measure); }
   .ts-try-this-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-try-this-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; }
-  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(255,166,180,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
+  .ts-reflection { background: linear-gradient(135deg, rgba(108,142,255,0.06) 0%, rgba(138,127,255,0.04) 100%); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-section) 0 var(--space-md); max-width: var(--text-measure); }
   .ts-reflection-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ts-blue); margin-bottom: var(--space-xs); }
   .ts-reflection-text { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.65; font-style: italic; }
   /* ── Side-by-side layout ── */
@@ -73,7 +73,7 @@
   .ts-rule-text { font-size: var(--fs-small); color: var(--text-secondary); line-height: 1.6; }
   .ts-rule-text strong { color: var(--text-primary); font-weight: 600; }
   /* ── Case study + flip cards ── */
-  .ts-case-study { background: rgba(255,183,144,0.04); border: 1px solid rgba(255,183,144,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
+  .ts-case-study { background: rgba(95,201,138,0.04); border: 1px solid rgba(95,201,138,0.15); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-md) var(--space-sm); margin: var(--space-section) 0 var(--space-md); }
   .ts-case-study-label { font-size: var(--fs-eyebrow); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ts-peach); margin-bottom: var(--space-sm); }
   .ts-case-study-intro { font-size: var(--fs-body); color: var(--text-secondary); line-height: 1.6; margin-bottom: var(--space-md); max-width: var(--text-measure); }
   .ts-flip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); }
@@ -93,7 +93,7 @@
   .ts-flip-back { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
   .ts-flip-hint { font-size: 0.7rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; text-align: center; opacity: 0.45; margin-top: auto; padding-top: 12px; }
   .ts-flip-card--sarah .ts-flip-name { color: var(--ts-pink); }
-  .ts-flip-card--sarah .ts-flip-cares { background: rgba(255,166,180,0.06); border-left: 3px solid rgba(255,166,180,0.25); }
+  .ts-flip-card--sarah .ts-flip-cares { background: rgba(138,127,255,0.06); border-left: 3px solid rgba(138,127,255,0.25); }
   .ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-pink); }
   .ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
   .ts-flip-card--david .ts-flip-cares { background: rgba(158,204,255,0.06); border-left: 3px solid rgba(158,204,255,0.25); }
@@ -147,7 +147,7 @@
         </div>
         <div class="ts-context-row">
           <div class="ts-context-name">Gemini</div>
-          <div class="ts-context-track"><div class="ts-context-fill" style="width: 100%; background: linear-gradient(90deg, var(--ts-peach), #e8a070);">750K</div></div>
+          <div class="ts-context-track"><div class="ts-context-fill" style="width: 100%; background: linear-gradient(90deg, var(--ts-peach), #3fa873);">750K</div></div>
           <div class="ts-context-amount">~750K words</div>
         </div>
       </div>
@@ -273,8 +273,8 @@
       { max: 20, label: 'Low', analogy: '"I\'ll have what I always have."', text: 'Most predictable token every time. Best for data extraction, form filling, standard emails.', colour: '#9eccff' },
       { max: 40, label: 'Low-medium', analogy: '"The usual, maybe a different milk."', text: 'Mostly predictable with minor variation. Standardised documents with slight natural feel.', colour: '#8aabff' },
       { max: 60, label: 'Medium', analogy: '"The usual, but surprise me if you want."', text: 'Where most chat tools sit by default. Natural variation without chaos.', colour: '#6c8eff' },
-      { max: 80, label: 'Medium-high', analogy: '"Something new. Not too weird."', text: 'Noticeably more creative. Good for brainstorming, first drafts, exploring angles.', colour: '#dda888' },
-      { max: 100, label: 'High', analogy: '"Surprise me. Whatever you\'re feeling."', text: 'Maximum variety. Novel ideas but less predictable. More unexpected tangents.', colour: '#ffb790' }
+      { max: 80, label: 'Medium-high', analogy: '"Something new. Not too weird."', text: 'Noticeably more creative. Good for brainstorming, first drafts, exploring angles.', colour: '#5fc98a' },
+      { max: 100, label: 'High', analogy: '"Surprise me. Whatever you\'re feeling."', text: 'Maximum variety. Novel ideas but less predictable. More unexpected tangents.', colour: '#5fc98a' }
     ];
     function update() {
       var val = parseInt(slider.value);

@@ -5,16 +5,15 @@
    ============================================================ */
 
 .ts-step {
-  /* "accent" tokens collapsed to neutrals (WrightOps: no accent colour) */
-  --ts-blue: var(--wo-sand);
-  --ts-light-blue: var(--wo-bone);
-  --ts-pink: var(--wo-sand);
-  --ts-peach: var(--wo-sand);
-  --ts-purple: var(--wo-bone);
-  --ts-pale-blue: var(--wo-bone);
-  /* functional only — kept (muted) where a widget signals correct / incorrect */
-  --ts-green: #7e8a6c;
-  --ts-red:   #9a6c63;
+  /* accent tokens — WrightOps accents are blues / greens / purples */
+  --ts-blue: var(--wo-blue);            /* #6c8eff */
+  --ts-light-blue: var(--wo-blue-soft); /* #9eccff */
+  --ts-pale-blue: #c8e8ff;
+  --ts-purple: var(--wo-purple);        /* #8a7fff */
+  --ts-pink: var(--wo-purple);          /* (was pink) -> purple */
+  --ts-peach: var(--wo-green);          /* (was peach) -> green */
+  --ts-green: var(--wo-green);          /* #5fc98a */
+  --ts-red:   #d98a8a;                  /* muted — "incorrect" signals only */
   --ts-black: var(--wo-ink);
   --ts-white: var(--wo-bone);
 
@@ -22,7 +21,7 @@
   --surface-card: var(--wo-slab);
   --surface-raised: var(--wo-cut);
   --border-subtle: rgba(229, 223, 214, 0.08);
-  --border-accent: rgba(200, 193, 182, 0.18);
+  --border-accent: rgba(108, 142, 255, 0.22);
   --text-primary: var(--wo-bone);
   --text-secondary: var(--wo-sand);
   --text-muted: var(--wo-ash);
@@ -104,9 +103,9 @@
 .ts-body p { margin: 0 0 var(--space-sm) 0; break-inside: avoid; }
 .ts-body p:last-child { margin-bottom: 0; }
 .ts-divider {
-  width: 40px;
+  width: 56px;
   height: 2px;
-  background: var(--wo-steel);
+  background: linear-gradient(90deg, var(--ts-blue), var(--ts-purple));
   margin: var(--space-section) 0;
   border: none;
 }
@@ -114,7 +113,7 @@
 /* --- callout --- */
 .ts-callout {
   background: var(--surface-card);
-  border-left: 3px solid var(--wo-steel);
+  border-left: 3px solid var(--ts-blue);
   border-radius: 0;
   padding: var(--space-md);
   margin: var(--space-md) 0;
@@ -146,7 +145,7 @@
 
 /* --- reflection --- */
 .ts-reflection {
-  background: var(--surface-card);
+  background: linear-gradient(135deg, rgba(108, 142, 255, 0.07) 0%, rgba(138, 127, 255, 0.04) 100%);
   border: 1px solid var(--border-accent);
   border-radius: 0;
   padding: var(--space-md);
@@ -215,7 +214,7 @@
   display: flex;
   flex-direction: column;
 }
-.ts-flip-card:hover, .ts-flip-card:focus-visible { border-color: var(--wo-steel); }
+.ts-flip-card:hover, .ts-flip-card:focus-visible { border-color: rgba(108, 142, 255, 0.45); }
 .ts-flip-content { animation: tsFadeIn 0.3s ease; display: flex; flex-direction: column; flex: 1; }
 @keyframes tsFadeIn { from { opacity: 0; } to { opacity: 1; } }
 .ts-flip-icon { font-size: 1.5rem; margin-bottom: 10px; }
@@ -235,8 +234,8 @@
   font-style: italic;
   color: var(--text-secondary);
   line-height: 1.45;
-  background: rgba(229, 223, 214, 0.04);
-  border-left: 2px solid var(--wo-steel);
+  background: rgba(108, 142, 255, 0.05);
+  border-left: 2px solid rgba(108, 142, 255, 0.3);
 }
 .ts-flip-back-label {
   font-size: var(--fs-eyebrow);
@@ -257,11 +256,13 @@
   margin-top: auto;
   padding-top: 12px;
 }
-/* per-character colour variants collapse to one neutral treatment */
-.ts-flip-card--sarah .ts-flip-name,
-.ts-flip-card--david .ts-flip-name { color: var(--wo-bone); }
-.ts-flip-card--sarah .ts-flip-back-label,
-.ts-flip-card--david .ts-flip-back-label { color: var(--ts-blue); }
+/* per-character colour variants */
+.ts-flip-card--sarah .ts-flip-name { color: var(--ts-purple); }
+.ts-flip-card--sarah .ts-flip-back-label { color: var(--ts-purple); }
+.ts-flip-card--sarah .ts-flip-cares { background: rgba(138, 127, 255, 0.06); border-left-color: rgba(138, 127, 255, 0.3); }
+.ts-flip-card--david .ts-flip-name { color: var(--ts-light-blue); }
+.ts-flip-card--david .ts-flip-back-label { color: var(--ts-light-blue); }
+.ts-flip-card--david .ts-flip-cares { background: rgba(108, 142, 255, 0.06); border-left-color: rgba(108, 142, 255, 0.3); }
 
 /* ---- course navigation (bottom of each lesson) ---- */
 .ts-course-nav {
@@ -288,7 +289,7 @@
   background: var(--wo-ink);
   border: 1px solid var(--wo-steel);
   border-radius: 0;
-  color: var(--wo-sand);
+  color: var(--wo-blue-soft);
   font-family: inherit;
   font-size: 0.78rem;
   font-weight: 600;
@@ -312,8 +313,8 @@
   white-space: nowrap;
   transition: color 0.2s ease;
 }
-a.ts-nav-pos:hover, a.ts-nav-pos:focus-visible { color: var(--wo-bone); }
-.ts-nav-pos strong { color: var(--wo-sand); font-weight: 700; }
+a.ts-nav-pos:hover, a.ts-nav-pos:focus-visible { color: var(--wo-blue-soft); }
+.ts-nav-pos strong { color: var(--wo-blue-soft); font-weight: 700; }
 
 /* ---- responsive ---- */
 @media (max-width: 768px) {
