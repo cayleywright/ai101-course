@@ -350,6 +350,41 @@ a.course-card:hover::before { background: var(--wo-blue); }
   color: var(--wo-steel);
 }
 .cluster { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+
+/* ---- simple form ---- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 480px;
+  margin-top: clamp(28px, 5vw, 40px);
+}
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field > span {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--wo-steel);
+}
+.field input,
+.field textarea {
+  font-family: var(--wo-font);
+  font-size: 14px;
+  color: var(--wo-bone);
+  background: var(--wo-slab);
+  border: 1px solid var(--wo-cut);
+  border-radius: 0;
+  padding: 12px 14px;
+  width: 100%;
+  resize: vertical;
+}
+.field input:focus,
+.field textarea:focus { outline: 2px solid var(--wo-blue); outline-offset: 0; border-color: var(--wo-steel); }
+.form .btn { align-self: flex-start; }
+.form-note { font-size: 12px; line-height: 1.7; color: var(--wo-steel); margin-top: 4px; }
+.form-note a { color: var(--wo-blue-soft); text-decoration: none; }
+.form-note a:hover, .form-note a:focus-visible { color: var(--wo-bone); }
 .course-card h3 {
   font-size: 20px;
   font-weight: 600;
