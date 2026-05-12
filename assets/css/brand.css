@@ -230,7 +230,7 @@ main { flex: 1 0 auto; }
   padding-bottom: clamp(44px, 9vw, 68px);
 }
 .section > .eyebrow { margin-bottom: clamp(24px, 5vw, 36px); }
-.section h2 {
+.section h1, .section h2 {
   font-size: clamp(24px, 4vw, 34px);
   font-weight: 300;
   line-height: 1.2;
@@ -238,7 +238,7 @@ main { flex: 1 0 auto; }
   letter-spacing: -0.01em;
   color: var(--wo-bone);
 }
-.section h2 strong { font-weight: 700; }
+.section h1 strong, .section h2 strong { font-weight: 700; }
 .section .lead {
   font-size: 15px;
   line-height: 1.8;
