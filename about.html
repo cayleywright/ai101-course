@@ -9,6 +9,7 @@
   <meta property="og:site_name" content="WrightOps">
   <meta property="og:title" content="About — WrightOps">
   <meta property="og:description" content="WrightOps is a Sydney-based AI and automation consultancy. Clarity, not complexity.">
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +21,7 @@
   <header class="site-nav">
     <a href="index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
     <details class="nav-disclosure">
-      <summary aria-label="Toggle menu">Menu</summary>
+      <summary aria-label="Toggle menu"><i data-lucide="menu" aria-hidden="true"></i> Menu</summary>
       <nav class="nav-links" aria-label="Primary">
         <a href="services.html">Services</a>
         <a href="courses.html">Courses</a>
@@ -32,13 +33,13 @@
 
   <main id="main">
     <section class="section wrap">
-      <span class="eyebrow">About</span>
-      <h1>Clarity, <strong>not complexity</strong></h1>
-      <p class="lead">WrightOps is a small AI and automation consultancy based in Sydney. We help businesses figure out where these tools genuinely help, build the parts that earn their keep, and keep them running — without the hype, the jargon, or the lock-in.</p>
-      <p class="lead">Most "AI projects" stall because nobody mapped the problem first. We start there. Then we build in small steps, document everything, and hand it over so your team owns it. If something isn't worth doing, we'll tell you.</p>
-      <div class="cta" style="margin-top: 32px;">
+      <span class="eyebrow reveal">About</span>
+      <h1 class="reveal" data-delay="1">Clarity, <strong>not complexity</strong></h1>
+      <p class="lead reveal" data-delay="2">WrightOps is a small AI and automation consultancy based in Sydney. We help businesses figure out where these tools genuinely help, build the parts that earn their keep, and keep them running — without the hype, the jargon, or the lock-in.</p>
+      <p class="lead reveal" data-delay="2">Most "AI projects" stall because nobody mapped the problem first. We start there. Then we build in small steps, document everything, and hand it over so your team owns it. If something isn't worth doing, we'll tell you.</p>
+      <div class="cta reveal" data-delay="3" style="margin-top: 32px;">
         <a class="btn" href="contact.html">Get in touch</a>
-        <a class="btn btn--text" href="services.html">See what we do &#8594;</a>
+        <a class="btn btn--text" href="services.html">See what we do <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
     </section>
   </main>
@@ -48,5 +49,8 @@
     <span><a href="services.html">Services</a> &middot; <a href="courses.html">Courses</a> &middot; <a href="contact.html">Contact</a></span>
     <span>Sydney, Australia</span>
   </footer>
+
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="assets/js/site.js"></script>
 </body>
 </html>

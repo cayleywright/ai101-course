@@ -9,6 +9,7 @@
   <meta property="og:site_name" content="WrightOps">
   <meta property="og:title" content="Contact — WrightOps">
   <meta property="og:description" content="Get in touch with WrightOps — AI and automation consulting, Sydney.">
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +21,7 @@
   <header class="site-nav">
     <a href="index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
     <details class="nav-disclosure">
-      <summary aria-label="Toggle menu">Menu</summary>
+      <summary aria-label="Toggle menu"><i data-lucide="menu" aria-hidden="true"></i> Menu</summary>
       <nav class="nav-links" aria-label="Primary">
         <a href="services.html">Services</a>
         <a href="courses.html">Courses</a>
@@ -32,11 +33,11 @@
 
   <main id="main">
     <section class="section wrap">
-      <span class="eyebrow">Contact</span>
-      <h1>Let's <strong>talk</strong></h1>
-      <p class="lead">Tell us a bit about what you're working on. We'll get back to you.</p>
+      <span class="eyebrow reveal">Contact</span>
+      <h1 class="reveal" data-delay="1">Let's <strong>talk</strong></h1>
+      <p class="lead reveal" data-delay="2">Tell us a bit about what you're working on. We'll get back to you.</p>
 
-      <form class="form" action="mailto:hello@wrightops.com.au" method="post" enctype="text/plain">
+      <form class="form reveal" data-delay="2" action="mailto:hello@wrightops.com.au" method="post" enctype="text/plain">
         <label class="field">
           <span>Name</span>
           <input type="text" name="name" autocomplete="name" required>
@@ -49,8 +50,8 @@
           <span>What can we help with?</span>
           <textarea name="message" rows="5" required></textarea>
         </label>
-        <button type="submit" class="btn">Send</button>
-        <p class="form-note">This opens your email app. You can also email us directly at
+        <button type="submit" class="btn">Send <i data-lucide="arrow-right" aria-hidden="true"></i></button>
+        <p class="form-note"><i data-lucide="mail" aria-hidden="true"></i> This opens your email app. You can also email us directly at
           <a href="mailto:hello@wrightops.com.au">hello@wrightops.com.au</a>.</p>
       </form>
     </section>
@@ -61,5 +62,8 @@
     <span><a href="services.html">Services</a> &middot; <a href="courses.html">Courses</a> &middot; <a href="about.html">About</a></span>
     <span>Sydney, Australia</span>
   </footer>
+
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="assets/js/site.js"></script>
 </body>
 </html>

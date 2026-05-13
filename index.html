@@ -9,6 +9,7 @@
   <meta property="og:site_name" content="WrightOps">
   <meta property="og:title" content="WrightOps — Build it right, run it smooth">
   <meta property="og:description" content="AI and automation consulting for businesses that want clarity, not complexity.">
+  <script>document.documentElement.classList.add('js');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +21,7 @@
   <header class="site-nav">
     <a href="index.html" aria-label="WrightOps home"><span class="wordmark"><span class="wm-light">Wright</span><span class="wm-bold">Ops</span></span></a>
     <details class="nav-disclosure">
-      <summary aria-label="Toggle menu">Menu</summary>
+      <summary aria-label="Toggle menu"><i data-lucide="menu" aria-hidden="true"></i> Menu</summary>
       <nav class="nav-links" aria-label="Primary">
         <a href="services.html">Services</a>
         <a href="courses.html">Courses</a>
@@ -33,12 +34,42 @@
   <main id="main">
     <!-- HERO -->
     <section class="hero wrap">
-      <div class="rule" aria-hidden="true"></div>
-      <h1>Build it <strong>right</strong><br><span class="dim">Run it </span><span class="accent">smooth</span></h1>
-      <p>AI and automation consulting for businesses that want clarity, not complexity. We design systems that work — then make them work harder.</p>
-      <div class="cta">
+      <div class="rule reveal" aria-hidden="true"></div>
+      <h1 class="reveal" data-delay="1">Build it <strong>right</strong><br><span class="dim">Run it </span><span class="accent">smooth</span></h1>
+      <p class="reveal" data-delay="2">AI and automation consulting for businesses that want clarity, not complexity. We design systems that work — then make them work harder.</p>
+      <div class="cta reveal" data-delay="3">
         <a class="btn" href="contact.html">Book a call</a>
-        <a class="btn btn--text" href="services.html">What we do &#8594;</a>
+        <a class="btn btn--text" href="services.html">What we do <i data-lucide="arrow-right" aria-hidden="true"></i></a>
+      </div>
+    </section>
+
+    <div class="wrap"><hr class="hr-line"></div>
+
+    <!-- WHAT WE DO -->
+    <section class="section wrap">
+      <span class="eyebrow reveal">What we do</span>
+      <div class="card-grid">
+        <div class="feature reveal">
+          <i data-lucide="route" class="feature-icon" aria-hidden="true"></i>
+          <span class="num">01</span>
+          <h3>Strategise</h3>
+          <p>We look at how your business actually runs, find where the time goes, and come back with a short, honest plan — what's worth automating, what isn't, and what to do first.</p>
+        </div>
+        <div class="feature reveal" data-delay="1">
+          <i data-lucide="blocks" class="feature-icon" aria-hidden="true"></i>
+          <span class="num">02</span>
+          <h3>Design &amp; Build</h3>
+          <p>We build the workflows, automations, and AI integrations from the plan — connected to the tools you already use, documented, and handed over so your team can run them.</p>
+        </div>
+        <div class="feature reveal" data-delay="2">
+          <i data-lucide="activity" class="feature-icon" aria-hidden="true"></i>
+          <span class="num">03</span>
+          <h3>Run</h3>
+          <p>Things change — tools, prices, your business. We monitor what we've built, tune it, and stay on call so it keeps doing its job as you grow.</p>
+        </div>
+      </div>
+      <div class="cta" style="margin-top: clamp(28px, 5vw, 40px);">
+        <a class="btn btn--text" href="services.html">See the detail <i data-lucide="arrow-right" aria-hidden="true"></i></a>
       </div>
     </section>
 
@@ -46,14 +77,15 @@
 
     <!-- COURSE -->
     <section class="section wrap">
-      <span class="eyebrow">Free course</span>
+      <span class="eyebrow reveal">Free course</span>
       <div class="course-grid">
-        <a class="course-card" href="courses/ai-101/index.html">
+        <a class="course-card reveal" href="courses/ai-101/index.html">
+          <i data-lucide="book-open" class="card-icon" aria-hidden="true"></i>
           <span class="badge">Free</span>
           <h3>AI 101</h3>
           <span class="meta">4 modules &middot; 9 sections</span>
           <span class="desc">A practical introduction to artificial intelligence — what it is, how it works, and how to use it in your organisation.</span>
-          <span class="go">Start the course &#8594;</span>
+          <span class="go">Start the course <i data-lucide="arrow-right" aria-hidden="true"></i></span>
         </a>
       </div>
     </section>
@@ -64,5 +96,8 @@
     <span><a href="services.html">Services</a> &middot; <a href="courses.html">Courses</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a></span>
     <span>Sydney, Australia</span>
   </footer>
+
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="assets/js/site.js"></script>
 </body>
 </html>
